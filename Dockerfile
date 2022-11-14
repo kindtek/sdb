@@ -15,7 +15,7 @@ RUN apt-get update -qq
 RUN apt-get install curl -yq
 RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
-RUN apt-get install libssl-dev -yq
+RUN apt-get install openssl -yq
 # RUN sysctl -w vm.max_map_count=262144
 # RUN docker network create elastic
 # RUN docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.4.1
@@ -26,6 +26,7 @@ RUN apt-get install libssl-dev -yq
 # RUN service sysctl start
 # RUN sysctl start docker
 RUN service docker start
+RUN service ssl start
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
 RUN ls -al
