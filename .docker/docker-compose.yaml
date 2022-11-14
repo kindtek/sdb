@@ -28,8 +28,8 @@ services:
       placement:
         constraints: [ node.platform.os == linux ]
   yubi:
-    entrypoint: |
-      git -C . clone https://github.com/kindtek/yubico-sdk-net.git \
+    entrypoint: 
+    - git -C . clone https://github.com/kindtek/yubico-sdk-net.git \
       /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build:
