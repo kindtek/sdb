@@ -93,8 +93,7 @@ services:
       - sleep
       - infinity
       #image: docker/dev-environments-default:stable-1
-    build:
-      context: https://github.com/kindtek/yubico-net-sdk.git#sdb_dev # use sdb_dev branch since we are in sdb#dev
+    build: /yubico-net-sdk
     ports:
       - "8080:8080"
     init: true
