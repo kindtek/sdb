@@ -1,13 +1,13 @@
 version: "3.8"
 # # name: yubico-net-sdk-distracted_rubin
-x-var1: &REPO_YUBI_SDB_BRANCH_DEV >
-  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev
-x-var2: &REPO_YUBI_SDB_BRANCH_MAIN >
-  https://github.com/kindtek/yubico-net-sdk.git#main
-x-var3: &REPO_SOL_SDB_BRANCH_DEV >
-  https://github.com/kindtek/solana.git
-x-var4: &REPO_SOL_SDB_BRANCH_MAIN >
-  https://github.com/kindtek/solana.git
+# x-var1: &REPO_YUBI_SDB_BRANCH_DEV >
+#   https://github.com/kindtek/yubico-net-sdk.git#sdb_dev
+# x-var2: &REPO_YUBI_SDB_BRANCH_MAIN >
+#   https://github.com/kindtek/yubico-net-sdk.git#main
+# x-var3: &REPO_SOL_SDB_BRANCH_DEV >
+#   https://github.com/kindtek/solana.git
+# x-var4: &REPO_SOL_SDB_BRANCH_MAIN >
+#   https://github.com/kindtek/solana.git
 services:
   agent:
     image: portainer/agent
@@ -31,19 +31,18 @@ services:
         constraints: [ node.platform.os == linux ]
   yubi:
     entrypoint: 
-    - git -C . clone *REPO_YUBI_SDB_BRANCH_DEV \
-      /bin/bash Yubico.NativeShims/build-ubuntu.sh
+    - /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
-    build:
+    # build:
       #context: https://github.com/kindtek/yubico-net-sdk.git#main # use develop branch since we are in main
       #context: *REPO_YUBI_SDB_BRANCH_DEV # use sdb_dev branch since we are in sdb#dev
-      context: . # use sdb_dev branch since we are in sdb#dev
-      dockerfile: yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      # context: . # use sdb_dev branch since we are in sdb#dev
+      # dockerfile: yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/Dockerfile
     init: true
-    environment:
-      - PATH=${PATH}
-      - USERID=${USER_ID}
-      - GROUPID=${GROUP_ID}
+    # environment:
+    #   - PATH=${PATH}
+    #   - USERID=${USER_ID}
+    #   - GROUPID=${GROUP_ID}
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -67,14 +66,11 @@ services:
         target: /home/vscode
   sol:
     entrypoint:
-    - apt-get update -qq && apt-get install -yq wget /
-      git -C . clone *REPO_SOL_SDB_BRANCH_MAIN /
-      /bin/bash /solana/sdk/docker-solana/build.sh /
-      /usr/bin/solana-run.sh
-    build:
-      context: .
+    - /usr/bin/solana-run.sh
+    # build:
+      # context: .
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      dockerfile: solana/ci/docker-rust/Dockerfile
+      # dockerfile: solana/ci/docker-rust/Dockerfile
     image: docker/dev-environments-default:stable-1
     ports:
       - "8899:8899"
