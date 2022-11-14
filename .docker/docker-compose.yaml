@@ -63,8 +63,8 @@ services:
         source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
         target: /home/vscode
   sol:
-    entrypoint: |
-      apt-get update -qq && apt-get install -yq wget \
+    entrypoint:
+    - apt-get update -qq && apt-get install -yq wget \
       git -C . clone https://github.com/kindtek/solana.git \
       /bin/bash /sdk/docker-solana/build.sh \ /usr/bin/solana-run.sh
     build:
