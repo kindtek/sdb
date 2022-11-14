@@ -93,7 +93,7 @@ services:
       - sleep
       - infinity
       #image: docker/dev-environments-default:stable-1
-    build: /com.docker.devenvironments.code
+    build: ./app
     ports:
       - "8080:8080"
     init: true
@@ -107,7 +107,7 @@ services:
         target: /var/run/docker.sock
       - type: volume
         source: volume-yubico-net-sdk-distracted_rubin
-        target: /com.docker.devenvironments.code
+        target: /app
     depends_on:
       - yubi
   app:
