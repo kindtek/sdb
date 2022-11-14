@@ -13,7 +13,7 @@ RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progres
 
 FROM docker/dev-environments-default:stable-1
 
-COPY --from=docker_dev /com.docker.devenvironments.code /com.docker.devenvironments.code
+COPY --from=docker_dev . .
 
-RUN /bin/bash yub/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh --no-cache
-RUN /bin/bash sol/sdk/docker-solana/build.sh --no-cache
+RUN /bin/bash /com.docker.devenvironments.code/yub/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh 
+RUN /bin/bash /com.docker.devenvironments.code/sol/sdk/docker-solana/build.sh 
