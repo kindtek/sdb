@@ -15,7 +15,7 @@ FROM docker/dev-environments-default:stable-1
 
 COPY --from=docker_dev . .
 
-WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/docker/Ubuntu
+WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
 RUN ls -al
 RUN cd .. && ls -al
 RUN /bin/bash build-ubuntu.sh 
