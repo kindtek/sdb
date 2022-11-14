@@ -3,9 +3,9 @@ version: "3.8"
 x-var1: &KINDTEK_SDB_REPO_URL
   https://github.com/kindtek/yubico-net-sdk.git
 x-var2: &KINDTEK_SDB_REPO_BRANCH
-  sdb_dev
+  \#sdb_dev
 x-var3: &KINDTEK_SDB_REPO_URL_BRANCH >
-  *KINDTEK_SDB_REPO_URL # *KINDTEK_SDB_REPO_BRANCH
+  *KINDTEK_SDB_REPO_URL *KINDTEK_SDB_REPO_BRANCH
 services:
   agent:
     image: portainer/agent
