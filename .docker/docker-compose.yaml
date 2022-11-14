@@ -93,7 +93,7 @@ services:
       - sleep
       - infinity
       #image: docker/dev-environments-default:stable-1
-    build: /yubico-net-sdk
+    build: /com.docker.devenvironments.code
     ports:
       - "8080:8080"
     init: true
