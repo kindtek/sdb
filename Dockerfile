@@ -20,6 +20,10 @@ RUN cd .. && ls -al
 WORKDIR /sol
 COPY . /com.docker.devenvironments.code/sol
 
+RUN cd /com.docker.devenvironments.code && ls -al
+RUN cd /sol && ls -al
+RUN cd / && ls -al
+
 RUN /bin/bash /yub/yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
 RUN /bin/bash /sol/solana/sdk/docker-solana/build.sh
 
