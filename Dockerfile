@@ -17,6 +17,7 @@ RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
 # RUN cat /var/log/docker.log
 # RUN apt-get install libssl-dev -yq
+RUN /etc/init.d/docker start
 RUN service procps start
 RUN systemctl enable docker.socket
 RUN systemctl enable docker.service
