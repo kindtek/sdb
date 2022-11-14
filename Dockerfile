@@ -16,6 +16,7 @@ RUN apt-get install curl -yq
 RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
 RUN apt-get install libssl-dev -yq
+RUN dockerd
 # RUN sysctl -w vm.max_map_count=262144
 # RUN docker network create elastic
 # RUN docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.4.1
