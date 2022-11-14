@@ -10,15 +10,21 @@ RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progres
 # RUN cd yub/Yubico.NativeShims && ls -al
 # RUN cd docker && ls -al
 # RUN cd Ubuntu && ls -al
-
-FROM docker/dev-environments-default:stable-1
-
-COPY --from=docker_dev . .
+# # add script for docker install
+RUN apt-get update
+RUN apt-get install curl
+RUN curl -sSL https://get.docker.com/ | sh
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
 RUN ls -al
 RUN cd .. && ls -al
 RUN /bin/bash build-ubuntu.sh 
+
+FROM docker/dev-environments-default:stable-1
+
+COPY --from=docker_dev . .
+
+
 
 WORKDIR /com.docker.devenvironments.code/sol/sdk/docker-solana/
 RUN /bin/bash build.sh 
