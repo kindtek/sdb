@@ -39,7 +39,7 @@ services:
       #context: https://github.com/kindtek/yubico-net-sdk.git#main # use develop branch since we are in main
       #context: *REPO_YUBI_SDB_BRANCH_DEV # use sdb_dev branch since we are in sdb#dev
       context: . # use sdb_dev branch since we are in sdb#dev
-      #dockerfile: /com.docker.devenvironments.code/Dockerfile
+      dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
     init: true
     environment:
       - PATH=${PATH}
@@ -74,9 +74,9 @@ services:
       /bin/bash /solana/sdk/docker-solana/build.sh 
       /usr/bin/solana-run.sh
     build:
-      context: https://github.com/kindtek/solana.git
+      context: .
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      dockerfile: /ci/docker-rust/Dockerfile
+      dockerfile: ci/docker-rust/Dockerfile
     image: docker/dev-environments-default:stable-1
     ports:
       - "8899:8899"
