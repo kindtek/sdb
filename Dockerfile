@@ -13,9 +13,9 @@ RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progres
 # # add script for docker install
 RUN apt-get update -qq
 RUN apt-get install curl -yq
-RUN apt-get install apt-utils
+RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
-RUN systemctl unmask docker
+RUN service start systemctl
 RUN systemctl start docker
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
