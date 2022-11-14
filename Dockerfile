@@ -23,6 +23,7 @@ RUN systemctl enable containerd.service
 # RUN systemctl daemon-reload
 # RUN systemctl start docker
 RUN ps -p 1 -o comm=
+RUN service --status-all
 RUN service redis-server start
 
 
