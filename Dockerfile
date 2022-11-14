@@ -16,8 +16,6 @@ RUN apt-get install curl -yq
 RUN apt-get install apt-utils
 RUN curl -sSL https://get.docker.com/ | sh
 RUN systemctl unmask docker
-RUN dockerd-rootless-setuptool.sh install
-RUN systemctl unmask docker
 RUN systemctl start docker
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
