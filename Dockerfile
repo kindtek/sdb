@@ -27,7 +27,7 @@ RUN systemctl enable docker.socket
 # RUN service sysctl start
 # RUN sysctl start docker
 RUN service docker start
-RUN service enable docker
+RUN service docker enable
 RUN service docker restart
 # RUN service ssl start
 
