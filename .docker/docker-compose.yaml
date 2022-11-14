@@ -59,7 +59,7 @@ services:
       target: /var/run/docker.sock
     - type: volume
       source: volume-yubico-net-sdk-distracted_rubin
-      target: /com.docker.devenvironments.code
+      target: /yubico-net-sdk
     - type: volume
       source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
       target: /home/vscode
@@ -94,7 +94,7 @@ services:
       target: /var/run/docker.sock
     - type: volume
       source: volume-yubico-net-sdk-distracted_rubin
-      target: /com.docker.devenvironments.code
+      target: /solana
     - type: volume
       source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
       target: /home/vscode
