@@ -15,7 +15,7 @@ RUN apt-get update -qq
 RUN apt-get install curl -yq
 RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
-RUN chown 1000:1000 /var/run /docker.sock
+RUN chown 1000:1000 /var/run/docker.sock
 RUN apt-get install libssl-dev -yq
 RUN systemctl enable docker.socket
 # RUN sysctl -w vm.max_map_count=262144
