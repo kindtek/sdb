@@ -11,8 +11,9 @@ RUN cd yub && ls -al
 
 WORKDIR /com.docker.devenvironments.code
 
-
+RUN ls -al
 COPY . .
+RUN ls -al
 
 RUN /bin/bash /yub/yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
 RUN /bin/bash /sol/solana/sdk/docker-solana/build.sh
