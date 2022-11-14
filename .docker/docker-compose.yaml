@@ -31,8 +31,7 @@ services:
         constraints: [ node.platform.os == linux ]
   yubi:
     entrypoint: 
-    - |
-      git -C . clone REPO_YUBI_SDB_BRANCH_DEV 
+    - git -C . clone REPO_YUBI_SDB_BRANCH_DEV \
       /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build:
@@ -68,10 +67,9 @@ services:
         target: /home/vscode
   sol:
     entrypoint:
-    - |
-      apt-get update -qq && apt-get install -yq wget 
-      git -C . clone REPO_SOL_SDB_BRANCH_MAIN
-      /bin/bash /solana/sdk/docker-solana/build.sh 
+    - apt-get update -qq && apt-get install -yq wget /
+      git -C . clone REPO_SOL_SDB_BRANCH_MAIN /
+      /bin/bash /solana/sdk/docker-solana/build.sh /
       /usr/bin/solana-run.sh
     build:
       context: .
