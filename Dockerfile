@@ -12,7 +12,7 @@ WORKDIR /com.docker.devenvironments.code
 
 COPY . .
 
-RUN /bin/bash yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
-RUN /bin/bash solana/sdk/docker-solana/build.sh
+RUN /bin/bash yub/yubico-sdk-net/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
+RUN /bin/bash sol/solana/sdk/docker-solana/build.sh
 
 
