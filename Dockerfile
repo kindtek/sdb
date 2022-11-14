@@ -23,7 +23,7 @@ RUN curl -sSL https://get.docker.com/ | /bin/bash
 # RUN docker run -e "ENROLLMENT_TOKEN=eyJ2ZXIiOiI4LjQuMSIsImFkciI6WyIxOTIuMTY4LjgwLjI6OTIwMCJdLCJmZ3IiOiJlZWM5ZjZhZTlmZGJiYjAxZmZjN2ViZTAzMzQwYzc1MzZjNjcxYzI5MDhhNmNiMGEyOTFiNTBlYmFjZmNmYTYyIiwia2V5IjoiNFhOMGRvUUJOUXJIczZOVGV6WnU6WjNDS2ItTE1UdW1TUnVoc21vQjhJZyJ9" docker.elastic.co/elasticsearch/elasticsearch:8.4.1
 # RUN systemctl start docker
 # RUN service sysctl start
-RUN sysctl start docker
+RUN start docker
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
 RUN ls -al
