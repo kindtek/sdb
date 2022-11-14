@@ -21,7 +21,7 @@ RUN systemctl enable docker.socket
 RUN systemctl enable docker.service
 RUN systemctl enable containerd.service
 # RUN systemctl daemon-reload
-RUN systemctl restart docker.service
+RUN systemctl docker start
 
 
 # RUN sysctl -w vm.max_map_count=262144
