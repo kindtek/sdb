@@ -107,7 +107,7 @@ services:
         target: /var/run/docker.sock
       - type: volume
         source: volume-yubico-net-sdk-distracted_rubin
-        target: /yubico-net-sdk
+        target: .
     depends_on:
       - yubi
   app:
