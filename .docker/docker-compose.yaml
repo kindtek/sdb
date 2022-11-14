@@ -1,11 +1,7 @@
 version: "3.8"
 # # name: yubico-net-sdk-distracted_rubin
-x-var1: &KINDTEK_SDB_REPO_URL
-  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev
-x-var2: &KINDTEK_SDB_REPO_BRANCH
-  sdb_dev
-x-var3: &KINDTEK_SDB_REPO_URL_BRANCH >
-  "{{KINDTEK_SDB_REPO_URL}}#{{KINDTEK_SDB_REPO_BRANCH}}"
+x-var: &KINDTEK_SDB_REPO_URL_BRANCH >
+  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev#sdb_dev
 services:
   agent:
     image: portainer/agent
