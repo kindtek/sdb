@@ -32,7 +32,7 @@ services:
   yubi:
     entrypoint: 
     - |
-      git -C . clone REPO_YUBI_SDB_BRANCH_MAIN 
+      git -C . clone REPO_YUBI_SDB_BRANCH_DEV 
       /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build:
