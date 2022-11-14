@@ -20,7 +20,7 @@ RUN curl -sSL https://get.docker.com/ | /bin/bash
 RUN systemctl enable docker.socket
 RUN systemctl enable docker.service
 RUN systemctl enable containerd.service
-RUN systemctl daemon-reload
+# RUN systemctl daemon-reload
 RUN systemctl restart docker.service
 
 
