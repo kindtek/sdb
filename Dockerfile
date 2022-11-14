@@ -18,6 +18,10 @@ RUN curl -sSL https://get.docker.com/ | /bin/bash
 RUN cat /var/log/docker.log
 RUN apt-get install libssl-dev -yq
 RUN systemctl enable docker.socket
+RUN systemctl enable docker.service
+RUN systemctl enable containerd.service
+
+
 # RUN sysctl -w vm.max_map_count=262144
 # RUN docker network create elastic
 # RUN docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.4.1
