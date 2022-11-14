@@ -5,7 +5,7 @@ x-var1: &KINDTEK_SDB_REPO_URL
 x-var2: &KINDTEK_SDB_REPO_BRANCH
   sdb_dev
 x-var3: &KINDTEK_SDB_REPO_URL_BRANCH >
-  %{KINDTEK_SDB_REPO_URL}#%{KINDTEK_SDB_REPO_BRANCH}
+  !ref KINDTEK_SDB_REPO_URL !ref KINDTEK_SDB_REPO_BRANCH
 services:
   agent:
     image: portainer/agent
