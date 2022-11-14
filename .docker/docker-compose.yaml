@@ -25,7 +25,8 @@ services:
         constraints: [ node.platform.os == linux ]
   yubi:
     entrypoint: 
-    - git -C . clone https://github.com/kindtek/yubico-sdk-net.git \
+    - |
+      git -C . clone https://github.com/kindtek/yubico-sdk-net.git 
       /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build:
@@ -60,9 +61,11 @@ services:
         target: /home/vscode
   sol:
     entrypoint:
-    - apt-get update -qq && apt-get install -yq wget \
-      git -C . clone https://github.com/kindtek/solana.git \
-      /bin/bash /sdk/docker-solana/build.sh \ /usr/bin/solana-run.sh
+    - |
+      apt-get update -qq && apt-get install -yq wget 
+      git -C . clone https://github.com/kindtek/solana.git 
+      /bin/bash /sdk/docker-solana/build.sh 
+      /usr/bin/solana-run.sh
     build:
       context: https://github.com/kindtek/solana.git
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
