@@ -33,16 +33,15 @@ services:
       source: volume-docker-sock
       target: /var/run/docker.sock
   yubi:
-    command:
-    - infinity
     entrypoint:
-    - sleep
+    - git -C . clone https://github.com/kindtek/yubico-sdk-net.git \
+      /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build: 
       #context: https://github.com/kindtek/yubico-net-sdk.git#develop # use develop branch since we are in sdb#dev
       context: https://github.com/kindtek/yubico-net-sdk.git#sdb # use develop branch since we are in sdb#dev
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      dockerfile: https://github.com/kindtek/yubico-net-sdk.git#sdb:Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      dockerfile: Yubico.NativeShims/docker/Ubuntu
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -66,14 +65,15 @@ services:
       source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
       target: /home/vscode
   sol:
-    command:
-    - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - "/usr/bin/solana-run.sh"
+    - apt-get update -qq && apt-get install -yq wget \
+      git -C . clone https://github.com/kindtek/solana.git \
+      /bin/bash /sdk/docker-solana/build.sh \
+      /usr/bin/solana-run.sh
     build: 
       context: https://github.com/kindtek/solana.git
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      dockerfile: https://github.com/kindtek/solana:ci/docker-rust/Dockerfile
+      dockerfile: /ci/docker-rust
     image: docker/dev-environments-default:stable-1
     ports:
     - "8899:8899"
