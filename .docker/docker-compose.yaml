@@ -1,9 +1,13 @@
 version: "3.8"
 # # name: yubico-net-sdk-distracted_rubin
-x-var1: &REPO_SDB_BRANCH_DEV >
-  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev#sdb_dev
-x-var2: &REPO_SDB_BRANCH_MAIN >
-  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev#main
+x-var1: &REPO_YUBI_SDB_BRANCH_DEV >
+  https://github.com/kindtek/yubico-net-sdk.git#sdb_dev
+x-var2: &REPO_YUBI_SDB_BRANCH_MAIN >
+  https://github.com/kindtek/yubico-net-sdk.git#main
+x-var3: &REPO_SOL_SDB_BRANCH_DEV >
+  https://github.com/kindtek/solana.git
+x-var4: &REPO_SOL_SDB_BRANCH_MAIN >
+  https://github.com/kindtek/solana.git
 services:
   agent:
     image: portainer/agent
@@ -28,12 +32,12 @@ services:
   yubi:
     entrypoint: 
     - |
-      git -C . clone https://github.com/kindtek/yubico-sdk-net.git 
+      git -C . clone REPO_YUBI_SDB_BRANCH_MAIN 
       /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
     build:
       #context: https://github.com/kindtek/yubico-net-sdk.git#main # use develop branch since we are in main
-      #context: *REPO_SDB_BRANCH_DEV # use sdb_dev branch since we are in sdb#dev
+      #context: *REPO_YUBI_SDB_BRANCH_DEV # use sdb_dev branch since we are in sdb#dev
       context: /com.docker.devenvironments.code # use sdb_dev branch since we are in sdb#dev
       #dockerfile: /com.docker.devenvironments.code/Dockerfile
     init: true
@@ -66,8 +70,8 @@ services:
     entrypoint:
     - |
       apt-get update -qq && apt-get install -yq wget 
-      git -C . clone https://github.com/kindtek/solana.git 
-      /bin/bash /sdk/docker-solana/build.sh 
+      git -C . clone REPO_SOL_SDB_BRANCH_MAIN
+      /bin/bash /solana/sdk/docker-solana/build.sh 
       /usr/bin/solana-run.sh
     build:
       context: https://github.com/kindtek/solana.git
