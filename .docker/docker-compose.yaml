@@ -1,6 +1,11 @@
 version: "3.8"
 # # name: yubico-net-sdk-distracted_rubin
-
+x-var1: &KINDTEK_SDB_REPO_URL
+  https://github.com/kindtek/yubico-net-sdk.git
+x-var2: &KINDTEK_SDB_REPO_BRANCH
+  \#sdb_dev
+x-var3: &KINDTEK_SDB_REPO_URL_BRANCH >
+  *KINDTEK_SDB_REPO_URL *KINDTEK_SDB_REPO_BRANCH
 services:
   agent:
     image: portainer/agent
@@ -93,7 +98,7 @@ services:
       - sleep
       - infinity
       #image: docker/dev-environments-default:stable-1
-    build: ./app
+    build: .
     ports:
       - "8080:8080"
     init: true
