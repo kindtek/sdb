@@ -38,7 +38,11 @@ services:
     entrypoint:
     - sleep
     image: docker/dev-environments-default:stable-1
-    #build: docker build https://github.com/kindtek/yubico-net-sdk.git#develop:/Yubico.NativeShims/docker/Ubuntu
+    build: 
+      #context: https://github.com/kindtek/yubico-net-sdk.git#develop # use develop branch since we are in sdb#dev
+      context: https://github.com/kindtek/yubico-net-sdk.git#sdb # use develop branch since we are in sdb#dev
+      #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      dockerfile: https://github.com/kindtek/yubico-net-sdk.git#sdb:Yubico.NativeShims/docker/Ubuntu/Dockerfile
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -66,7 +70,11 @@ services:
     - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
     - "/usr/bin/solana-run.sh"
-    image: solanalabs/solana:stable
+    build: 
+      context: https://github.com/kindtek/solana.git
+      #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      dockerfile: https://github.com/kindtek/solana:ci/docker-rust/Dockerfile
+    image: docker/dev-environments-default:stable-1
     ports:
     - "8899:8899"
     init: true
