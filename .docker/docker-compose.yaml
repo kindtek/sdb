@@ -21,31 +21,20 @@ services:
     deploy:
       mode: global
       placement:
-        constraints: [node.platform.os == linux]
-  web:
-    entrypoint:
-    - sleep
-    - infinity
-    #image: docker/dev-environments-default:stable-1
-    build:
-      context: https://github.com/kindtek/yubico-net-sdk.git#sdb_dev # use sdb_dev branch since we are in sdb#dev
-    ports:
-    - "8080:8080"
-    init: true
-    volumes:
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
+        constraints: [ node.platform.os == linux ]
   yubi:
     entrypoint:
-    - git -C . clone https://github.com/kindtek/yubico-sdk-net.git \
-      /bin/bash Yubico.NativeShims/build-ubuntu.sh
+      - git -C . clone https://github.com/kindtek/yubico-sdk-net.git \ /bin/bash Yubico.NativeShims/build-ubuntu.sh
     image: docker/dev-environments-default:stable-1
-    build: 
+    build:
       #context: https://github.com/kindtek/yubico-net-sdk.git#main # use develop branch since we are in main
       context: https://github.com/kindtek/yubico-net-sdk.git#sdb_dev # use sdb_dev branch since we are in sdb#dev
       dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
     init: true
+    environment:
+      - PATH=${PATH}
+      - USERID=${USER_ID}
+      - GROUPID=${GROUP_ID}
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -55,31 +44,28 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
-      target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
-      target: /yubico-net-sdk
-    - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
-      target: /home/vscode
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin-sol
+        target: /usr/bin
+      - type: volume
+        source: volume-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin
+        target: /yubico-net-sdk
+      - type: volume
+        source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+        target: /home/vscode
   sol:
     entrypoint:
-    - apt-get update -qq && apt-get install -yq wget \
-      git -C . clone https://github.com/kindtek/solana.git \
-      /bin/bash /sdk/docker-solana/build.sh \
-      /usr/bin/solana-run.sh
-    build: 
+      - apt-get update -qq && apt-get install -yq wget \ git -C . clone https://github.com/kindtek/solana.git \ /bin/bash /sdk/docker-solana/build.sh \ /usr/bin/solana-run.sh
+    build:
       context: https://github.com/kindtek/solana.git
       #dockerfile: https://github.com/kindtek/yubico-net-sdk.git#develop:Yubico.NativeShims/docker/Ubuntu/Dockerfile
       dockerfile: /ci/docker-rust/Dockerfile
     image: docker/dev-environments-default:stable-1
     ports:
-    - "8899:8899"
+      - "8899:8899"
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -90,27 +76,47 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
-      target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
-      target: /solana
-    - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
-      target: /home/vscode
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin-sol
+        target: /usr/bin
+      - type: volume
+        source: volume-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin
+        target: /solana
+      - type: volume
+        source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+        target: /home/vscode
+  web:
+    entrypoint:
+      - sleep
+      - infinity
+      #image: docker/dev-environments-default:stable-1
+    build:
+      context: https://github.com/kindtek/yubico-net-sdk.git#sdb_dev # use sdb_dev branch since we are in sdb#dev
+    ports:
+      - "8080:8080"
+    init: true
+    environment:
+      - PATH=${PATH}
+      - USERID=${USER_ID}
+      - GROUPID=${GROUP_ID}
+    volumes:
+      - type: volume
+        source: volume-docker-sock
+        target: /var/run/docker.sock
+    depends_on:
+      - "yubi"
   app:
     depends_on:
-    - "sol"
-    - "yubi"
-    - "agent"
+      - "sol"
+      - "yubi"
+      - "agent"
     command:
-    - infinity
+      - infinity
     entrypoint:
-    - sleep
+      - sleep
     image: docker/dev-environments-default:stable-1
     init: true
     labels:
@@ -122,18 +128,18 @@ services:
       default: null
     stop_signal: SIGKILL
     volumes:
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin-sol
-      target: /usr/bin
-    - type: volume
-      source: volume-docker-sock
-      target: /var/run/docker.sock
-    - type: volume
-      source: volume-yubico-net-sdk-distracted_rubin
-      target: /com.docker.devenvironments.code
-    - type: volume
-      source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
-      target: /home/vscode
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin-sol
+        target: /usr/bin
+      - type: volume
+        source: volume-docker-sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: volume-yubico-net-sdk-distracted_rubin
+        target: /com.docker.devenvironments.code
+      - type: volume
+        source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
+        target: /home/vscode
 networks:
   default:
     name: yubico-net-sdk-distracted_rubin_default-net-5
