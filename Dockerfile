@@ -11,7 +11,7 @@ RUN cd Yubico.NativeShims && ls -al
 RUN cd docker && ls -al
 RUN cd Ubuntu && ls -al
 
-FROM docker/docker/dev-environments-default:stable-1
+FROM docker/dev-environments-default:stable-1
 
 COPY --from=docker_dev /com.docker.devenvironments.code /com.docker.devenvironments.code
 
