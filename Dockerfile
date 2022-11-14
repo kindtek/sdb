@@ -15,8 +15,8 @@ RUN apt-get update -qq
 RUN apt-get install curl -yq
 RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
-RUN cat /var/log/docker.log
-RUN apt-get install libssl-dev -yq
+# RUN cat /var/log/docker.log
+# RUN apt-get install libssl-dev -yq
 RUN systemctl enable docker.socket
 RUN systemctl enable docker.service
 RUN systemctl enable containerd.service
