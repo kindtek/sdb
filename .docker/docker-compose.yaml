@@ -52,7 +52,7 @@ services:
         target: /var/run/docker.sock
       - type: volume
         source: volume-yubico-net-sdk-distracted_rubin
-        target: /yubico-net-sdk
+        target: /com.docker.devenvironments.code
       - type: volume
         source: vsCodeServerVolume-yubico-net-sdk-distracted_rubin-app
         target: /home/vscode
@@ -107,7 +107,7 @@ services:
         target: /var/run/docker.sock
       - type: volume
         source: volume-yubico-net-sdk-distracted_rubin
-        target: .
+        target: /com.docker.devenvironments.code
     depends_on:
       - yubi
   app:
