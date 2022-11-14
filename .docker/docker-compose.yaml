@@ -38,7 +38,7 @@ services:
     build:
       #context: https://github.com/kindtek/yubico-net-sdk.git#main # use develop branch since we are in main
       #context: *REPO_YUBI_SDB_BRANCH_DEV # use sdb_dev branch since we are in sdb#dev
-      context: /com.docker.devenvironments.code # use sdb_dev branch since we are in sdb#dev
+      context: . # use sdb_dev branch since we are in sdb#dev
       #dockerfile: /com.docker.devenvironments.code/Dockerfile
     init: true
     environment:
