@@ -1,61 +1,18 @@
-FROM docker/dev-environments-default:stable-1 AS docker_dev
+FROM docker/dev-environments-default:stable-1 AS docker_dev_sol
 
-RUN apt-get update -qq && apt-get install wget -yq
+WORKDIR /com.docker.devenvironments.code/sol
+RUN docker build sol https://github.com/kindtek/yubico-net-sdk.git#sdb_dev:apk -f Dockerfile 
+
+
+FROM docker/dev-environments-default:stable-1 AS docker_dev_yub
+
+WORKDIR /com.docker.devenvironments.code/yub
+RUN docker build yub https://github.com/kindtek/solana.git#master:Yubico.NativeShims -f Dockerfile 
+
+
+FROM scratch AS build_install
+
 WORKDIR /com.docker.devenvironments.code
-RUN git -C . clone -b sdb_dev https://github.com/kindtek/yubico-net-sdk.git yub --progress --depth 1 --single-branch 
-RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progress --depth 1 --single-branch 
+COPY --from=docker_dev_sol ./sol ./sol
+COPY --from=docker_dev_yub ./yub ./yub
 
-# RUN cd / && cd /com.docker.devenvironments.code && ls -al 
-# RUN cd yub && ls -al
-# RUN cd yub/Yubico.NativeShims && ls -al
-# RUN cd docker && ls -al
-# RUN cd Ubuntu && ls -al
-# # add script for docker install
-RUN apt-get update -qq
-RUN apt-get install curl -yq
-RUN apt-get install apt-utils -yq
-RUN curl -sSL https://get.docker.com/ | /bin/bash
-# RUN cat /var/log/docker.log
-# RUN apt-get install libssl-dev -yq
-RUN /etc/init.d/docker start
-RUN /etc/init.d/docker restart
-# RUN service procps start
-# RUN systemctl enable docker.socket
-# RUN systemctl enable docker.service
-# RUN systemctl enable containerd.service
-# RUN systemctl daemon-reload
-# RUN systemctl start docker
-# RUN ps -p 1 -o comm=
-# RUN service --status-all
-# RUN service redis-server start
-
-
-# RUN sysctl -w vm.max_map_count=262144
-# RUN docker network create elastic
-# RUN docker run --name es01 --net elastic -p 9200:9200 -p 9300:9300 -it docker.elastic.co/elasticsearch/elasticsearch:8.4.1
-
-# RUN service systemctl start
-# RUN docker run -e "ENROLLMENT_TOKEN=eyJ2ZXIiOiI4LjQuMSIsImFkciI6WyIxOTIuMTY4LjgwLjI6OTIwMCJdLCJmZ3IiOiJlZWM5ZjZhZTlmZGJiYjAxZmZjN2ViZTAzMzQwYzc1MzZjNjcxYzI5MDhhNmNiMGEyOTFiNTBlYmFjZmNmYTYyIiwia2V5IjoiNFhOMGRvUUJOUXJIczZOVGV6WnU6WjNDS2ItTE1UdW1TUnVoc21vQjhJZyJ9" docker.elastic.co/elasticsearch/elasticsearch:8.4.1
-# RUN systemctl start docker
-# RUN service sysctl start
-# RUN sysctl start docker
-# RUN service unmask docker.service
-# RUN service unmask docker.socket
-# RUN service docker start
-# RUN service docker enable
-# RUN service docker restart
-# RUN service ssl start
-
-WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
-RUN ls -al
-RUN cd .. && ls -al
-RUN /bin/bash build-ubuntu.sh 
-
-FROM docker/dev-environments-default:stable-1
-
-COPY --from=docker_dev . .
-
-
-
-WORKDIR /com.docker.devenvironments.code/sol/sdk/docker-solana/
-RUN /bin/bash build.sh 
