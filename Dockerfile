@@ -35,7 +35,7 @@ RUN systemctl enable containerd.service
 # RUN service unmask docker.socket
 # RUN service docker start
 # RUN service docker enable
-RUN service docker restart
+# RUN service docker restart
 # RUN service ssl start
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
