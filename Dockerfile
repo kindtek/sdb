@@ -14,7 +14,7 @@ RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progres
 RUN apt-get update -qq
 RUN apt-get install curl -yq
 RUN apt-get install apt-utils
-RUN curl -sSL https://get.docker.com/ | sh
+RUN curl -sSL https://get.docker.com/ | /bin/bash
 RUN systemctl unmask docker
 RUN systemctl start docker
 
