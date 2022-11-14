@@ -13,5 +13,5 @@ RUN cd Ubuntu && ls -al
 
 COPY --from=docker_dev /com.docker.devenvironments.code /com.docker.devenvironments.code
 
-RUN /bin/bash /com.docker.devenvironments.code/yub/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh --no-cache
-RUN /bin/bash /com.docker.devenvironments.code/sol/sdk/docker-solana/build.sh --no-cache
+# RUN /bin/bash /com.docker.devenvironments.code/yub/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh --no-cache
+# RUN /bin/bash /com.docker.devenvironments.code/sol/sdk/docker-solana/build.sh --no-cache
