@@ -23,6 +23,7 @@ RUN systemctl enable containerd.service
 # RUN systemctl daemon-reload
 # RUN systemctl start docker
 RUN ps -p 1 -o comm=
+RUN /etc/init.d/redis start
 
 
 # RUN sysctl -w vm.max_map_count=262144
