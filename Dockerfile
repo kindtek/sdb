@@ -15,7 +15,7 @@ RUN apt-get update -qq
 RUN apt-get install curl -yq
 RUN apt-get install apt-utils -yq
 RUN curl -sSL https://get.docker.com/ | /bin/bash
-RUN service start systemctl
+RUN service systemctl start
 RUN systemctl start docker
 
 WORKDIR /com.docker.devenvironments.code/yub/Yubico.NativeShims/
