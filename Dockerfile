@@ -7,7 +7,9 @@ RUN git -C . clone -b master https://github.com/kindtek/solana.git sol --progres
 
 RUN cd / && cd /com.docker.devenevironments.code && ls -al
 RUN cd yub && ls -al
-RUN cd Yubico.NativeShims/docker/Ubuntu && ls -al
+RUN cd Yubico.NativeShims && ls -al
+RUN cd docker && ls -al
+RUN cd Ubuntu && ls -al
 
 RUN /bin/bash /com.docker.devenevironments.code/yub/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
 RUN /bin/bash /com.docker.devenevironments.code/sol/sdk/docker-solana/build.sh
