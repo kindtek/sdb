@@ -2,7 +2,7 @@ version: "3.8"
 services:
 
 
-  yubi:
+  yub:
     command:
       - infinity
     entrypoint:
@@ -20,7 +20,7 @@ services:
     stop_signal: SIGKILL
     volumes:
       - type: volume
-        source: volume-yubi-bin
+        source: volume-yub-bin
         target: /usr/bin
         
   sol:
@@ -48,7 +48,7 @@ services:
   app:
     depends_on:
       - "sol"
-      - "yubi"
+      - "yub"
     #    - "agent"
     command:
       - infinity
