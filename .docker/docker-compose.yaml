@@ -1,8 +1,8 @@
 version: "3.8"
 services:
   bld:
-    pull_policy:
-      "always"
+    # pull_policy:
+    #   "always"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin
     build:
