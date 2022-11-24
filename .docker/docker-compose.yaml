@@ -15,7 +15,7 @@ services:
       && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git"
     volumes:
       - ./solana:/solanatype
-      - ./yubico-sdk-net:/yubico-sdk-net
+      - ./yubico-net-sdk:/yubico-net-sdk
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
