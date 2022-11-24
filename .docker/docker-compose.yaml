@@ -4,6 +4,8 @@ services:
     image: docker/dev-environments-default:stable-1
     build: .
   yub:
+    depends_on:
+      - "tmp"
     command:
       - infinity
     entrypoint:
@@ -26,10 +28,8 @@ services:
         target: /yub/usr/bin
 
   sol:
-    # command:
-    #   - "apt-get update -qq && apt-get install -yq wget"
-    # entrypoint:
-    #   - "/usr/bin/solana-run.sh"
+    depends_on:
+      - "tmp"
     build: docker build ./solana/sdk/docker-solana
     working_dir: /sol
     ports:
