@@ -3,6 +3,7 @@ services:
   tmp:
     image: docker/dev-environments-default:stable-1
     build: .
+    working_dir: /com.devenvironments.code
   yub:
     pull_policy:
       "always"
@@ -13,8 +14,8 @@ services:
     entrypoint:
       - sleep
     image: mono:latest
-    build: docker build ./yubico-net-sdk/Yubico.NativeShims/Docker
-    working_dir: /yub
+    build: docker build /com.devenvironments.code/yubico-net-sdk/Yubico.NativeShims/Docker
+    working_dir: /com.devenvironments.code/yub
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -33,8 +34,8 @@ services:
     pull_policy: "always"
     depends_on:
       - "tmp"
-    build: docker build ./solana/sdk/docker-solana
-    working_dir: /sol
+    build: docker build /com.devenvironments.code/solana/sdk/docker-solana
+    working_dir: /com.devenvironments.code/sol
     ports:
       - "8899:8899"
     init: true
