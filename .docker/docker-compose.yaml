@@ -69,6 +69,7 @@ services:
         target: /usr/bin
 
   app:
+    pull_policy: "always"
     depends_on:
       - "sol"
       - "yub"
