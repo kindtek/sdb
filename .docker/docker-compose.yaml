@@ -33,6 +33,12 @@ services:
     build: docker build /build/Yubico.NativeShims/Docker
     working_dir: /yub
     init: true
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 100
+        window: 600s
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -55,6 +61,12 @@ services:
     ports:
       - "8899:8899"
     init: true
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 100
+        window: 600s
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
