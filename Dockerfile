@@ -1,6 +1,7 @@
 FROM docker:20.10.21-dind-rootless AS build-dev_sdb
 ARG privileged=true
 ARG rm=true
+ARG cap-add=NET_ADMIN
 WORKDIR /build_sdb
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
