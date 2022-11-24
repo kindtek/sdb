@@ -3,7 +3,7 @@ services:
   tmp:
     pull_policy:
       "always"
-    image: git_sample_app_docker_compose:1.0
+    image: sdb_img:1.0
     container_name: sdb_compose_build
     build: .
     # working_dir: /com.docker.devenvironments.code
@@ -13,6 +13,7 @@ services:
       - git -C clone --recurse-submodules - j8 https://github.com/kindtek/sdb.git#dev /build
     entrypoint:
       - sleep
+      - infinity
     volumes:
       - ./build:/build    
     labels:
