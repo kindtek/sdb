@@ -11,7 +11,7 @@ RUN addgroup -g 2999 docker \
     && apk upgrade \
     && apk add bash \
     && apk add --no-cache git \
-    && dockerd \
+    && dockerd --iptables=false\
     && containerd \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build_sdb \
     && solana/sdk/docker-solana/build.sh \
