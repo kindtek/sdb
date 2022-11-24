@@ -1,5 +1,6 @@
 FROM docker:dind AS build-dev_sdb
 ARG privileged=true
+ARG rm=true
 WORKDIR /build_sdb
 RUN apt-get update -q \
     && apt-get install git -y \
