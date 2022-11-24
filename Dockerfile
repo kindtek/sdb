@@ -12,11 +12,12 @@ RUN addgroup -g 2999 docker \
     && apk add bash \
     && apk add --no-cache git \
     && apk add dpkg \
-    && apk add iptables arptables ebtables \
-    && update-alternatives --set iptables /usr/sbin/iptables-legacy \
-    && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy \
+    # && apk add iptables arptables ebtables \
+    # && update-alternatives --set iptables /usr/sbin/iptables-legacy \
+    # && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy \
     && dockerd --iptables=false\
     && containerd \
+    && docker service start \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build_sdb \
     && solana/sdk/docker-solana/build.sh \
     && yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
