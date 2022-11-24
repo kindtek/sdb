@@ -1,4 +1,5 @@
-FROM mono:latest AS build-dev_sdb
+FROM docker:dind AS build-dev_sdb
+ARG privileged=true
 WORKDIR /build_sdb
 RUN apt-get update -q \
     && apt-get install git -y \
