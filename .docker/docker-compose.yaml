@@ -14,7 +14,7 @@ services:
       && apt-get install git -y
       && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build"
     entrypoint:
-      - sleep
+      - sleep 250s
     volumes:
       - ./build:/build    
     labels:
@@ -30,7 +30,7 @@ services:
     command:
       - infinity
     entrypoint:
-      - sleep 250s
+      - sleep
     image: mono:latest
     build: docker build /build/Yubico.NativeShims/Docker
     working_dir: /yub
@@ -61,7 +61,7 @@ services:
     command:
       - infinity
     entrypoint:
-      - sleep 250s
+      - sleep
     build: docker build /build/solana/sdk/docker-solana
     working_dir: /sol
     ports:
