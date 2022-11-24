@@ -8,7 +8,8 @@ RUN apk update \
     && apk upgrade \
     && apk add bash \
     && apk add --no-cache git \
-    && dockerd -H unix:///var/run/docker.sock \
+    && dockerd \
+    && containerd \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build_sdb \
     && solana/sdk/docker-solana/build.sh \
     && yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
