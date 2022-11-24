@@ -10,9 +10,9 @@ services:
     init: true
     stop_signal: SIGKILL
     command: >
-      apt-get update -q
+      /bin/bash -c "apt-get update -q
       && apt-get install git -y
-      && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build
+      && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build"
     volumes:
       - ./build:/build    
     labels:
