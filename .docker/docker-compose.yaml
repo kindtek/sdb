@@ -1,6 +1,8 @@
 version: "3.8"
 services:
-
+  tmp:
+    image: docker/dev-environments-default:stable-1
+    build: .
   yub:
     command:
       - infinity
