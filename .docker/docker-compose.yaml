@@ -3,7 +3,7 @@ services:
   tmp:
     pull_policy:
       "always"
-    image: sdb_img:1.0
+    image: kindtek/sdb_img:1.0
     container_name: sdb_compose_build
     build: .
     # working_dir: /com.docker.devenvironments.code
