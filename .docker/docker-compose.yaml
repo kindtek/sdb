@@ -10,8 +10,7 @@ services:
     init: true
     stop_signal: SIGKILL
     command: 
-      - git -C /build clone .
-      - git submodule update --init --recursive
+      - git -C clone --recurse-submodules - j8 https://github.com/kindtek/sdb.git#dev /build
     entrypoint:
       - sleep
     volumes:
