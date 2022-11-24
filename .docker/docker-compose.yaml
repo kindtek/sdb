@@ -1,14 +1,14 @@
 version: "3.8"
 services:
 
-
   yub:
     command:
       - infinity
     entrypoint:
       - sleep
     image: mono:latest
-    build: docker build yubico-net-sdk/Yubico.NativeShims/Docker
+    build: docker build ./yubico-net-sdk/Yubico.NativeShims/Docker
+    working_dir: /yub
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -21,14 +21,15 @@ services:
     volumes:
       - type: volume
         source: volume-yub-bin
-        target: /usr/bin
-        
+        target: /yub/usr/bin
+
   sol:
     # command:
     #   - "apt-get update -qq && apt-get install -yq wget"
     # entrypoint:
     #   - "/usr/bin/solana-run.sh"
-    build: docker build solana/api/docker-solana
+    build: docker build ./solana/api/docker-solana
+    working_dir: /sol
     ports:
       - "8899:8899"
     init: true
@@ -43,7 +44,7 @@ services:
     volumes:
       - type: volume
         source: volume-sol-bin
-        target: /usr/bin
+        target: /sol/usr/bin
 
   app:
     depends_on:
@@ -71,7 +72,6 @@ services:
       - type: volume
         source: volume-sol-bin
         target: /sol/bin
-
   # agent:
   #   image: portainer/agent
   #   environment:
