@@ -1,4 +1,4 @@
-FROM 20.10.21-git AS build-dev_sdb
+FROM 22.06.0-beta.0-git AS build-dev_sdb
 ARG privileged=true
 ARG rm=true
 WORKDIR /build_sdb
