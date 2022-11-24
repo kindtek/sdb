@@ -9,10 +9,7 @@ services:
     # working_dir: /com.docker.devenvironments.code
     init: true
     stop_signal: SIGKILL
-    command:
-      - infinity
-    entrypoint:
-      - sleep
+    command: apt-get update -q && apt-get install git -y && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build
     volumes:
       - ./build:/build    
     labels:
