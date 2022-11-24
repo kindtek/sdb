@@ -4,6 +4,7 @@ services:
     image: docker/dev-environments-default:stable-1
     build: .
     working_dir: /com.docker.devenvironments.code
+    init: true
 #   yub:
 #     pull_policy:
 #       "always"
