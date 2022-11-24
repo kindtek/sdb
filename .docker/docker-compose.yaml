@@ -11,9 +11,6 @@ services:
     stop_signal: SIGKILL
     command: 
       - git -C clone --recurse-submodules - j8 https://github.com/kindtek/sdb.git#dev /build
-    entrypoint:
-      - sleep
-      - infinity
     volumes:
       - ./build:/build    
     labels:
