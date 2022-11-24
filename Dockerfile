@@ -11,6 +11,8 @@ RUN addgroup -g 2999 docker \
     && apk upgrade \
     && apk add bash \
     && apk add --no-cache git \
+    && update-alternatives --set iptables /usr/sbin/iptables-legacy \
+    && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy \
     && dockerd --iptables=false\
     && containerd \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build_sdb \
