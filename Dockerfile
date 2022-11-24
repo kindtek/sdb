@@ -9,6 +9,7 @@ RUN apk update \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build_sdb \
     && solana/sdk/docker-solana/build.sh \
     && yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
+USER root
 EXPOSE 8899
 COPY . .
 
