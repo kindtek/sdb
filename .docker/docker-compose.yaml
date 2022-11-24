@@ -1,10 +1,18 @@
 version: "3.8"
 services:
   tmp:
+    pull_policy:
+      "always"
     image: docker/dev-environments-default:stable-1
     build: .
     working_dir: /com.docker.devenvironments.code
     init: true
+    stop_signal: SIGKILL
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
 #   yub:
 #     pull_policy:
 #       "always"
