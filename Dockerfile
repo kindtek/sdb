@@ -7,7 +7,7 @@ WORKDIR /build_sdb
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN addgroup -g 2999 docker \
-    apk update \
+    && apk update \
     && apk upgrade \
     && apk add bash \
     && apk add --no-cache git \
