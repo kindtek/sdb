@@ -30,8 +30,8 @@ services:
     entrypoint:
       - sleep
     image: mono:latest
-    build: docker build /com.docker.devenvironments.code/yubico-net-sdk/Yubico.NativeShims/Docker
-    working_dir: /com.docker.devenvironments.code/yub
+    build: docker build /build/Yubico.NativeShims/Docker
+    working_dir: /yub
     init: true
     labels:
       com.docker.devenvironments: "true"
@@ -44,14 +44,14 @@ services:
     volumes:
       - type: volume
         source: volume-yub-bin
-        target: /yub/usr/bin
+        target: /usr/bin
 
   sol:
     pull_policy: "always"
     depends_on:
       - "tmp"
-    build: docker build /com.docker.devenvironments.code/solana/sdk/docker-solana
-    working_dir: /com.docker.devenvironments.code/sol
+    build: docker build /build/solana/sdk/docker-solana
+    working_dir: /sol
     ports:
       - "8899:8899"
     init: true
@@ -66,13 +66,15 @@ services:
     volumes:
       - type: volume
         source: volume-sol-bin
-        target: /sol/usr/bin
+        target: /usr/bin
 
   app:
     depends_on:
       - "sol"
       - "yub"
     #    - "agent"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin:/usr/share/yub/bin
     command:
       - infinity
     entrypoint:
@@ -90,10 +92,10 @@ services:
     volumes:
       - type: volume
         source: volume-yub-bin
-        target: /yub/bin
+        target: /usr/share/yub/bin
       - type: volume
         source: volume-sol-bin
-        target: /sol/bin
+        target: /usr/share/sol/bin
   # agent:
   #   image: portainer/agent
   #   environment:
@@ -124,6 +126,6 @@ networks:
 
 volumes:
   volume-yub-bin:
-    name: volume-yubi-bin
+    name: volume-yub-bin
   volume-sol-bin:
     name: volume-sol-bin
