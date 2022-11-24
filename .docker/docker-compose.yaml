@@ -28,7 +28,7 @@ services:
     #   - "apt-get update -qq && apt-get install -yq wget"
     # entrypoint:
     #   - "/usr/bin/solana-run.sh"
-    build: docker build ./solana/api/docker-solana
+    build: docker build ./solana/sdk/docker-solana
     working_dir: /sol
     ports:
       - "8899:8899"
