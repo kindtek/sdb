@@ -32,7 +32,7 @@ services:
     entrypoint:
       - sleep
     image: mono:latest
-    build: docker build /build/Yubico.NativeShims/Docker
+    build: /build/Yubico.NativeShims/Docker
     working_dir: /yub
     init: true
     deploy:
@@ -62,7 +62,7 @@ services:
       - infinity
     entrypoint:
       - sleep
-    build: docker build /build/solana/sdk/docker-solana
+    build: /build/solana/sdk/docker-solana
     working_dir: /sol
     ports:
       - "8899:8899"
