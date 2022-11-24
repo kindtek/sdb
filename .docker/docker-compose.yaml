@@ -5,7 +5,7 @@ services:
       "always"
     build:
       context: .
-      target: develop_sdb
+      target: build-dev_sdb
     init: true
     stop_signal: SIGKILL
     command: 
