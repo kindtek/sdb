@@ -4,6 +4,8 @@ services:
     image: docker/dev-environments-default:stable-1
     build: .
   yub:
+    pull_policy:
+      "always"
     depends_on:
       - "tmp"
     command:
@@ -28,6 +30,7 @@ services:
         target: /yub/usr/bin
 
   sol:
+    pull_policy: "always"
     depends_on:
       - "tmp"
     build: docker build ./solana/sdk/docker-solana
