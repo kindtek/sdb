@@ -7,9 +7,9 @@ services:
     build: .
     working_dir: /com.docker.devenvironments.code
     init: true
-    entrypoint:
-      - infinity
     command:
+      - infinity
+    entrypoint:
       - sleep
     stop_signal: SIGKILL
     labels:
