@@ -1,12 +1,11 @@
 version: "3.8"
 services:
-  tmp:
+  bld:
     pull_policy:
       "always"
-    image: debian:bullseye
-    container_name: sdb_compose_build
-    build: .
-    # working_dir: /com.docker.devenvironments.code
+    build:
+      context: .
+      target: develop_sdb
     init: true
     stop_signal: SIGKILL
     command: 
@@ -14,7 +13,7 @@ services:
     entrypoint:
       - sleep
     volumes:
-      - ./build:/build    
+      - ./build_sdb:/build_sdb    
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -24,13 +23,13 @@ services:
     pull_policy:
       "always"
     depends_on:
-      - "tmp"
+      - "bld"
     command:
       - infinity
     entrypoint:
       - sleep
     image: mono:latest
-    build: /build/Yubico.NativeShims/Docker
+    build: /build_sdb/Yubico.NativeShims/Docker
     working_dir: /yub
     init: true
     deploy:
@@ -55,12 +54,12 @@ services:
   sol:
     pull_policy: "always"
     depends_on:
-      - "tmp"
+      - "bld"
     command:
       - infinity
     entrypoint:
       - sleep
-    build: /build/solana/sdk/docker-solana
+    build: /build_sdb/solana/sdk/docker-solana
     working_dir: /sol
     ports:
       - "8899:8899"
