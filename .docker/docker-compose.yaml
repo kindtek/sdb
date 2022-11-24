@@ -3,6 +3,8 @@ services:
   bld:
     pull_policy:
       "always"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin
     build:
       context: .
       target: build-dev_sdb
@@ -13,111 +15,112 @@ services:
     entrypoint:
       - sleep
     volumes:
-      - ./build_sdb:/build_sdb    
+      - ./build_sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
+      - ./build_sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-  yub:
-    pull_policy:
-      "always"
-    depends_on:
-      - "bld"
-    command:
-      - infinity
-    entrypoint:
-      - sleep
-    image: mono:latest
-    build: /build_sdb/Yubico.NativeShims/Docker
-    working_dir: /yub
-    init: true
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 100
-        window: 600s
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-      - type: volume
-        source: volume-yub-bin
-        target: /yub/usr/bin
+  # yub:
+  #   pull_policy:
+  #     "always"
+  #   depends_on:
+  #     - "bld"
+  #   command:
+  #     - infinity
+  #   entrypoint:
+  #     - sleep
+  #   image: mono:latest
+  #   build: /build_sdb/Yubico.NativeShims/Docker
+  #   working_dir: /yub
+  #   init: true
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+  #       delay: 5s
+  #       max_attempts: 100
+  #       window: 600s
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb_dev
+  #   networks:
+  #     default: null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #     - type: volume
+  #       source: volume-yub-bin
+  #       target: /yub/usr/bin
 
-  sol:
-    pull_policy: "always"
-    depends_on:
-      - "bld"
-    command:
-      - infinity
-    entrypoint:
-      - sleep
-    build: /build_sdb/solana/sdk/docker-solana
-    working_dir: /sol
-    ports:
-      - "8899:8899"
-    init: true
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 100
-        window: 600s
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-      - type: volume
-        source: volume-sol-bin
-        target: /sol/usr/bin
+  # sol:
+  #   pull_policy: "always"
+  #   depends_on:
+  #     - "bld"
+  #   command:
+  #     - infinity
+  #   entrypoint:
+  #     - sleep
+  #   build: /build_sdb/solana/sdk/docker-solana
+  #   working_dir: /sol
+  #   ports:
+  #     - "8899:8899"
+  #   init: true
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+  #       delay: 5s
+  #       max_attempts: 100
+  #       window: 600s
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb_dev
+  #   networks:
+  #     default: null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #     - type: volume
+  #       source: volume-sol-bin
+  #       target: /sol/usr/bin
 
-  app:
-    pull_policy: "always"
-    depends_on:
-      - "sol"
-      - "yub"
-    #    - "agent"
-    environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin:/usr/share/yub/bin
-    command:
-      - infinity
-    entrypoint:
-      - sleep
-    image: debian:bullseye
-    init: true
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 100
-        window: 600s
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
-    networks:
-      default: null
-    stop_signal: SIGKILL
-    volumes:
-      - type: volume
-        source: volume-yub-bin
-        target: /usr/share/yub/bin
-      - type: volume
-        source: volume-sol-bin
-        target: /usr/share/sol/bin
+  # app:
+  #   pull_policy: "always"
+  #   depends_on:
+  #     - "sol"
+  #     - "yub"
+  #   #    - "agent"
+  #   environment:
+  #     - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin:/usr/share/yub/bin
+  #   command:
+  #     - infinity
+  #   entrypoint:
+  #     - sleep
+  #   image: debian:bullseye
+  #   init: true
+  #   deploy:
+  #     restart_policy:
+  #       condition: on-failure
+  #       delay: 5s
+  #       max_attempts: 100
+  #       window: 600s
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb_dev
+  #   networks:
+  #     default: null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #     - type: volume
+  #       source: volume-yub-bin
+  #       target: /usr/share/yub/bin
+  #     - type: volume
+  #       source: volume-sol-bin
+  #       target: /usr/share/sol/bin
   # agent:
   #   image: portainer/agent
   #   environment:
