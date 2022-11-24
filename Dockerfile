@@ -1,4 +1,4 @@
-FROM docker:dind AS build-dev_sdb
+FROM docker:20.10.21-alpine3.16 AS build-dev_sdb
 ARG privileged=true
 ARG rm=true
 WORKDIR /build_sdb
