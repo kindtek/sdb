@@ -12,10 +12,9 @@ services:
     command: >
       /bin/bash -c "apt-get update -q
       && apt-get install git -y
-      && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git ."
+      && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build"
     volumes:
-      - ./solana:/solanatype
-      - ./yubico-net-sdk:/yubico-net-sdk
+      - ./build:/build    
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
