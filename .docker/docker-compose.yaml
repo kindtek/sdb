@@ -15,7 +15,7 @@ services:
       && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build
       && /build/sdk/docker-solana/build.sh"
     entrypoint:
-      - sleep 250s
+      - sleep
     volumes:
       - ./build:/build    
     labels:
