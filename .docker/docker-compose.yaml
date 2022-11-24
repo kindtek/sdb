@@ -10,6 +10,7 @@ services:
     init: true
     stop_signal: SIGKILL
     command: 
+      - mkdir -m755 /build
       - git -C clone --branch dev --recurse-submodules - j8 https://github.com/kindtek/sdb.git /build
     volumes:
       - ./build:/build    
