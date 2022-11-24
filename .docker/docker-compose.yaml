@@ -3,15 +3,19 @@ services:
   tmp:
     pull_policy:
       "always"
-    image: docker/dev-environments-default:stable-1
+    image: git_sample_app_docker_compose:1.0
+    container_name: sdb_compose_build
     build: .
-    working_dir: /com.docker.devenvironments.code
+    # working_dir: /com.docker.devenvironments.code
     init: true
-    command:
-      - infinity
+    stop_signal: SIGKILL
+    command: 
+      - git -C /build clone .
+      - git submodule update --init --recursive
     entrypoint:
       - sleep
-    stop_signal: SIGKILL
+    volumes:
+      - ./build:/build    
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
