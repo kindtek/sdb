@@ -9,9 +9,13 @@ services:
     # working_dir: /com.docker.devenvironments.code
     init: true
     stop_signal: SIGKILL
-    command: 
-      - ls -al
-      - git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build
+    # command: 
+    #   - ls -al
+    #   - git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git /build
+    command:
+      - infinity
+    entrypoint:
+      - sleep
     volumes:
       - ./build:/build    
     labels:
