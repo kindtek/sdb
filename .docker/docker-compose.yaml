@@ -10,10 +10,10 @@ services:
     init: true
     stop_signal: SIGKILL
     command: 
-      # - mkdir -v -p -m 755 build
-      - git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git .
+      - mkdir -v -p -m 755 ~/build
+      - git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git ~/build
     volumes:
-      - .:/build    
+      - .~/build:/build    
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
