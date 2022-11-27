@@ -7,6 +7,7 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 WORKDIR /build
+COPY . .
 RUN apk update \
     && apk add --no-cache git \
     && git submodule update --init --recursive /build
