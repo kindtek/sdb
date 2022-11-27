@@ -4,7 +4,7 @@ services:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/share/sol/bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/build/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
@@ -21,7 +21,7 @@ services:
       - "/bin/sh"
     volumes:
       - ./build:/build
-      - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
+      # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       # - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
