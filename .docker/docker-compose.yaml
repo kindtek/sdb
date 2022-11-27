@@ -18,7 +18,7 @@ services:
     command: 
       - "apt-get update qq && apt-get upgrade"
     entrypoint:
-      - "/build/build-sdb.sh"
+      - "build-sdb.sh"
     volumes:
       - ./build_sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       - ./build_sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
