@@ -18,7 +18,7 @@ services:
     command:
       - "apk update"
     entrypoint:
-      - "sh /build/build-sdb.sh"
+      - "/bin/sh"
     volumes:
       - ./build:/build
       # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin

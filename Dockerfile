@@ -11,8 +11,8 @@ COPY . .
 RUN apk update \
     && apk add --no-cache git \
     && git submodule update --init --recursive /build
-RUN chmod +x ./build-sdb.sh
-    
+RUN chmod +x ./build-sdb.sh \
+    && sh /build/build-sdb.sh
 EXPOSE 8899
 
 
