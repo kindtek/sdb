@@ -19,7 +19,7 @@ services:
       - "apt-get update -q && \
         apt-get upgrade -y"
     entrypoint:
-      - sleep
+      - "/bin/sh"
     volumes:
       - ./build:/build
       - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
