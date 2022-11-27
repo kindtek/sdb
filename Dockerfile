@@ -15,7 +15,7 @@ RUN apk update \
     && git submodule update --init --recursive \
     && chmod +x build-sdb.sh
 EXPOSE 8899
-COPY /build /build
+COPY . .
 
 CMD ["git", "version"]
 
