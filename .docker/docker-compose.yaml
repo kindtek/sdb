@@ -11,7 +11,7 @@ services:
         hard: 1000000
     image: kindtek/sdb_dev-sdb
     build:
-      context: .
+      context: ./
       target: installed-sdb_dev
     init: true
     stop_signal: SIGKILL
