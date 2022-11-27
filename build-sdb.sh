@@ -6,4 +6,4 @@ systemctl start docker
 
 
 sh /build/solana/sdk/docker-solana/build.sh
-sh /build/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/build-ubuntu.sh
+sh /build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
