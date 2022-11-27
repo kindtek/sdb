@@ -6,6 +6,7 @@ ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
+VOLUME /var/run/docker.sock:/var/run/docker.sock
 WORKDIR /build
 COPY . .
 RUN apk update \
