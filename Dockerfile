@@ -8,12 +8,11 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY . .
-WORKDIR /build
 
 RUN apk update \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
-    && git submodule update --init --recursive
+    && git submodule update --init --recursive \build
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
 # RUN chmod +x ./build-sdb.sh \
