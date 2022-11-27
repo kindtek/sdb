@@ -12,7 +12,7 @@ services:
     image: kindtek/sdb_dev
     build:
       context: "."
-      target: build-sdb_dev
+      target: installed-sdb_dev
     init: true
     stop_signal: SIGKILL
     command:
