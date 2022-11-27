@@ -15,9 +15,9 @@ RUN apk update -y \
 EXPOSE 8899
 COPY . .
 
-FROM docker/dev-environments-default AS installed-sdb_dev
-RUN chmod +x /build-sdb.sh \ 
-    && /build-sdb.sh
+FROM build-sdb_dev AS installed-sdb_dev
+RUN chmod +x build-sdb.sh \ 
+    && sh build-sdb.sh
 
 
 CMD ["git", "version"]
