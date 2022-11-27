@@ -1,4 +1,5 @@
 {
   "DockerRun.DisableDockerrc": true,
-  "cmake.sourceDirectory": "${workspaceFolder}/yubico-net-sdk/Yubico.NativeShims"
+  "cmake.sourceDirectory": "${workspaceFolder}/yubico-net-sdk/Yubico.NativeShims",
+  "C_Cpp.default.configurationProvider": "numaru.vscode-cmake-lite"
 }
