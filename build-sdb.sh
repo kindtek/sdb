@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 export DOCKER_BUILDKIT=1
 systemctl enable docker.service
 systemctl enable containerd.service
