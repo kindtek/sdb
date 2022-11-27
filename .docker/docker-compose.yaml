@@ -1,6 +1,23 @@
 version: "3.8"
 services:
-  build_sdb:
+  sdb:
+    # pull_policy:
+    #   "always"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/usr/sol/bin
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1000000
+    image: kindtek/sdb_dev-sdb
+    build:
+      context: .
+      target: installed-sdb_dev
+    init: true
+    stop_signal: SIGKILL
+    volumes:
+      - volume-bin-sol:/usr/sol/bin
+  sol:
     # pull_policy:
     #   "always"
     environment:
@@ -9,20 +26,30 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb_dev
+    image: kindtek/sdb_dev-sol
     build:
-      context: .
-      target: installed-sdb_dev
+      context: solana/sdk/docker-solana
     init: true
     stop_signal: SIGKILL
-    command:
-      - "apk update"
-    entrypoint:
-      - "/bin/sh"
-    # volumes:
-    #   - ./build:/build
+    volumes:
+      - volume-bin-sol:/build/solana/sdk/docker-solana/usr/bin
       # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       # - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
+  yub:
+    # pull_policy:
+    #   "always"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+    image: kindtek/sdb_dev-yub
+    build:
+      context: yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu
+    init: true
+    stop_signal: SIGKILL
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -37,7 +64,5 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-yub-bin:
-    name: volume-yub-bin
-  volume-sol-bin:
-    name: volume-sol-bin
+  volume-bin-sol:
+    name: volume-bin-sol
