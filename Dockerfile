@@ -16,6 +16,9 @@ RUN apk update \
     && git submodule update --init --recursive
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
+
+COPY ./solana /build
+COPY ./yubico-net-sdk /build
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /build/build-sdb.sh
 # RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
