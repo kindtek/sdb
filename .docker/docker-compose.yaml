@@ -16,7 +16,7 @@ services:
     init: true
     stop_signal: SIGKILL
     command:
-      - "apk update"
+      - "apt-get update -y"
     entrypoint:
       - "/bin/sh"
     volumes:
