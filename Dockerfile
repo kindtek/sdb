@@ -10,7 +10,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN apk update \
     && apk upgrade \
-    && ls -al
+    && /bin/bash /build/build-sdb.sh
 EXPOSE 8899
 COPY . .
 
