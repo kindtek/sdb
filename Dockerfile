@@ -12,7 +12,7 @@ RUN apk update \
     && apk upgrade \
     && apk add --no-cache git \
     && git submodule update --init --recursive \
-    && sh build-sdb.sh
+    && build-sdb.sh
 EXPOSE 8899
 COPY . .
 
