@@ -11,9 +11,10 @@ COPY . .
 RUN apk update \
     && apk add --no-cache git \
     && git submodule update --init --recursive /build
+RUN chmod +x ./build-sdb.sh
+    
 EXPOSE 8899
 
-COPY . .
 
 
 CMD ["git", "version"]
