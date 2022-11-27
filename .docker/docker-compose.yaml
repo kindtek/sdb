@@ -1,6 +1,6 @@
 version: "3.8"
 services:
-  bld:
+  build_sdb:
     # pull_policy:
     #   "always"
     environment:
