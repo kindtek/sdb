@@ -12,14 +12,13 @@ services:
   
     build:
       context: "."        
-      target: build-dev_sdb
+      target: build-sdb_dev
     init: true
     stop_signal: SIGKILL
-    command: 
-      - "apt-get update q && \
-        apt-get upgrade"
+    command:
+    - infinity
     entrypoint:
-      - "/build/build-sdb.sh"
+    - sleep
     volumes:
       - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
