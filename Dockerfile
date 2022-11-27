@@ -7,8 +7,9 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-WORKDIR /build
-COPY . .
+COPY . /src
+WORKDIR /src
+
 RUN apk update \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
