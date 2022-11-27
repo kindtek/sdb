@@ -28,7 +28,7 @@ services:
         hard: 1000000
     image: kindtek/sdb_dev-sol
     build:
-      context: solana/sdk/docker-solana
+      context: ./solana/sdk/docker-solana
     init: true
     stop_signal: SIGKILL
     volumes:
@@ -47,7 +47,7 @@ services:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
     image: kindtek/sdb_dev-yub
     build:
-      context: yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu
+      context: ./yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu
     init: true
     stop_signal: SIGKILL
     labels:
