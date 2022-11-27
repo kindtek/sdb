@@ -11,7 +11,6 @@ WORKDIR /build
 COPY . .
 RUN apk update \
     && apk add --no-cache git \
-    && git submodule update --init --recursive /build \
     && apk add openrc --no-cache \
     && git submodule update --init --recursive /build
 # RUN chmod +x ./build-sdb.sh \
