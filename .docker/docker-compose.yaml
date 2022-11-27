@@ -16,13 +16,15 @@ services:
     init: true
     stop_signal: SIGKILL
     command:
-      - "apt-get update -y"
+    - infinity
     entrypoint:
-      - "/bin/sh"
+    - sleep
     volumes:
       - ./build:/build
       # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       # - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
+    ports:
+    - "8899:8899"
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
