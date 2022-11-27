@@ -19,11 +19,10 @@ services:
       - "apt-get update q && \
         apt-get upgrade"
     entrypoint:
-      - "cd / && \
-        ls -al"
+      - "/build/build-sdb.sh"
     volumes:
-      - ./build_sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
-      - ./build_sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
+      - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
+      - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
