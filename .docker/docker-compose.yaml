@@ -9,15 +9,17 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
+    sysctls:
+      - docker.se
     build:
       context: .
       target: build-dev_sdb
     init: true
     stop_signal: SIGKILL
     command: 
-      - infinity
+      - "apt-get update qq && apt-get upgrade"
     entrypoint:
-      - sleep
+      - "/build/build-sdb.sh"
     volumes:
       - ./build_sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       - ./build_sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
