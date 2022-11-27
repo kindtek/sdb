@@ -9,16 +9,18 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-
+  
     build:
-      context: .
+      context: "."        
       target: build-dev_sdb
     init: true
     stop_signal: SIGKILL
     command: 
-      - "apt-get update qq && apt-get upgrade"
+      - "apt-get update q && \
+        apt-get upgrade"
     entrypoint:
-      - "/bin/sh"
+      - "cd / && \
+        ls -al"
     volumes:
       - ./build_sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       - ./build_sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
@@ -27,7 +29,6 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-      
 networks:
   default:
     name: networks-sdb_dev
@@ -41,3 +42,4 @@ volumes:
     name: volume-yub-bin
   volume-sol-bin:
     name: volume-sol-bin
+
