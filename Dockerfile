@@ -1,4 +1,4 @@
-FROM docker:dind AS installed-sdb_dev
+FROM docker:rc-dind AS installed-sdb_dev
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
