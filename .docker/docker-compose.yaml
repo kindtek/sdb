@@ -47,7 +47,7 @@ services:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
     image: kindtek/sdb_dev-yub
     build:
-      context: ../../../
+      context: ../../../../
     init: true
     stop_signal: SIGKILL
     labels:
