@@ -1,7 +1,7 @@
 #!/bin/sh
 export DOCKER_BUILDKIT=1
 apk update
-apk add --non-cache bash
+apk add --no-cache bash
 apk add --no-cache git
 apk add openrc --no-cache
 rc-update add docker
