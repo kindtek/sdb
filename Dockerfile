@@ -12,7 +12,7 @@ COPY . .
 RUN apk update \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
-    && git submodule update --init --recursive \build
+    && git submodule update --init --recursive /build
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
 # RUN chmod +x ./build-sdb.sh \
