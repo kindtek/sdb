@@ -17,8 +17,8 @@ RUN apk update \
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
 
-COPY ./solana/sdk/docker-solana solana
-COPY ./yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu yubico-net-sdk
+COPY ./solana/sdk/docker-solana solana/
+COPY ./yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu yubico-net-sdk/
 
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /build/build-sdb.sh
