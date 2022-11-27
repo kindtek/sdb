@@ -10,6 +10,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN apk update \
     && apk upgrade \
+    && apk devtools \
     && git clone --branch dev --recurse-submodules -j8 https://github.com/kindtek/sdb.git
 EXPOSE 8899
 COPY . .
