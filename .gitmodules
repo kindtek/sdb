@@ -1,10 +1,10 @@
 [submodule "solana"]
 	active = true
-	path = solana
+	path = /build/solana
 	url = https://github.com/kindtek/solana.git
 	branch = sdb_dev
 [submodule "yubico-net-sdk"]
 	active = true
-	path = yubico-net-sdk
+	path = /build/yubico-net-sdk
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = sdb_dev

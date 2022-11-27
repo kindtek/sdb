@@ -13,9 +13,9 @@ WORKDIR /build
 RUN apk update \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
-    && git submodule update --init --recursive \
-    && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
-    && sh /build/solana/sdk/docker-solana/build.sh
+    && git submodule update --init --recursive 
+    # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
+    # && sh /build/solana/sdk/docker-solana/build.sh
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /build/build-sdb.sh
 # RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
