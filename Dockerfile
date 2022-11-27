@@ -10,7 +10,7 @@ USER root
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache git
-RUN git submodule update --init --recursive /build
+RUN git submodule update --init --recursive
 EXPOSE 8899
 COPY . .
 
