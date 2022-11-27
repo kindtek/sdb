@@ -8,7 +8,7 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache git
+    && apk add --no-cache git \
     && git submodule update --init --recursive /build
 EXPOSE 8899
 COPY . .
