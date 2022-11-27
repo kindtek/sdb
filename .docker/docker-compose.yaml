@@ -16,9 +16,9 @@ services:
     init: true
     stop_signal: SIGKILL
     command:
-      - "apk update -y"
+      - "apk update"
     entrypoint:
-      - "/bin/sh"
+      - "/bin/sh /build/build-ubuntu.sh"
     volumes:
       - ./build:/build
       # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
