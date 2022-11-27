@@ -11,9 +11,9 @@ VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache git \
-    && cd .. \
+    && cd build \
     && ls -al \
-    && git submodule update --init --recursive /build \
+    && git submodule update --init --recursive \
     && /build/build-sdb.sh
 EXPOSE 8899
 COPY . .
