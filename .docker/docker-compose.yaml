@@ -15,10 +15,6 @@ services:
       target: installed-sdb_dev
     init: true
     stop_signal: SIGKILL
-    command:
-    - infinity
-    entrypoint:
-    - sleep
     volumes:
       - ./build:/build
       # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
