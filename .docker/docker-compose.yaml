@@ -9,16 +9,16 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-  
+    image: kindtek/sdb_dev
     build:
       context: "."        
       target: build-sdb_dev
     init: true
     stop_signal: SIGKILL
     command:
-    - "apt-get update -qq"
+    - "apk update -y"
     entrypoint:
-      - "/bin/sh"
+      - "./build-sdb.sh"
     volumes:
       - ./build:/build
       - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
