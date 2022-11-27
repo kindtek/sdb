@@ -26,14 +26,14 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
+  
 networks:
   default:
     name: networks-sdb_dev
     attachable: true
   # portainer_agent:
   #   driver: overlay
-  #   attachable: true
-
+  #   attachable: true  
 volumes:
   volume-yub-bin:
     name: volume-yub-bin
