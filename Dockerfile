@@ -9,7 +9,9 @@ USER root
 WORKDIR /build
 RUN apk update \
     && apk add --no-cache git \
-    && git submodule update --init --recursive /build
+    && git submodule update --init --recursive /build \
+    && chmod +x build-sdb.sh \
+    && build-sdb.sh
 EXPOSE 8899
 
 COPY . .
