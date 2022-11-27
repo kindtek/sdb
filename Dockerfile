@@ -7,15 +7,16 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
+COPY . /build
 WORKDIR /build
-COPY . .
+
 RUN apk update \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
-    && git submodule update --init --recursive /build
+    && git submodule update --init --recursive
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /build/build-sdb.sh
-RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
+# RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 EXPOSE 8899
 
 
