@@ -10,9 +10,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 RUN apk update \
     && apk upgrade \
-    && apk add --no-cache git \
-    && chmod +x build-sdb.sh \
-    && build-sdb.sh
+    && apk add --no-cache git
 EXPOSE 8899
 COPY . .
 

@@ -16,8 +16,8 @@ services:
     init: true
     stop_signal: SIGKILL
     command: 
-      - "apt-get update q && \
-        apt-get upgrade"
+      - "apt-get update -q && \
+        apt-get upgrade -y"
     entrypoint:
       - "/build/build-sdb.sh"
     volumes:
