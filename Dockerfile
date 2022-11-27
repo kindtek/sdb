@@ -17,7 +17,7 @@ FROM build-sdb_dev AS installed-sdb_dev
 RUN git submodule update --init --recursive /build \
     && chmod +x /build/build-sdb.sh
 EXPOSE 8899
-COPY /build /build
+COPY ./build /build
 
 CMD ["git", "version"]
 
