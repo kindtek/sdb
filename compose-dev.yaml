@@ -16,8 +16,7 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-    volumes:
-      - volume-sol-bin:/usr/sol-bin
+
 networks:
   default:
     name: networks-sdb_dev
@@ -26,6 +25,4 @@ networks:
   #   driver: overlay
   #   attachable: true
 
-volumes:
-  volume-sol-bin:
-    name: volume-sol-bin
+
