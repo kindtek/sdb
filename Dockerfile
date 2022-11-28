@@ -11,6 +11,7 @@ WORKDIR /build
 COPY . .
 
 RUN apk update \
+    && apk add bash \
     && apk add --no-cache git \
     && apk add openrc --no-cache \
     && git submodule update --init --recursive
