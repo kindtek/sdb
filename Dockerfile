@@ -22,15 +22,15 @@ FROM teracy/dev:dev_latest AS builder-sdb_dev
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN apt-get update
 
-FROM builder-sdb_dev AS building-sol-sdb_dev
+FROM builder-sdb_dev AS built-sol-sdb_dev
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN sh build.sh
 
-FROM builder-sdb_dev AS building-yub-sdb_dev
+FROM builder-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN sh build-ubuntu.sh
 
-FROM builder-sdb_dev AS building-sdb_dev
+FROM builder-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=0 ./sdb /sdb
 
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
