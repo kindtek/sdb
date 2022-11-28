@@ -27,16 +27,26 @@ WORKDIR /sdb/solana/sdk/docker-solana
 WORKDIR /
 COPY . .
 
-FROM built-sol-sdb_dev AS built-sdb_dev
-# FROM built-sol-sdb_dev AS built-sol-yub-sdb_dev
+FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# RUN sh build-ubuntu.sh
+WORKDIR /
+COPY . .
+
+FROM built-yub-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
 COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
 COPY --chown=0:0 --from=built-sol-sdb_dev ./lib/apk/db /lib/apk/db
 COPY --chown=0:0 --from=built-sol-sdb_dev ./bin/bash /bin/bash
 COPY --chown=0:0 --from=built-sol-sdb_dev ./usr/lib/bash /usr/lib/bash
 COPY --chown=0:0 --from=built-sol-sdb_dev ./etc /etc
-# RUN sh build-ubuntu.sh
+
+COPY --chown=0:0 --from=built-yub-sdb_dev ./run/docker.sock /run/docker.sock
+COPY --chown=0:0 --from=built-yub-sdb_dev ./var/cache/apk /var/cache/apk
+COPY --chown=0:0 --from=built-yub-sdb_dev ./lib/apk/db /lib/apk/db
+COPY --chown=0:0 --from=built-yub-sdb_dev ./bin/bash /bin/bash
+COPY --chown=0:0 --from=built-yub-sdb_dev ./usr/lib/bash /usr/lib/bash
+COPY --chown=0:0 --from=built-yub-sdb_dev ./etc /etc
 
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
