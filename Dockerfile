@@ -21,7 +21,7 @@ RUN apt-get update -y && apt-get install -yq wget
 FROM builder-sdb_dev AS built-sol-sdb_dev
 USER root
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh
+RUN sh build.sh --CI=true
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
 USER root
