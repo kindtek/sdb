@@ -16,14 +16,14 @@ RUN git submodule update --init --recursive
 FROM builder-sdb_dev AS built-sol-sdb_dev
 USER root
 COPY --chown=0:0 --from=builder-sdb_dev ./ .
-WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh
+# WORKDIR /sdb/solana/sdk/docker-solana
+# RUN sh build.sh
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
 USER root
 COPY --chown=0:0 --from=builder-sdb_dev ./ .
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
+# WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# RUN sh build-ubuntu.sh
 
 FROM builder-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=0 ./sdb /sdb
