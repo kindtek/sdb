@@ -15,7 +15,9 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-COPY . ./../../build
+COPY /solana ./build/solana
+COPY /yubico-net-sdk ./build/yubico-net-sdk
+
 
 RUN apk update \
     && apk add openrc --no-cache
