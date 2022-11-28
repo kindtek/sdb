@@ -14,7 +14,7 @@ RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
 WORKDIR /
-COPY . .
+COPY --chown=0:0 --from=installing-sdb_dev . .
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
 
 
@@ -30,9 +30,13 @@ COPY . .
 FROM built-sol-sdb_dev AS built-sdb_dev
 # FROM built-sol-sdb_dev AS built-sol-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
+COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
+COPY --chown=0:0 --from=built-sol-sdb_dev ./lib/apk/db /lib/apk/db
+COPY --chown=0:0 --from=built-sol-sdb_dev ./bin/bash /bin/bash
+COPY --chown=0:0 --from=built-sol-sdb_dev ./usr/lib/bash /usr/lib/bash
+COPY --chown=0:0 --from=built-sol-sdb_dev ./etc /etc
 # RUN sh build-ubuntu.sh
-WORKDIR /
-COPY . .
 
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
