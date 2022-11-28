@@ -13,7 +13,7 @@ COPY . .
 RUN git submodule update --init --recursive
 
 FROM teracy/ubuntu:18.04-dind-latest AS building-dind-git-sdb_dev
-COPY . .
+COPY ./usr /usr
 
 FROM docker/dev-environments-default:stable-1 AS building-sdb_dev
 COPY --from=building-dind-git-sdb_dev . .
