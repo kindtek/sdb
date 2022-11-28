@@ -56,8 +56,7 @@ services:
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol-sdb_dev
     init: true
-    command:
-      - "apt-get update -qq && apt-get install -yq wget"
+    command: tail -f /dev/null
     entrypoint:
       - "/usr/bin/solana-run.sh"
     stop_signal: SIGKILL
