@@ -10,7 +10,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
-RUN git submodule update --init --recursive
+RUN git submodule update --init --recursive /sdb
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
 WORKDIR /
