@@ -40,7 +40,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
-      target: installed-rc-dind-git-sdb_dev
+      target: built-sdb_dev
     init: true
     stop_signal: SIGKILL
     volumes:
@@ -65,6 +65,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      target: built-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
