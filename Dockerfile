@@ -14,7 +14,16 @@ RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
 WORKDIR /
-COPY --chown=0:0 --from=installing-sdb_dev . .
+COPY --chown=0:0 --from=installing-sdb_dev ./run /run
+COPY --chown=0:0 --from=installing-sdb_dev ./var/cache /var/cache
+COPY --chown=0:0 --from=installing-sdb_dev ./lib/apk/db /lib/apk/db
+COPY --chown=0:0 --from=installing-sdb_dev ./bin/bash /bin/bash
+COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib /usr/lib
+COPY --chown=0:0 --from=installing-sdb_dev ./etc /etc
+# COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
+
+
+
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 
 FROM building-sdb_dev AS built-sol-sdb_dev
