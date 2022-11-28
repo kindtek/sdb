@@ -23,8 +23,8 @@ WORKDIR /
 COPY . .
 
 FROM building-sdb_dev AS built-yub-sdb_dev
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
+WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu
+RUN sh ../../build-ubuntu.sh
 WORKDIR /
 COPY . .
 
