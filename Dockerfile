@@ -14,12 +14,7 @@ RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
 WORKDIR /
-COPY --chown=0:0 --from=installing-sdb_dev ./run/docker.sock /run/docker.sock
-COPY --chown=0:0 --from=installing-sdb_dev ./var/cache/apk /var/cache/apk
-COPY --chown=0:0 --from=installing-sdb_dev ./lib/apk/db /lib/apk/db
-COPY --chown=0:0 --from=installing-sdb_dev ./bin/bash /bin/bash
-COPY --chown=0:0 --from=installing-sdb_dev ./usr/lib/bash /usr/lib/bash
-COPY --chown=0:0 --from=installing-sdb_dev ./etc /etc
+COPY . .
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
 
 
@@ -32,21 +27,31 @@ RUN sh build.sh --CI=true
 WORKDIR /
 COPY . .
 
-FROM building-sdb_dev AS built-yub-sdb_dev
+FROM built-sol-sdb_dev AS built-sdb_dev
+# FROM built-sol-sdb_dev AS built-sol-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN sh build-ubuntu.sh
 WORKDIR /
 COPY . .
 
-
-
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
-FROM building-sdb_dev AS built-sdb_dev
-COPY --chown=0:0 --from=built-sol-sdb_dev . .
-COPY --chown=0:0 --from=built-yub-sdb_dev . .
+# FROM building-sdb_dev AS built-sdb_dev
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./lib/apk/db /lib/apk/db
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./bin/bash /bin/bash
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./usr/lib/bash /usr/lib/bash
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./etc /etc
+
+# COPY --chown=0:0 --from=built-yub-sdb_dev ./run/docker.sock /run/docker.sock
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./lib/apk/db /lib/apk/db
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./bin/bash /bin/bash
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./usr/lib/bash /usr/lib/bash
+# COPY --chown=0:0 --from=built-sol-sdb_dev ./etc /etc
 
 
 CMD ["git", "version"]
