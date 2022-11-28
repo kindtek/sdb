@@ -12,13 +12,8 @@ EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
 
-FROM teracy/ubuntu:18.04-dind-latest AS building-dind-git-sdb_dev
-RUN rm -Rf /var/lib/docker/buildkit/containerd-stargz/cachemounts/
-COPY . .
-
-FROM docker/dev-environments-default:stable-1 AS building-sdb_dev
-RUN rm -Rf /var/lib/docker/buildkit/containerd-stargz/cachemounts/
-COPY --from=building-dind-git-sdb_dev . .
+FROM teracy/ubuntu:dev_latest AS building-dind-git-sdb_dev
+COPY --from=installed-git-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 WORKDIR /sdb
 RUN sh build-sdb.sh
