@@ -12,7 +12,6 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-WORKDIR /build
 COPY --from=submods-init-sdb_dev . .
 
 RUN apk update \
