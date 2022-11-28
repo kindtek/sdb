@@ -8,7 +8,6 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
 # RUN apt-get update -y && apt-get install -yq wget
@@ -27,6 +26,8 @@ RUN sh build-ubuntu.sh
 
 FROM builder-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=0 ./sdb /sdb
+
+EXPOSE 8899
 
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
