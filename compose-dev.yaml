@@ -19,6 +19,7 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
       - volume-sdb:/sdb
       - volume-sol-bin:/sdb/solana/sdk/docker-solana/usr/bin
     labels:
