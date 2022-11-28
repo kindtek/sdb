@@ -22,8 +22,8 @@ FROM teracy/ubuntu:18.04-dind-latest AS building-sol-yub-dind-sdb_dev
 COPY . .
 
 FROM docker/dev-environments-default:stable-1 AS building-sdb_dev
-WORKDIR /sdb
 COPY --from=building-sol-yub-dind-sdb_dev ./sdb .
+WORKDIR /sdb
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 RUN sh build-sdb.sh
 # RUN chmod +x ./build-sdb.sh \
@@ -31,7 +31,7 @@ RUN sh build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 FROM installed-rc-dind-git-sdb_dev AS built-sdb_dev
-COPY --from=building-sdb_dev ./sdb /sdb
+COPY --from=building-sdb_dev ./ /sdb
 
 
 CMD ["git", "version"]
