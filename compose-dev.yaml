@@ -13,7 +13,7 @@ services:
     working_dir: /sdb
     build:
       context: .
-      target: installed-git-sdb_dev
+      target: installing-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
@@ -40,7 +40,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
-      target: built-sdb_dev
+      target: built-sol-sdb_dev
     init: true
     stop_signal: SIGKILL
     volumes:
@@ -65,7 +65,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: built-sdb_dev
+      target: built-yub-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL

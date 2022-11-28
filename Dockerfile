@@ -1,4 +1,4 @@
-FROM docker:git AS installed-git-sdb_dev
+FROM docker:git AS installing-sdb_dev
 WORKDIR /sdb
 ARG privileged=true
 ARG rm=true
@@ -12,17 +12,27 @@ EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
 
-FROM teracy/ubuntu:dev_latest AS building-dind-git-sdb_dev
+FROM teracy/ubuntu:dev_latest AS building-sdb_dev
 COPY --from=installed-git-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 WORKDIR /sdb
-RUN sh build-sdb.sh
+
+FROM building-sdb_dev AS built-sol-sdb_dev
+RUN sh /sdb/solana/sdk/docker-solana/build.sh --CI true 
+COPY . ./sdb
+
+FROM building-sdb_dev AS built-yub-sdb_dev
+RUN sh /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
+COPY . ./sdb
+
+
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 FROM building-sdb_dev AS built-sdb_dev
-COPY --from=building-sdb_dev ./ ../
+COPY --from=built-sol-sdb_dev . .
+COPY --from=built-yub-sdb_dev . .
 
 
 CMD ["git", "version"]
