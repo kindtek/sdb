@@ -22,10 +22,9 @@ FROM teracy/ubuntu:18.04-dind-latest AS building-sol-yub-dind-sdb_dev
 COPY . .
 
 FROM docker/dev-environments-default:stable-1 AS building-sdb_dev
-COPY --from=building-sol-yub-dind-sdb_dev ./sdb .
-
 WORKDIR /sdb
-COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
+COPY --from=building-sol-yub-dind-sdb_dev ./sdb .
+# COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 RUN sh build-sdb.sh
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
