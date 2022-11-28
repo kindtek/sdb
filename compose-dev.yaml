@@ -11,7 +11,6 @@ services:
         hard: 1000000
     image: kindtek/sdb_dev-sdb
     build:
-      working_dir: /build
       context: .
       target: installed-rc-dind-git-sdb_dev
     init: true
