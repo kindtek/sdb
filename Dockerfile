@@ -12,25 +12,25 @@ COPY . .
 RUN git submodule update --init --recursive
 # RUN apt-get update -y && apt-get install -yq wget
 
-FROM builder-sdb_dev AS built-sol-sdb_dev
-# USER root
-COPY --chown=0:0 --from=builder-sdb_dev ./ .
-VOLUME /var/run/docker.sock:/var/run/docker.sock
-WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh
+# FROM builder-sdb_dev AS built-sol-sdb_dev
+# # USER root
+# COPY --chown=0:0 --from=builder-sdb_dev ./ .
+# VOLUME /var/run/docker.sock:/var/run/docker.sock
+# WORKDIR /sdb/solana/sdk/docker-solana
+# RUN sh build.sh
 
-FROM builder-sdb_dev AS built-yub-sdb_dev
-# USER root
-COPY --chown=0:0 --from=builder-sdb_dev ./ .
-VOLUME /var/run/docker.sock:/var/run/docker.sock
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
+# FROM builder-sdb_dev AS built-yub-sdb_dev
+# # USER root
+# COPY --chown=0:0 --from=builder-sdb_dev ./ .
+# VOLUME /var/run/docker.sock:/var/run/docker.sock
+# WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# RUN sh build-ubuntu.sh
 
-FROM builder-sdb_dev AS built-sdb_dev
-VOLUME /var/run/docker.sock:/var/run/docker.sock
-COPY --chown=0:0 --from=0 ./sdb /sdb
+# FROM builder-sdb_dev AS built-sdb_dev
+# VOLUME /var/run/docker.sock:/var/run/docker.sock
+# COPY --chown=0:0 --from=0 ./sdb /sdb
 
-EXPOSE 8899
+# EXPOSE 8899
 
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
