@@ -12,12 +12,6 @@ EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
 
-# FROM teracy/dev:dev_latest AS building-sdb_dev
-# COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
-# COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
-
-# COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
-
 FROM teracy/dev:dev_latest AS builder-sdb_dev
 USER root
 WORKDIR /
