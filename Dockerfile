@@ -27,12 +27,12 @@ RUN apt-get update -y
 FROM builder-sdb_dev AS built-sol-sdb_dev
 USER root
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh
+# RUN sh build.sh
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
 USER root
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
+# RUN sh build-ubuntu.sh
 
 FROM builder-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=0 ./sdb /sdb
