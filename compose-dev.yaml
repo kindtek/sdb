@@ -13,7 +13,7 @@ services:
     working_dir: /sdb
     build:
       context: .
-      target: installed-rc-dind-git-sdb_dev
+      target: installed-git-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
