@@ -51,7 +51,7 @@ services:
     build:
       context: .
       dockerfile: build/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-    init: true
+    init: false
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     labels:
