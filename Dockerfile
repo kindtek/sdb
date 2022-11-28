@@ -1,4 +1,4 @@
-FROM docker:git AS builder
+FROM bionic:latest AS builder
 WORKDIR /sdb
 ARG privileged=true
 ARG rm=true
@@ -10,7 +10,9 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
-RUN git submodule update --init --recursive
+RUN apt-get update -y \
+    && apt-get install git -y \
+    && git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS builder-sdb_dev
 USER root
