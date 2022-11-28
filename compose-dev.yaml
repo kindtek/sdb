@@ -4,7 +4,8 @@ services:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/docker-solana/usr/bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      #:/sdb/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
@@ -60,7 +61,7 @@ services:
     depends_on:
       - "sdb"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     image: kindtek/sdb_dev-yub
     build:
       context: .
