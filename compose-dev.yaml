@@ -65,6 +65,7 @@ services:
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     image: kindtek/sdb_dev-yub
+    working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
