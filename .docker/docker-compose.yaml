@@ -28,5 +28,5 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-bin-sol:
+  volume-sol-bin:
     name: volume-sol-bin
