@@ -1,6 +1,7 @@
 FROM docker:git AS installed-git-sdb_dev
-RUN git submodule update --init --recursive /sdb
+COPY . .
 WORKDIR /sdb
+RUN git submodule update --init --recursive
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -25,7 +26,7 @@ RUN sh build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 FROM building-sdb_dev AS built-sdb_dev
-COPY --from=building-sdb_dev ./ /sdb
+COPY --from=building-sdb_dev ./ ../
 
 
 CMD ["git", "version"]
