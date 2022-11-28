@@ -28,9 +28,7 @@ RUN apk update \
 # RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 EXPOSE 8899
 
-
-
-
+FROM installed-rc-dind-git-sdb_dev AS built-sdb_dev
 
 CMD ["git", "version"]
 
