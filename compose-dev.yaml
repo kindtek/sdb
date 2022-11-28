@@ -12,9 +12,9 @@ services:
     image: kindtek/sdb_dev-sdb
     build:
       context: .
-      target: submods-init-sdb_dev
+      target: installed-sdb_dev
     init: true
-    entrypoint: git submodule update --init --recursive
+    entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
       - volume-sol-bin:/usr/sol-bin
@@ -31,8 +31,8 @@ services:
         hard: 1000000
     image: kindtek/sdb_dev-sol
     build:
-      context: ./build/solana/sdk/docker-solana
-      # dockerfile: build/solana/sdk/docker-solana/Dockerfile
+      context: .
+      dockerfile: build/solana/sdk/docker-solana/Dockerfile
     init: false
     stop_signal: SIGKILL
     volumes:
