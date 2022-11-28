@@ -18,8 +18,6 @@ VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY . .
 
 RUN apk update \
-    && apk add --no-cache bash \
-    && apk add --no-cache git \
     && apk add openrc --no-cache
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
