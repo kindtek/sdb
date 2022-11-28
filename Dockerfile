@@ -1,10 +1,11 @@
 FROM docker:rc-dind AS rc-dind-sdb_dev
-COPY . .
+COPY . ./build
 
 FROM docker:git AS rc-dind-git-sdb_dev
 COPY --from=rc-dind-sdb_dev . .
 
 FROM rc-dind-git-sdb_dev AS installed-rc-dind-git-sdb_dev
+WORKDIR /build
 RUN git submodule update --init --recursive /build
 ARG privileged=true
 ARG rm=true
