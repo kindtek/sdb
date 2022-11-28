@@ -17,14 +17,14 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb_dev-sdb
+    image: kindtek/sdb-sdb_dev
     working_dir: /sdb
     build:
       context: .
       target: built-sdb_dev
       cache_from:
         - sdb:builder-sdb_dev
-        - sdb:kindtek/sdb_dev-sdb
+        - sdb:kindtek/sdb-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
@@ -50,7 +50,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb_dev-sol
+    image: kindtek/sol-sdb_dev
     build:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
@@ -81,7 +81,7 @@ services:
       - "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/sdb_dev-yub
+    image: kindtek/yub-sdb_dev
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
