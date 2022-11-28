@@ -17,12 +17,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY . .
 
-
-RUN apk update \
-    && apk add openrc --no-cache \
-    && sh /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh  \
-    && sh /sdb/solana/sdk/docker-solana/build.sh
-
+RUN sh /sdb/build-sdb.sh
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
