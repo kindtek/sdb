@@ -17,11 +17,13 @@ COPY --from=installing-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 
 FROM building-sdb_dev AS built-sol-sdb_dev
-RUN sh solana/sdk/docker-solana/build.sh --CI=true 
+RUN cd /sdb/solana/sdk/docker-solana && \
+    ./build.sh --CI=true 
 COPY . ./sdb
 
 FROM building-sdb_dev AS built-yub-sdb_dev
-RUN sh yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
+RUN cd /sdb/yubico-net-sdk/Yubico.NativeShims && \
+    ./build-ubuntu.sh
 COPY . ./sdb
 
 
