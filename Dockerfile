@@ -19,7 +19,7 @@ WORKDIR /sdb
 
 FROM building-sdb_dev AS built-sol-sdb_dev
 RUN sh chmod +x ./sdb/solana/sdk/docker-solana/build.sh \
-    && /sdb/solana/sdk/docker-solana/build.sh --CI true 
+    && sh /sdb/solana/sdk/docker-solana/build.sh --CI true 
 COPY . ./sdb
 
 FROM building-sdb_dev AS built-yub-sdb_dev
