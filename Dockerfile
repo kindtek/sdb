@@ -15,15 +15,20 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
+EXPOSE 8899
 COPY . .
 
-RUN sh /sdb/build-sdb.sh
+FROM teracy/ubuntu:latest AS building-sol-yub-sdb_dev
+WORKDIR /sdb
+COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
+RUN sh build-sdb.sh
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /sdb/build-sdb.sh
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
-EXPOSE 8899
 
 FROM installed-rc-dind-git-sdb_dev AS built-sdb_dev
+COPY --from=building-sol-yub-sdb_dev ./sdb /sdb
+
 
 CMD ["git", "version"]
 
