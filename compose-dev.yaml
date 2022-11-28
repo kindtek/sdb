@@ -4,20 +4,68 @@ services:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
         hard: 1000000
     image: kindtek/sdb_dev-sdb
-    working_dir: /build
+    working_dir: /sdb
     build:
       context: .
       target: installed-rc-dind-git-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-
+    volumes:
+      - volume-sdb:/sdb
+      - volume-sol-bin:/sdb/solana/sdk/docker-solana/usr/bin
+  sol:
+    # pull_policy:
+    #   "always"
+    depends_on:
+      - "sdb"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
+    ulimits:
+      nofile:
+        soft: 1000000
+        hard: 1000000
+    image: kindtek/sdb_dev-sol
+    build:
+      context: .
+      dockerfile: build/solana/sdk/docker-solana/Dockerfile
+      target: installed-rc-dind-git-sdb_dev
+    init: false
+    stop_signal: SIGKILL
+    volumes:
+      - volume-sol-bin:/usr/sol-bin
+      # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
+      # - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
+  yub:
+    # pull_policy:
+    #   "always"
+    depends_on: 
+      - "sdb"
+    environment:
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+    image: kindtek/sdb_dev-yub
+    build:
+      context: .
+      dockerfile: build/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+    init: false
+    entrypoint: tail -f /dev/null
+    stop_signal: SIGKILL
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
 networks:
   default:
     name: networks-sdb_dev
@@ -26,4 +74,8 @@ networks:
   #   driver: overlay
   #   attachable: true
 
-
+volumes:
+  volume-sol-bin:
+    name: volume-sol-bin
+  volume-sdb:
+    name: volume-sdb
