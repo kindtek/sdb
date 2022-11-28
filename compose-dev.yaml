@@ -21,6 +21,7 @@ services:
   sol:
     # pull_policy:
     #   "always"
+    depends_on: "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     ulimits:
@@ -45,6 +46,7 @@ services:
   yub:
     # pull_policy:
     #   "always"
+    depends_on: "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
     image: kindtek/sdb_dev-yub
