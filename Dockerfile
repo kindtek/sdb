@@ -12,33 +12,26 @@ EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
 
-FROM teracy/dev:dev_latest AS building-sdb_dev
-COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
+# FROM teracy/dev:dev_latest AS building-sdb_dev
+# COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
-
-
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 
-FROM building-sdb_dev AS built-sol-sdb_dev
-WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh --CI=true 
-# WORKDIR /
-COPY . .
+FROM teracy/dev:dev_latest AS builder-sdb_dev
+COPY --chown=0:0 --from=0 ./sdb /sdb
+RUN apt-get update
 
-FROM building-sdb_dev AS built-yub-sdb_dev
+FROM builder-sdb_dev AS building-sol-sdb_dev
+WORKDIR /sdb/solana/sdk/docker-solana
+RUN sh build.sh
+
+FROM builder-sdb_dev AS building-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN sh build-ubuntu.sh
-# WORKDIR /
-COPY . .
 
-FROM built-yub-sdb_dev AS built-sdb_dev
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
-WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh --CI=true 
-WORKDIR /
-COPY . .
+FROM builder-sdb_dev AS building-sdb_dev
+COPY --chown=0:0 --from=0 ./sdb /sdb
 
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
