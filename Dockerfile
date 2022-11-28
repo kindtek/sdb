@@ -10,7 +10,7 @@ ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
-USER root
+USER root:docker
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY --from=submods-init-sdb_dev . .
 
