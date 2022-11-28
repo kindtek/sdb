@@ -18,7 +18,7 @@ VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
 
-FROM teracy/ubuntu:latest AS building-sol-yub-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS building-sol-yub-sdb_dev
 WORKDIR /sdb
 COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 RUN sh build-sdb.sh
