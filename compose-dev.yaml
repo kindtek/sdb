@@ -69,7 +69,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: built-yub-sdb_dev
+      target: built-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
