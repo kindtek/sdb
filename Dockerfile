@@ -13,7 +13,7 @@ COPY . .
 RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
-COPY --from=installing-sdb_dev . .
+COPY --chown=0:0 --from=installing-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 
 FROM building-sdb_dev AS built-sol-sdb_dev
@@ -35,8 +35,8 @@ COPY . .
 # RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 FROM building-sdb_dev AS built-sdb_dev
-COPY --from=built-sol-sdb_dev . .
-COPY --from=built-yub-sdb_dev . .
+COPY --chown=0:0 --from=built-sol-sdb_dev . .
+COPY --chown=0:0 --from=built-yub-sdb_dev . .
 
 
 CMD ["git", "version"]
