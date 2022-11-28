@@ -19,14 +19,17 @@ RUN git submodule update --init --recursive
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 
 FROM teracy/dev:dev_latest AS builder-sdb_dev
+USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN apt-get update
 
 FROM builder-sdb_dev AS built-sol-sdb_dev
+USER root
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN sh build.sh
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
+USER root
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN sh build-ubuntu.sh
 
