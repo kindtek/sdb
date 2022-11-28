@@ -12,7 +12,7 @@ services:
     image: kindtek/sdb_dev-sdb
     build:
       context: .
-      target: installed-sdb_dev
+      target: installed-rc-dind-git-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
