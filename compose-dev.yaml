@@ -10,6 +10,7 @@ services:
         soft: 1000000
         hard: 1000000
     image: kindtek/sdb_dev-sdb
+    working_dir: /build
     build:
       context: .
       target: installed-rc-dind-git-sdb_dev
