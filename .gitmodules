@@ -1,8 +1,8 @@
 [submodule "solana"]
-	path = ./solana
+	path = solana
 	url = https://github.com/kindtek/solana.git
 	branch = sdb_dev
 [submodule "yubico-net-sdk"]
-	path = ./yubico-net-sdk
+	path = yubico-net-sdk
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = sdb_dev
