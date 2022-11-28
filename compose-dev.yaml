@@ -45,6 +45,8 @@ services:
       target: built-sol-sdb_dev
     init: true
     stop_signal: SIGKILL
+    tty: true
+    interactive: true
     volumes:
       - volume-sol-bin:/usr/sol-bin
       - /var/run/docker.sock:/var/run/docker.sock
