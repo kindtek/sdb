@@ -1,7 +1,5 @@
 FROM docker:git AS installed-git-sdb_dev
-COPY . .
 WORKDIR /sdb
-RUN git submodule update --init --recursive
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -12,6 +10,7 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
+RUN git submodule update --init --recursive
 
 FROM teracy/ubuntu:18.04-dind-latest AS building-dind-git-sdb_dev
 COPY . .
