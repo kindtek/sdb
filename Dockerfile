@@ -1,3 +1,7 @@
+FROM docker:git AS submods-init-sdb_dev
+WORKDIR /build
+RUN git submodule update --init --recursive
+
 FROM docker:rc-dind AS installed-sdb_dev
 ARG privileged=true
 ARG rm=true
@@ -8,18 +12,14 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 WORKDIR /build
-COPY . .
+COPY --from=submods-init-sdb_dev . .
 
 RUN apk update \
     && apk add --no-cache bash \
     && apk add --no-cache git \
-    && apk add openrc --no-cache \
-    && git submodule update --init --recursive
+    && apk add openrc --no-cache
     # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
     # && sh /build/solana/sdk/docker-solana/build.sh
-
-COPY ./solana /build/solana
-COPY ./yubico-net-sdk /build/yubico-net-sdk
 
 # RUN chmod +x ./build-sdb.sh \
 #     && sh /build/build-sdb.sh
