@@ -16,7 +16,7 @@ FROM teracy/dev:dev_latest AS builder-sdb_dev
 USER root
 WORKDIR /
 COPY --chown=0:0 --from=builder . .
-RUN apt-get update -y
+RUN apt-get update -y && apt-get install -yq wget
 
 FROM builder-sdb_dev AS built-sol-sdb_dev
 USER root
