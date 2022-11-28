@@ -13,7 +13,7 @@ ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
-USER root:docker
+USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY . .
 
