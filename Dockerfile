@@ -15,7 +15,6 @@ RUN git submodule update --init --recursive
 FROM teracy/dev:dev_latest AS building-sdb_dev
 COPY --from=installing-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
-WORKDIR /sdb
 
 FROM building-sdb_dev AS built-sol-sdb_dev
 # RUN sh solana/sdk/docker-solana/build.sh --CI=true 
