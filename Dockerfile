@@ -13,7 +13,7 @@ COPY . .
 RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS building-sdb_dev
-COPY --from=installed-git-sdb_dev . .
+COPY --from=installing-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 WORKDIR /sdb
 
