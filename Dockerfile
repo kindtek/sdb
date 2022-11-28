@@ -1,9 +1,12 @@
-FROM docker:git AS submods-init-sdb_dev
-WORKDIR /build
+FROM docker:rc-dind AS rc-dind-sdb_dev
 COPY . .
-RUN git submodule update --init --recursive
 
-FROM docker:rc-dind AS installed-sdb_dev
+FROM docker:git AS rc-dind-git-sdb_dev
+COPY --from=rc-dind-sdb_dev . .
+
+FROM rc-dind-git-sdb_dev AS installed-rc-dind-git-sdb_dev
+WORKDIR /build
+RUN git submodule update --init --recursive
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -12,7 +15,7 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root:docker
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-COPY --from=submods-init-sdb_dev . .
+COPY . .
 
 RUN apk update \
     && apk add --no-cache bash \
