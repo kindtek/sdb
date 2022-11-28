@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   builder:
-    build: 
+    build:
       context: .
       cache_from:
         - sdb:builder
@@ -57,9 +57,9 @@ services:
       target: built-sol-sdb_dev
     init: true
     command:
-    - "apt-get update -qq && apt-get install -yq wget"
+      - "apt-get update -qq && apt-get install -yq wget"
     entrypoint:
-    - "/usr/bin/solana-run.sh"
+      - "/usr/bin/solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
