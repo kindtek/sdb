@@ -1,6 +1,6 @@
 FROM docker:git AS installed-git-sdb_dev
+RUN git submodule update --init --recursive /sdb
 WORKDIR /sdb
-RUN git submodule update --init --recursive 
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
