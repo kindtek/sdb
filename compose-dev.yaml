@@ -57,7 +57,7 @@ services:
     image: kindtek/sdb_dev-yub
     build:
       context: .
-      dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
     init: false
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
