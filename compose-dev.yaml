@@ -1,12 +1,12 @@
 version: "3.8"
 services:
-  builder:
+  builder-sdb_dev:
     build:
       context: .
       cache_from:
-        - sdb:builder
-      target: builder
-    image: sdb:builder
+        - sdb:builder-sdb_dev
+      target: builder-sdb_dev
+    image: sdb:builder-sdb_dev
   sdb:
     # pull_policy:
     #   "always"
@@ -23,7 +23,7 @@ services:
       context: .
       target: built-sdb_dev
       cache_from:
-        - sdb:builder
+        - sdb:builder-sdb_dev
         - sdb:kindtek/sdb_dev-sdb
     init: true
     entrypoint: tail -f /dev/null
