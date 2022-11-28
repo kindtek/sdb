@@ -31,8 +31,8 @@ services:
         hard: 1000000
     image: kindtek/sdb_dev-sol
     build:
-      context: .
-      dockerfile: build/solana/sdk/docker-solana/Dockerfile
+      context: ./build/solana/sdk/docker-solana
+      # dockerfile: build/solana/sdk/docker-solana/Dockerfile
     init: false
     stop_signal: SIGKILL
     volumes:
