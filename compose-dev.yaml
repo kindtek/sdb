@@ -46,6 +46,8 @@ services:
     stop_signal: SIGKILL
     volumes:
       - volume-sol-bin:/usr/sol-bin
+    ports:
+      - "8899:8899"
       # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
       # - ./sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
     labels:
