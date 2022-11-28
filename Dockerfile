@@ -20,7 +20,7 @@ COPY . .
 
 RUN apk update \
     && apk add openrc --no-cache \
-    && sh /sdb/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
+    && sh /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh  \
     && sh /sdb/solana/sdk/docker-solana/build.sh
 
 # RUN chmod +x ./build-sdb.sh \
