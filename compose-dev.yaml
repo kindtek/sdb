@@ -3,7 +3,7 @@ services:
   builder:
     build: 
       context: .
-      cached_from:
+      cache_from:
         - sdb:builder
       target: builder
     image: sdb:builder
@@ -22,7 +22,7 @@ services:
     build:
       context: .
       target: built-sdb_dev
-      cached_from:
+      cache_from:
         - sdb:builder
         - sdb:kindtek/sdb_dev-sdb
     init: true
