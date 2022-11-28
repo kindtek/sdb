@@ -1,4 +1,4 @@
-FROM ubuntu:bionic AS builder
+FROM docker:git AS builder
 WORKDIR /sdb
 ARG privileged=true
 ARG rm=true
@@ -10,13 +10,10 @@ USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
-RUN apt-get update -y \
-    && apt-get install git -y \
-    && git submodule update --init --recursive
+RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS builder-sdb_dev
 USER root
-ARG init=true
 WORKDIR /
 COPY --chown=0:0 --from=builder . .
 RUN apt-get update -y && apt-get install -yq wget
@@ -24,7 +21,7 @@ RUN apt-get update -y && apt-get install -yq wget
 FROM builder-sdb_dev AS built-sol-sdb_dev
 USER root
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN sh build.sh --CI=true
+RUN sh build.sh
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
 USER root
