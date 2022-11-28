@@ -7,15 +7,14 @@ ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
-VOLUME /var/run/docker.sock:/var/run/docker.sock
+# VOLUME /var/run/docker.sock:/var/run/docker.sock
 COPY . .
 RUN git submodule update --init --recursive
 # RUN apt-get update -y && apt-get install -yq wget
 
-FROM teracy/dev:dev_latest AS build-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
 # USER root
 COPY --chown=0:0 --from=builder-sdb_dev . .
-VOLUME /var/run/docker.sock:/var/run/docker.sock
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN sh build.sh
 
