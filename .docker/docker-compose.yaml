@@ -13,7 +13,7 @@ services:
     build:
       context: .
       target: installed-sdb_dev
-    init: true
+    init: false
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
@@ -31,7 +31,7 @@ services:
     build:
       context: .
       dockerfile: build/solana/sdk/docker-solana/Dockerfile
-    init: true
+    init: false
     stop_signal: SIGKILL
     volumes:
       - volume-sol-bin:/build/solana/sdk/docker-solana/usr/bin
