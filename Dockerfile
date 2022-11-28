@@ -3,7 +3,6 @@ COPY . .
 
 FROM docker:git AS rc-dind-git-sdb_dev
 COPY --from=rc-dind-sdb_dev . .
-WORKDIR /build
 
 FROM rc-dind-git-sdb_dev AS installed-rc-dind-git-sdb_dev
 RUN git submodule update --init --recursive
@@ -15,8 +14,7 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 VOLUME /var/run/docker.sock:/var/run/docker.sock
-COPY /solana ./build/solana
-COPY /yubico-net-sdk ./build/yubico-net-sdk
+COPY . .
 
 
 RUN apk update \
