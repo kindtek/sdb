@@ -19,13 +19,13 @@ COPY . .
 
 
 RUN apk update \
-    && apk add openrc --no-cache
-    # && sh /build/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
-    # && sh /build/solana/sdk/docker-solana/build.sh
+    && apk add openrc --no-cache \
+    && sh /sdb/yubico-sdk-net/Yubico.NativeShims/build-ubuntu.sh  \
+    && sh /sdb/solana/sdk/docker-solana/build.sh
 
 # RUN chmod +x ./build-sdb.sh \
-#     && sh /build/build-sdb.sh
-# RUN chmod +x ./build/solana/sdk/docker-solana/build.sh ./build/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
+#     && sh /sdb/build-sdb.sh
+# RUN chmod +x ./sdb/solana/sdk/docker-solana/build.sh ./sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 EXPOSE 8899
 
 FROM installed-rc-dind-git-sdb_dev AS built-sdb_dev
