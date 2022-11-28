@@ -1,4 +1,4 @@
-FROM bionic:latest AS builder
+FROM ubuntu:bionic AS builder
 WORKDIR /sdb
 ARG privileged=true
 ARG rm=true
