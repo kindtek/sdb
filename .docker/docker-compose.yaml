@@ -4,7 +4,7 @@ services:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/usr/sol-bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
     ulimits:
       nofile:
         soft: 1000000
