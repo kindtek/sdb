@@ -1,5 +1,6 @@
 FROM docker:git AS submods-init-sdb_dev
 WORKDIR /build
+COPY . .
 RUN git submodule update --init --recursive
 
 FROM docker:rc-dind AS installed-sdb_dev
