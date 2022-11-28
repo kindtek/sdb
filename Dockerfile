@@ -5,7 +5,7 @@ FROM docker:git AS rc-dind-git-sdb_dev
 COPY --from=rc-dind-sdb_dev . .
 
 FROM rc-dind-git-sdb_dev AS installed-rc-dind-git-sdb_dev
-RUN git submodule update --init --recursive
+RUN git submodule update --init --recursive /build
 ARG privileged=true
 ARG rm=true
 ARG cap-add=NET_ADMIN
