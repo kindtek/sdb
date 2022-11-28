@@ -46,7 +46,7 @@ services:
     init: true
     stop_signal: SIGKILL
     tty: true
-    interactive: true
+    stdin_open: true
     volumes:
       - volume-sol-bin:/usr/sol-bin
       - /var/run/docker.sock:/var/run/docker.sock
