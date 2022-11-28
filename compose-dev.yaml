@@ -20,7 +20,6 @@ services:
     volumes:
       - volume-sdb:/sdb
       - volume-sol-bin:/sdb/solana/sdk/docker-solana/usr/bin
-      - /sdb:/com.docker.devenvironments.code
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -42,7 +41,7 @@ services:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
       target: installed-rc-dind-git-sdb_dev
-    init: false
+    init: true
     stop_signal: SIGKILL
     volumes:
       - volume-sol-bin:/usr/sol-bin
@@ -66,7 +65,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-    init: false
+    init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     labels:

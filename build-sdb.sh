@@ -8,6 +8,8 @@ rc-update add docker
 rc-update add containerd
 rc-service docker start
 
+containerd
+
 sh /sdb/solana/sdk/docker-solana/build.sh
 sh /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 # systemctl enable docker.service
