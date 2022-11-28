@@ -14,6 +14,7 @@ services:
       context: .
       target: installed-sdb_dev
     init: true
+    entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
       - volume-bin-sol:/usr/sol/bin
