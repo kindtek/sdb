@@ -12,9 +12,9 @@ services:
     image: kindtek/sdb_dev-sdb
     build:
       context: .
-      target: installed-sdb_dev
+      target: submods-init-sdb_dev
     init: true
-    entrypoint: tail -f /dev/null
+    entrypoint: git submodule update --init --recursive
     stop_signal: SIGKILL
     volumes:
       - volume-sol-bin:/usr/sol-bin
