@@ -20,7 +20,8 @@ RUN git submodule update --init --recursive
 
 FROM teracy/dev:dev_latest AS builder-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 ./sdb /sdb
+WORKDIR /
+COPY --chown=0:0 --from=0 . .
 RUN apt-get update -y
 
 FROM builder-sdb_dev AS built-sol-sdb_dev
