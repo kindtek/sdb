@@ -17,6 +17,7 @@ RUN rm -Rf /var/lib/docker/buildkit/containerd-stargz/cachemounts/
 COPY . .
 
 FROM docker/dev-environments-default:stable-1 AS building-sdb_dev
+RUN rm -Rf /var/lib/docker/buildkit/containerd-stargz/cachemounts/
 COPY --from=building-dind-git-sdb_dev . .
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 WORKDIR /sdb
