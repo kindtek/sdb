@@ -1,5 +1,12 @@
 version: "3.8"
 services:
+  builder-sdb_dev:
+    build:
+      context: .
+      cache_from:
+        - sdb:builder-sdb_dev
+      target: builder-sdb_dev
+    image: sdb:builder-sdb_dev
   sdb:
     # pull_policy:
     #   "always"
@@ -15,6 +22,9 @@ services:
     build:
       context: .
       target: built-sdb_dev
+      cache_from:
+        - sdb:builder-sdb_dev
+        - sdb:kindtek/sdb_dev-sdb
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
@@ -22,6 +32,8 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - volume-sdb:/sdb
       - volume-sol-bin:/sdb/solana/sdk/docker-solana/usr/bin
+    ports:
+      - "8899:8899"
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -44,10 +56,9 @@ services:
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol-sdb_dev
     init: true
-    command:
-    - "apt-get update -qq && apt-get install -yq wget"
+    command: tail -f /dev/null
     entrypoint:
-    - "/usr/bin/solana-run.sh"
+      - "/usr/bin/solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true

@@ -1,4 +1,4 @@
-FROM docker:git AS installing-sdb_dev
+FROM docker:git AS builder-sdb_dev
 WORKDIR /sdb
 ARG privileged=true
 ARG rm=true
@@ -11,25 +11,17 @@ VOLUME /var/run/docker.sock:/var/run/docker.sock
 EXPOSE 8899
 COPY . .
 RUN git submodule update --init --recursive
-
-# FROM teracy/dev:dev_latest AS building-sdb_dev
-# COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
-# COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
-
-# COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
-
-FROM teracy/dev:dev_latest AS builder-sdb_dev
-USER root
-COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN apt-get update
+# RUN apt-get update -y && apt-get install -yq wget
 
 FROM builder-sdb_dev AS built-sol-sdb_dev
-USER root
+# USER root
+COPY --chown=0:0 --from=builder-sdb_dev ./ .
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN sh build.sh
 
 FROM builder-sdb_dev AS built-yub-sdb_dev
-USER root
+# USER root
+COPY --chown=0:0 --from=builder-sdb_dev ./ .
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN sh build-ubuntu.sh
 
