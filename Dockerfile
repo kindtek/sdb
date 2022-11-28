@@ -18,13 +18,13 @@ COPY --from=installing-sdb_dev . .
 
 FROM building-sdb_dev AS built-sol-sdb_dev
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN ./build.sh --CI=true 
+RUN sh build.sh --CI=true 
 WORKDIR /
 COPY . .
 
 FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN ./build-ubuntu.sh
+RUN sh build-ubuntu.sh
 WORKDIR /
 COPY . .
 
