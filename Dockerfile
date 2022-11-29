@@ -1,9 +1,8 @@
 # 0
 FROM docker:git AS installing-sdb_dev
-
-USER root
+COPY ./ /sdb
 WORKDIR /sdb
-COPY ./ /
+USER root
 RUN git submodule update --init --recursive
 
 # # xxxx1xxx
@@ -50,7 +49,7 @@ RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && sh build-ubuntu.sh
 
 #3
-FROM building-sdb_dev AS built-sdb_dev
+FROM teracy/dev:dev_latest AS built-sdb_dev
 USER root
 # COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=1 ./sdb /sdb
