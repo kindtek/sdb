@@ -41,8 +41,8 @@ services:
   sol:
     # pull_policy:
     #   "always"
-    depends_on:
-      - "sdb"
+    # depends_on:
+    #   - "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
     ulimits:
@@ -55,7 +55,6 @@ services:
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol-sdb_dev
     init: true
-    command: tail -f /dev/null
     entrypoint:
       - "/usr/bin/solana-run.sh"
     stop_signal: SIGKILL
