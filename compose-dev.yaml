@@ -40,9 +40,8 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
+      - volume-sdb:/sdb
       - /var/run/docker.sock:/var/run/docker.sock
-      - volume-sol:/sdb/solana
-      - volume-yub:/sdb/yubico-net-sdk
 
     labels:
       com.docker.devenvironments: "true"
@@ -72,7 +71,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - volume-sol:/sdb/solana
+      - volume-sdb:/sdb
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
@@ -100,7 +99,7 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-yub:/sdb/yubico-net-sdk
+      - volume-sdb:/sdb
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
@@ -119,9 +118,9 @@ volumes:
   volume-sdb:
     name: volume-sdb
     external: false
-  volume-sol:
-    name: volume-sol
-    external: false
-  volume-yub:
-    name: volume-yub
-    external: false
+  # volume-sol:
+  #   name: volume-sol
+  #   external: false
+  # volume-yub:
+  #   name: volume-yub
+  #   external: false

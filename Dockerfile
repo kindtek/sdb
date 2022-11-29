@@ -18,7 +18,7 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
 RUN cd /
-COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
+COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
 # RUN /install.sh && sh sdk/docker-solana/build.sh --CI=true 
@@ -27,7 +27,7 @@ WORKDIR /sdb/solana
 FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
 USER root
 RUN cd /
-COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /install.sh && build-ubuntu.sh
 
@@ -36,8 +36,7 @@ FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
-COPY --chown=0:0 --from=2 ./sdb/yubico-net-sdk  /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb
 
 CMD ["git", "version"]
