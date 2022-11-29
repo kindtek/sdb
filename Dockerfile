@@ -29,7 +29,7 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 ./ /sdb
+COPY --chown=0:0 --from=0 . .
 WORKDIR /sdb/solana
 # RUN cd /sdb/solana/sdk/docker-solana \
     # && chmod +x build.sh 
@@ -39,7 +39,7 @@ WORKDIR /sdb/solana
 # 2
 FROM teracy/dev:dev_latest AS built-yub-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 ./ /sdb
+COPY --chown=0:0 --from=0 . .
 WORKDIR /sdb/yubico-net-sdk
 # RUN cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     # && chmod +x build-ubuntu.sh \
