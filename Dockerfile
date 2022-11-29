@@ -14,7 +14,7 @@ RUN git submodule update --init --recursive
 # 1
 FROM teracy/dev:dev_latest AS building-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=installing-sdb_dev . .
 RUN apt-get update -y 
 # \
 #     && apt-key list \
@@ -29,7 +29,8 @@ RUN apt-get update -y
 FROM building-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
-COPY . .
+COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 . .
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN ls /sdb/solana/sdk/docker-solana -al \
     && cd /sdb/solana/sdk/docker-solana \
@@ -39,7 +40,9 @@ RUN ls /sdb/solana/sdk/docker-solana -al \
 
 # 3
 FROM building-sdb_dev AS built-yub-sdb_dev
-COPY . .
+USER root
+COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 . .
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
@@ -49,6 +52,9 @@ RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
 
 #4
 FROM building-sdb_dev AS built-sdb_dev
+USER root
+COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 . .
 COPY --chown=0:0 --from=2 . .
 COPY --chown=0:0 --from=3 . .
 
