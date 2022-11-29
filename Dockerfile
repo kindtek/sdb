@@ -8,7 +8,6 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 WORKDIR /sdb
-COPY . .
 RUN git submodule update --init --recursive
 COPY . .
 
