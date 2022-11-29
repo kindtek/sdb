@@ -13,7 +13,7 @@ services:
       target: clone-git-sdb_dev
     image: kindtek/git-sdb_dev
     entrypoint: tail -f /dev/null
-  labels:
+    labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
