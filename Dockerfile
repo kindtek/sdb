@@ -7,8 +7,8 @@ ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
-COPY . .
 WORKDIR /sdb
+COPY . .
 RUN git submodule update --init --recursive
 
 # 1
