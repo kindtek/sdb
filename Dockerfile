@@ -39,8 +39,8 @@ RUN ls /sdb/solana/sdk/docker-solana -al \
 
 # 3
 FROM building-sdb_dev AS built-yub-sdb_dev
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 COPY . .
+WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     && ls -al \
