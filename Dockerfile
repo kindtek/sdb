@@ -16,7 +16,7 @@ COPY . .
 FROM teracy/dev:dev_latest AS building-sdb_dev
 USER root
 RUN apt-get update
-COPY --chown=0:0 --from=0 ./sdb .
+COPY --chown=0:0 --from=0 ./sdb /sdb
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
 
 
