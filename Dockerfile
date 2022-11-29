@@ -1,7 +1,7 @@
 # 0
 FROM docker:git AS installing-sdb_dev
 WORKDIR /sdb
-COPY . .
+COPY ./ .
 RUN git submodule update --init --recursive
 
 # # xxxx1xxx
@@ -47,6 +47,7 @@ COPY --chown=0:0 --from=0 . .
 #3
 FROM teracy/dev:dev_latest AS built-sdb_dev
 USER root
+EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=1 ./solana /sdb/solana
 COPY --chown=0:0 --from=2 ./yubico-net-sdk  /sdb/yubico-net-sdk
