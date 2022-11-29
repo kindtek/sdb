@@ -1,8 +1,7 @@
 # 0
 FROM docker:git AS installing-sdb_dev
-WORKDIR /sdb
 COPY . .
-USER root
+WORKDIR /sdb
 RUN git submodule update --init --recursive
 
 # # xxxx1xxx
@@ -29,8 +28,8 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 . .
 WORKDIR /solana
+COPY --chown=0:0 --from=0 . .
 # RUN cd /sdb/solana/sdk/docker-solana \
     # && chmod +x build.sh 
     # \
