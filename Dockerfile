@@ -57,8 +57,8 @@ USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
 RUN pwd && ls -al
-COPY --chown=0:0 --from=1 ./solana /sdb/solana
-COPY --chown=0:0 --from=2 ./yubico-net-sdk  /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
+COPY --chown=0:0 --from=2 ./sdb/yubico-net-sdk  /sdb/yubico-net-sdk
 WORKDIR /sdb
 
 CMD ["git", "version"]
