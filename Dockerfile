@@ -35,27 +35,28 @@ COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 RUN cd /sdb/solana && ls -al
 WORKDIR /sdb/solana
 # RUN cd /sdb/solana/sdk/docker-solana \
-    # && chmod +x build.sh 
-    # \
-    # && sh build.sh --CI=true 
+# && chmod +x build.sh 
+# \
+# && sh build.sh --CI=true 
 
 # 2
 FROM teracy/dev:dev_latest AS built-yub-sdb_dev
 USER root
-RUN cd / && ls -al
+RUN pwd && ls -al
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 RUN cd /sdb/yubico-net-sdk && ls -al
 
 WORKDIR /sdb/yubico-net-sdk
 # RUN cd /sdb/yubico-net-sdk/Yubico.NativeShims \
-    # && chmod +x build-ubuntu.sh \
-    # && sh build-ubuntu.sh
+# && chmod +x build-ubuntu.sh \
+# && sh build-ubuntu.sh
 
 #3
 FROM teracy/dev:dev_latest AS built-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
+RUN pwd && ls -al
 COPY --chown=0:0 --from=1 ./solana /sdb/solana
 COPY --chown=0:0 --from=2 ./yubico-net-sdk  /sdb/yubico-net-sdk
 WORKDIR /sdb
