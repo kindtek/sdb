@@ -13,6 +13,11 @@ services:
       target: clone-git-sdb_dev
     image: kindtek/git-sdb_dev
     entrypoint: tail -f /dev/null
+  labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
   sdb:
     # pull_policy:
     #   "always"
