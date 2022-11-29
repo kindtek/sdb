@@ -1,7 +1,7 @@
 # 0
 FROM docker:git AS installing-sdb_dev
 WORKDIR /sdb
-COPY ../ ./
+COPY . .
 USER root
 RUN git submodule update --init --recursive
 
@@ -29,8 +29,8 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 ./sdb .
-WORKDIR /sdb/solana
+COPY --chown=0:0 --from=0 . .
+WORKDIR /solana
 # RUN cd /sdb/solana/sdk/docker-solana \
     # && chmod +x build.sh 
     # \
@@ -39,8 +39,8 @@ WORKDIR /sdb/solana
 # 2
 FROM teracy/dev:dev_latest AS built-yub-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 ./sdb .
-WORKDIR /sdb/yubico-net-sdk
+WORKDIR /yubico-net-sdk
+COPY --chown=0:0 --from=0 . .
 # RUN cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     # && chmod +x build-ubuntu.sh \
     # && sh build-ubuntu.sh
@@ -49,8 +49,8 @@ WORKDIR /sdb/yubico-net-sdk
 FROM teracy/dev:dev_latest AS built-sdb_dev
 USER root
 # COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 ./sdb .
-COPY --chown=0:0 --from=2 ./sdb .
+COPY --chown=0:0 --from=1 ./solana /sdb/solana
+COPY --chown=0:0 --from=2 ./yubico-net-sdk  /sdb/yubico-net-sdk
 
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
