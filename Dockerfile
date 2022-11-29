@@ -3,6 +3,7 @@ FROM docker:git AS installing-sdb_dev
 COPY . ./sdb
 RUN ls -al && cd /sdb
 RUN git submodule update --init --recursive
+RUN ls -al
 
 # # xxxx1xxx
 # FROM teracy/dev:dev_latest AS building-sdb_dev
