@@ -15,7 +15,11 @@ COPY . .
 # 1
 FROM teracy/dev:dev_latest AS building-sdb_dev
 USER root
-RUN apt-get update -y
+RUN apt-get update -y \
+    && apt-key list | \
+    && grep "expired: " | \
+    && sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' | \
+    && xargs -n1 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
 COPY --chown=0:0 --from=0 . .
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
 
