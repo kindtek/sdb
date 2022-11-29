@@ -2,9 +2,7 @@
 FROM docker:git AS clone-git-sdb_dev
 RUN ls -al
 COPY . ./sdb
-RUN pwd && ls -al
-RUN cd /sdb && git submodule update --init --recursive
-RUN pwd && ls -al
+RUN git submodule update --init --recursive
 
 # # xxxx1xxx
 # FROM teracy/dev:dev_latest AS building-sdb_dev
@@ -30,9 +28,7 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
-RUN cd / && ls -al
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
-RUN cd /sdb/solana && ls -al
 WORKDIR /sdb/solana
 # RUN cd /sdb/solana/sdk/docker-solana \
 # && chmod +x build.sh 
@@ -42,9 +38,7 @@ WORKDIR /sdb/solana
 # 2
 FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
 USER root
-RUN cd / && ls -al
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
-RUN cd /sdb/yubico-net-sdk && ls -al
 
 WORKDIR /sdb/yubico-net-sdk
 # RUN cd /sdb/yubico-net-sdk/Yubico.NativeShims \
@@ -56,7 +50,6 @@ FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
-RUN pwd && ls -al
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 COPY --chown=0:0 --from=2 ./sdb/yubico-net-sdk  /sdb/yubico-net-sdk
 WORKDIR /sdb
