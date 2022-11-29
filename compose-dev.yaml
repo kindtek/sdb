@@ -10,7 +10,7 @@ services:
   git:
     build:
       context: .
-      target: cloning-git-sdb_dev
+      target: clone-git-sdb_dev
     image: kindtek/git-sdb_dev
   sdb:
     # pull_policy:
