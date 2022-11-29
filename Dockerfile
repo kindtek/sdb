@@ -2,7 +2,7 @@
 FROM docker:git AS clone-git-sdb_dev
 RUN ls -al
 COPY . ./sdb
-RUN git submodule update --init --recursive
+RUN cd / && git submodule update --init --recursive
 
 # # xxxx1xxx
 # FROM teracy/dev:dev_latest AS building-sdb_dev
