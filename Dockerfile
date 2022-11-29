@@ -1,6 +1,5 @@
 # 0
 FROM docker:git AS clone-git-sdb_dev
-RUN ls -al
 COPY . ./sdb
 RUN cd / && git submodule update --init --recursive
 
