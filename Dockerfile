@@ -1,15 +1,10 @@
 # 0
 FROM docker:git AS installing-sdb_dev
-ARG privileged=true
-ARG rm=true
-ARG cap-add=NET_ADMIN
-ARG cap-add=NET_RAW
-ARG init=true
-ENV DOCKER_TLS_CERTDIR=/certs
+
 USER root
 WORKDIR /sdb
 COPY ./ .
-RUN git submodule update --init --recursive
+RUN git submodule update --init --recursive /sdb
 
 # # xxxx1xxx
 # FROM teracy/dev:dev_latest AS building-sdb_dev
@@ -27,6 +22,12 @@ RUN git submodule update --init --recursive
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 1
 FROM teracy/dev:dev_latest AS built-sol-sdb_dev
+ARG privileged=true
+# ARG rm=true
+ARG cap-add=NET_ADMIN
+ARG cap-add=NET_RAW
+ARG init=true
+ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./ /sdb
