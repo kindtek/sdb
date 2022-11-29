@@ -31,14 +31,14 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-# RUN sh sdk/docker-solana/build.sh --CI=true 
+# RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 2
 FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
 USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
-RUN cd /sdb/yubico-net-sdk
+RUN ./install.sh && cd /sdb/yubico-net-sdk
 
 WORKDIR /sdb/yubico-net-sdk
 # RUN sh Yubico.NativeShims/build-ubuntu.sh
