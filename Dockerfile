@@ -31,9 +31,9 @@ USER root
 EXPOSE 8899
 WORKDIR /sdb/solana/sdk/docker-solana
 COPY . .
-RUN ls /sdb/solana -al \
+RUN ls /sdb/solana/sdd/docker-solana -al \
     && cd /sdb/solana/sdk/docker-solana \
-    && ls /sdb/solana/sdk/ -al \
+    && ls -al \
     && chmod +x build.sh \
     && sh build.sh --CI=true 
 
