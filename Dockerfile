@@ -1,5 +1,5 @@
 # 0
-FROM docker:git AS installing-sdb_dev
+FROM docker:git AS cloning-git-sdb_dev
 RUN ls -al
 COPY . ./sdb
 RUN pwd && ls -al

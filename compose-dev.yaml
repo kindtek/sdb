@@ -7,6 +7,11 @@ services:
   #       - sdb:builder-sdb_dev
   #     target: builder-sdb_dev
   #   image: sdb:builder-sdb_dev
+  git:
+    build:
+      context: .
+    image: kindtek/git-sdb_dev
+    target: cloning-git-sdb_dev
   sdb:
     # pull_policy:
     #   "always"
@@ -31,7 +36,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - volume-sol:/sdb/solana
-      - volume-yub:/sdb/yubico-sdk-net
+      - volume-yub:/sdb/yubico-net-sdk
 
     labels:
       com.docker.devenvironments: "true"
@@ -89,7 +94,7 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-yub:/sdb/yubico-sdk-net
+      - volume-yub:/sdb/yubico-net-sdk
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
