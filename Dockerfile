@@ -34,8 +34,9 @@ WORKDIR /sdb/solana/sdk/docker-solana
 RUN ls /sdb/solana/sdk/docker-solana -al \
     && cd /sdb/solana/sdk/docker-solana \
     && ls -al \
-    && chmod +x build.sh \
-    && sh build.sh --CI=true 
+    && chmod +x build.sh 
+    # \
+    # && sh build.sh --CI=true 
 
 # 2
 FROM teracy/dev:dev_latest AS built-yub-sdb_dev
@@ -45,8 +46,9 @@ WORKDIR /sdb/yubico-net-sdk
 RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     && ls -al \
-    && chmod +x build-ubuntu.sh \
-    && sh build-ubuntu.sh
+    && chmod +x build-ubuntu.sh 
+    # \
+    # && sh build-ubuntu.sh
 
 #3
 FROM teracy/dev:dev_latest AS built-sdb_dev
