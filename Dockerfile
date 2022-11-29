@@ -30,7 +30,7 @@ COPY --chown=0:0 --from=0 . .
 FROM building-sdb_dev AS built-sol-sdb_dev
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN ls / -al \
-    && cd /solana/sdk/docker-solana \
+    && cd /sdb/solana/sdk/docker-solana \
     && ls -al \
     && chmod +x build.sh \
     && sh build.sh --CI=true 
@@ -41,7 +41,7 @@ COPY . .
 FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN ls / -al \
-    && cd /yubico-net-sdk/Yubico.NativeShims \
+    && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     && ls -al \
     && chmod +x build-ubuntu.sh \
     && sh build-ubuntu.sh
