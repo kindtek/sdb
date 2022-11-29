@@ -40,9 +40,9 @@ COPY . .
 # 3
 FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN ls / -al \
+RUN ls /sdb/yubico-net-sdk -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
-    && ls -al \
+    && ls  /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && chmod +x build-ubuntu.sh \
     && sh build-ubuntu.sh
 WORKDIR /
