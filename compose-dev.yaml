@@ -12,6 +12,7 @@ services:
       context: .
       target: clone-git-sdb_dev
     image: kindtek/git-sdb_dev
+    entrypoint: tail -f /dev/null
   sdb:
     # pull_policy:
     #   "always"
