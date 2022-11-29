@@ -21,7 +21,7 @@ RUN pwd && ls -al
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 1
-FROM teracy/dev:dev_latest AS built-sol-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS built-sol-sdb_dev
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -40,7 +40,7 @@ WORKDIR /sdb/solana
 # && sh build.sh --CI=true 
 
 # 2
-FROM teracy/dev:dev_latest AS built-yub-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS built-yub-sdb_dev
 USER root
 RUN cd / && ls -al
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
@@ -52,7 +52,7 @@ WORKDIR /sdb/yubico-net-sdk
 # && sh build-ubuntu.sh
 
 #3
-FROM teracy/dev:dev_latest AS built-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS built-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
