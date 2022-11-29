@@ -41,7 +41,7 @@ COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 RUN ./install.sh && cd /sdb/yubico-net-sdk
 
 WORKDIR /sdb/yubico-net-sdk
-# RUN sh Yubico.NativeShims/build-ubuntu.sh
+# RUN ./install.sh && Yubico.NativeShims/build-ubuntu.sh
 
 #3
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
