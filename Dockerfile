@@ -10,6 +10,7 @@ USER root
 WORKDIR /sdb
 COPY . .
 RUN git submodule update --init --recursive
+COPY . .
 
 # 1
 FROM teracy/dev:dev_latest AS building-sdb_dev
