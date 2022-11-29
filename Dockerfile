@@ -42,7 +42,7 @@ RUN cd /sdb/yubico-net-sdk
 
 WORKDIR /sdb/yubico-net-sdk
 # && chmod +x build-ubuntu.sh \
-# && sh Yubico.NativeShims/build-ubuntu.sh
+# sh Yubico.NativeShims/build-ubuntu.sh
 
 #3
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
