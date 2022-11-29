@@ -113,7 +113,10 @@ networks:
 volumes:
   volume-sdb:
     name: volume-sdb
+    external: false
   volume-sol:
     name: volume-sol
+    external: false
   volume-yub:
     name: volume-yub
+    external: false
