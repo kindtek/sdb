@@ -29,9 +29,9 @@ RUN apt-get update -y
 FROM building-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
-WORKDIR /sdb/solana/sdk/docker-solana
 COPY . .
-RUN ls /sdb/solana/sdd/docker-solana -al \
+WORKDIR /sdb/solana/sdk/docker-solana
+RUN ls /sdb/solana/sdk/docker-solana -al \
     && cd /sdb/solana/sdk/docker-solana \
     && ls -al \
     && chmod +x build.sh \
@@ -41,9 +41,9 @@ RUN ls /sdb/solana/sdd/docker-solana -al \
 FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 COPY . .
-RUN ls /sdb/yubico-net-sdk -al \
+RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
-    && ls  /sdb/yubico-net-sdk/Yubico.NativeShims -al \
+    && ls -al \
     && chmod +x build-ubuntu.sh \
     && sh build-ubuntu.sh
 
