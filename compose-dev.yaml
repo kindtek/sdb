@@ -51,7 +51,7 @@ services:
         hard: 1000000
     image: kindtek/sol-sdb_dev
     build:
-      context: sdb/solana
+      context: /sdb/solana
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol-sdb_dev
     init: true
@@ -83,7 +83,7 @@ services:
     image: kindtek/yub-sdb_dev
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: sdb/solana
+      context: /sdb/yubico-net-sdk
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: built-yub-sdb_dev
     init: true
