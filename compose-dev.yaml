@@ -30,8 +30,8 @@ services:
     stop_signal: SIGKILL
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - volume-sdb:/sdb
-      - volume-sol-bin:/sdb/solana/sdk/docker-solana/usr/bin
+      - volume-sol:/sdb-sol
+      - volume-yub:/sdb-yub
 
     labels:
       com.docker.devenvironments: "true"
@@ -61,7 +61,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - volume-sol-bin:/usr/sol-bin
+      - volume-sol:/sdb/sol
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
@@ -89,6 +89,7 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
+      - volume-yub:/sdb/yub
       - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
@@ -104,7 +105,9 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-sol-bin:
-    name: volume-sol-bin
   volume-sdb:
     name: volume-sdb
+  volume-sol:
+    name: volume-sol
+  volume-yub:
+    name: volume-yub
