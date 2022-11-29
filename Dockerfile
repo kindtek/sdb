@@ -1,7 +1,7 @@
 # 0
 FROM docker:git AS installing-sdb_dev
 COPY . ./sdb
-RUN git submodule update --init --recursive  /sdb
+RUN git submodule update --init --recursive
 
 # # xxxx1xxx
 # FROM teracy/dev:dev_latest AS building-sdb_dev
