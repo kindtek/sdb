@@ -8,15 +8,15 @@ ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 WORKDIR /sdb
-COPY . .
+COPY ./ .
 RUN git submodule update --init --recursive
 
-# 1
-FROM teracy/dev:dev_latest AS building-sdb_dev
-USER root
-COPY --chown=0:0 --from=installing-sdb_dev . .
-RUN apt-get update -y 
-# \
+# # xxxx1xxx
+# FROM teracy/dev:dev_latest AS building-sdb_dev
+# USER root
+# COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
+# RUN apt-get update -y 
+# # \
 #     && apt-key list \
 #     && grep "expired: " \
 #     &&  sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' \
@@ -25,12 +25,11 @@ RUN apt-get update -y
 
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
-# 2
-FROM building-sdb_dev AS built-sol-sdb_dev
+# 1
+FROM teracy/dev:dev_latest AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
+COPY --chown=0:0 --from=0 ./ /sdb
 WORKDIR /sdb/solana/sdk/docker-solana
 RUN ls /sdb/solana/sdk/docker-solana -al \
     && cd /sdb/solana/sdk/docker-solana \
@@ -38,25 +37,23 @@ RUN ls /sdb/solana/sdk/docker-solana -al \
     && chmod +x build.sh \
     && sh build.sh --CI=true 
 
-# 3
-FROM building-sdb_dev AS built-yub-sdb_dev
+# 2
+FROM teracy/dev:dev_latest AS built-yub-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+COPY --chown=0:0 --from=0 ./ /sdb
+WORKDIR /sdb/yubico-net-sdk
 RUN ls /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     && ls -al \
     && chmod +x build-ubuntu.sh \
     && sh build-ubuntu.sh
 
-#4
+#3
 FROM building-sdb_dev AS built-sdb_dev
 USER root
-COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
-COPY --chown=0:0 --from=2 . .
-COPY --chown=0:0 --from=3 . .
+# COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 ./sdb /sdb
+COPY --chown=0:0 --from=2 ./sdb /sdb
 
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
