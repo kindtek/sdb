@@ -7,52 +7,51 @@ ARG cap-add=NET_RAW
 ARG init=true
 ENV DOCKER_TLS_CERTDIR=/certs
 USER root
+COPY . .
 WORKDIR /sdb
 RUN git submodule update --init --recursive
-COPY . .
 
 # 1
 FROM teracy/dev:dev_latest AS building-sdb_dev
 USER root
+COPY --chown=0:0 --from=0 . .
 RUN apt-get update -y 
 # \
 #     && apt-key list \
 #     && grep "expired: " \
 #     &&  sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' \
 #     && xargs -n1 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
-COPY --chown=0:0 --from=0 . .
 # COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
 
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
 FROM building-sdb_dev AS built-sol-sdb_dev
+USER root
+EXPOSE 8899
 WORKDIR /sdb/solana/sdk/docker-solana
+COPY . .
 RUN ls /sdb/solana -al \
     && cd /sdb/solana/sdk/docker-solana \
     && ls /sdb/solana/sdk/ -al \
     && chmod +x build.sh \
     && sh build.sh --CI=true 
-WORKDIR /
-COPY . .
 
 # 3
 FROM building-sdb_dev AS built-yub-sdb_dev
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+COPY . .
 RUN ls /sdb/yubico-net-sdk -al \
     && cd /sdb/yubico-net-sdk/Yubico.NativeShims \
     && ls  /sdb/yubico-net-sdk/Yubico.NativeShims -al \
     && chmod +x build-ubuntu.sh \
     && sh build-ubuntu.sh
-WORKDIR /
-COPY . .
 
 #4
 FROM building-sdb_dev AS built-sdb_dev
 COPY --chown=0:0 --from=2 . .
 COPY --chown=0:0 --from=3 . .
 
-EXPOSE 8899
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./var/cache/apk /var/cache/apk
