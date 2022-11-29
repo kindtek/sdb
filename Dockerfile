@@ -3,18 +3,8 @@ FROM docker:git AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
-# # xxxx1xxx
-# FROM teracy/dev:dev_latest AS building-sdb_dev
-# USER root
-# COPY --chown=0:0 --from=installing-sdb_dev ./sdb /sdb
-# RUN apt-get update -y 
-# # \
-#     && apt-key list \
-#     && grep "expired: " \
-#     &&  sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' \
-#     && xargs -n1 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys
-# COPY --chown=0:0 --from=installing-sdb_dev ./urs/lib/bash /usr/lib/bash
-
+# head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list
+# apt-get update -y && apt-key list  && grep "expired: "  &&  sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' && xargs -n1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 1
@@ -31,15 +21,15 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-# RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
+# RUN /install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 2
 FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
 USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
-WORKDIR /sdb/yubico-net-sdk
-# RUN ./install.sh && Yubico.NativeShims/build-ubuntu.sh
+WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# RUN /install.sh && build-ubuntu.sh
 
 #3
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
