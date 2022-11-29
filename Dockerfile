@@ -1,6 +1,7 @@
 # 0
 FROM docker:git AS installing-sdb_dev
 COPY . ./sdb
+RUN ls -al
 RUN git submodule update --init --recursive
 
 # # xxxx1xxx
