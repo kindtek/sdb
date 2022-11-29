@@ -29,9 +29,9 @@ COPY --chown=0:0 --from=0 . .
 # 2
 FROM building-sdb_dev AS built-sol-sdb_dev
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN ls / -al \
+RUN ls /sdb/solana -al \
     && cd /sdb/solana/sdk/docker-solana \
-    && ls -al \
+    && ls /sdb/solana/sdk/ -al \
     && chmod +x build.sh \
     && sh build.sh --CI=true 
 WORKDIR /
