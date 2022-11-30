@@ -10,7 +10,7 @@ ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 USER root
 RUN apt-get update -y && apt-get install coreutils -y \
     && apt-get --assume-yes install libssl-dev \
-    && apt-get install fuse-overlayfs
+    && apt-get install fuse-overlayfs -y
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
