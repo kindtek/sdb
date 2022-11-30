@@ -28,9 +28,9 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./ /
 # WORKDIR /sdb/solana/sdk/docker-solana
 # RUN /bin/bash sdk/docker-solana/build.sh
-RUN dockerd
 RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+RUN dockerd
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
