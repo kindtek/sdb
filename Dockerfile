@@ -29,9 +29,8 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./ /
 WORKDIR /sdb/solana/sdk/docker-solana
-RUN /bin/bash sdk/docker-solana/build.sh
-
-# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+# RUN /bin/bash sdk/docker-solana/build.sh
+RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
@@ -72,8 +71,8 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb /sdb
-RUN cd /sdb/solana
-WORKDIR /sdb/solana/sdk/docker-solana
+# RUN cd /sdb/solana
+# WORKDIR /sdb/solana/sdk/docker-solana
 
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
