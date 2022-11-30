@@ -24,8 +24,8 @@ WORKDIR /sdb/solana
 # FIX FOR:
 #   E: Malformed entry 52 in list file /etc/apt/sources.list ([option] no value)
 #   E: The list of sources could not be read.
-RUN head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list # fix for malformed 
-RUN apt-get update -y && apt-key list
+RUN chmod +x /etc/apt/sources.list && head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
+    && apt-get update -y && apt-key list
 RUN /bin/bash sdk/docker-solana/build.sh --CI=true 
 
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
