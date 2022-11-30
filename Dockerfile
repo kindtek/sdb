@@ -3,8 +3,8 @@ FROM docker:git AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
-# head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list
-# apt-get update -y && apt-key list  && grep "expired: "  &&  sed -ne 's|pub .*/\([^ ]*\) .*|\1|gp' && xargs -n1 apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key
+RUN head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list
+RUN apt-get update -y && apt-key list  
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 1
@@ -21,7 +21,13 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
+# FIX FOR:
+#   E: Malformed entry 52 in list file /etc/apt/sources.list ([option] no value)
+#   E: The list of sources could not be read.
+RUN head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list # fix for malformed 
+RUN apt-get update -y && apt-key list
 RUN /bin/bash sdk/docker-solana/build.sh --CI=true 
+
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 2
