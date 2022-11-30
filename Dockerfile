@@ -28,7 +28,8 @@ RUN cd /sdb/solana \
     && systemctl daemon-reload \
     && service docker start
 WORKDIR /sdb/solana
-RUN /bin/bash sdk/docker-solana/build.sh
+# RUN /bin/bash sdk/docker-solana/build.sh
+RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
