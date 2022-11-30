@@ -1,5 +1,5 @@
 # 0
-FROM kindtek/teracy-ubuntu-20.04-dind-latest AS clone-git-sdb_dev
+FROM kindtek/teracy-ubuntu-20-04-dind-latest AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
