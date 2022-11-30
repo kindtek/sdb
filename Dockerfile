@@ -21,12 +21,7 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana \
-    && apt-get update -y \
-    && apt-get -y install coreutils \
-    && systemctl enable docker.service \
-    && systemctl enable containerd.service \
-    && systemctl daemon-reload \
-    && service docker start
+    && apt-get update -y
 WORKDIR /sdb/solana
 # RUN /bin/bash sdk/docker-solana/build.sh
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
