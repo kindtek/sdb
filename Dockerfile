@@ -20,9 +20,9 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana \
+    && apt-get update -y\
     && apt-get -y install coreutils
 WORKDIR /sdb/solana
-RUN apt-get update -y
 RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
