@@ -29,7 +29,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash build-ubuntu.sh
 
 # 3
-FROM clone-git-sdb_dev:20.04-dind-latest AS built-sdb_dev
+FROM clone-git-sdb_dev AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 USER root
 EXPOSE 8899
