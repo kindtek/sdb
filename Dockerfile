@@ -3,6 +3,7 @@ FROM docker:git AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
+#1
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
 RUN chmod +x /etc/apt/sources.list && head -n -2 \
     && /etc/apt/sources.list > tmp.txt \
@@ -11,7 +12,8 @@ RUN chmod +x /etc/apt/sources.list && head -n -2 \
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
-FROM build-sdb_dev AS built-sdb_dev
+FROM teracy/ubuntu:18.04-dind-latest AS built-sdb_dev
+
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -21,6 +23,7 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
 RUN cd /
+COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
@@ -33,6 +36,7 @@ RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true
 FROM build-sdb_dev:18.04-dind-latest AS built-yub-sdb_dev
 USER root
 RUN cd /
+COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN sh build-ubuntu.sh
@@ -43,6 +47,7 @@ FROM build-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb
 
