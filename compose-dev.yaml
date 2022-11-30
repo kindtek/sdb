@@ -29,7 +29,7 @@ services:
         soft: 1000000
         hard: 1000000
     image: kindtek/sdb_dev-sdb
-    working_dir: /sdb
+    # working_dir: /sdb
     build:
       context: .
       target: built-sdb_dev

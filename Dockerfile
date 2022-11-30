@@ -53,9 +53,8 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb /sdb
-
-WORKDIR /sdb/solana
 RUN cd /sdb/solana
+WORKDIR /sdb/solana
 
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
