@@ -21,12 +21,13 @@ ARG init=true
 USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 RUN cd /sdb/solana \
     && apt-get update -y
 WORKDIR /sdb/solana
 # RUN /bin/bash sdk/docker-solana/build.sh
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
@@ -36,9 +37,10 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 RUN cd /
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN apt-get update -y
 # RUN /bin/bash build-ubuntu.sh
