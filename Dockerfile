@@ -10,8 +10,8 @@ FROM teracy/ubuntu:20.04-dind-latest AS build-sdb_dev
 #     && /etc/apt/sources.list > tmp.txt \
 #     && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
 #     && apt-get update -y
-RUN cd chmod +x /etc/apt/sources.list \
-    && /etc/apt \
+RUN cd /etc/apt \
+    && chmod +x sources.list \
     && sed -i '52d' sources.list \
     && sed -i '52d' sources.list
 # RUN chmod +x /etc/apt/sources.list \
