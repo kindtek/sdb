@@ -33,6 +33,7 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN apt-get update -y
