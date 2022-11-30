@@ -1,5 +1,5 @@
 # 0
-FROM kindtek/ubuntu:20.04-dind-latest AS clone-git-sdb_dev
+FROM kindtek/teracy-ubuntu:20.04-dind-latest AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
@@ -29,13 +29,12 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash build-ubuntu.sh
 
 # 3
-FROM clone-git-sdb_dev AS built-sdb_dev
+FROM clone-git-sdb_dev:20.04-dind-latest AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 ./sdb /sdb
-COPY --chown=0:0 --from=2 ./sdb /sdb
+COPY --chown=0:0 --from=0 ./sdb /sdb
 
 
 WORKDIR /sdb
