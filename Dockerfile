@@ -22,7 +22,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
 RUN sh sdk/docker-solana/build.sh --CI=true 
-# RUN /install.sh && sh sdk/docker-solana/build.sh --CI=true 
+# RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 2
 FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
