@@ -33,27 +33,32 @@ RUN apt-get -y install \
 
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
-
-# 1
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
-ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CHANNEL=sdb_dev
-ARG privileged=true
-# ARG rm=true
-ARG cap-add=NET_ADMIN
-ARG cap-add=NET_RAW
-ARG cap-add=SYS_RESOURCE
-ARG init=true
-USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 ./ /
 WORKDIR /
-# WORKDIR /sdb/solana/sdk/docker-solana
-# RUN /bin/bash sdk/docker-solana/build.sh
 RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-# RUN dockerd
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+
+# # 1
+# FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
+# ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+# ENV CHANNEL=sdb_dev
+# ARG privileged=true
+# # ARG rm=true
+# ARG cap-add=NET_ADMIN
+# ARG cap-add=NET_RAW
+# ARG cap-add=SYS_RESOURCE
+# ARG init=true
+# USER root
+# # EXPOSE 8899
+# COPY --chown=0:0 --from=0 ./ /
+# WORKDIR /
+# # WORKDIR /sdb/solana/sdk/docker-solana
+# # RUN /bin/bash sdk/docker-solana/build.sh
+# RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
+#     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
+# # RUN dockerd
+# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # # 2
 # FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
