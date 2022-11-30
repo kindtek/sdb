@@ -6,6 +6,7 @@ COPY . ./sd
 RUN cd /sdb && git submodule update --init --recursive
 
 
+
 # 1
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
@@ -20,6 +21,8 @@ ARG init=true
 USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+
 RUN cd /sdb/solana \
     && apt-get update -y
 WORKDIR /sdb/solana
@@ -34,6 +37,7 @@ ENV CHANNEL=sdb_dev
 USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN apt-get update -y
@@ -49,6 +53,8 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb /sdb
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+
 WORKDIR /sdb/solana
 
 CMD ["git", "version"]
