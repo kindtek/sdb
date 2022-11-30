@@ -28,7 +28,7 @@ RUN cd /sdb/solana \
 WORKDIR /sdb/solana
 # RUN /bin/bash sdk/docker-solana/build.sh
 
-RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
@@ -39,8 +39,6 @@ USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
 
 RUN cd /
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
-
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN apt-get update -y
 # RUN /bin/bash build-ubuntu.sh
@@ -55,7 +53,6 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb /sdb
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 WORKDIR /sdb/solana
 
