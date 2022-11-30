@@ -4,6 +4,7 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 COPY . ./sd
 RUN cd /sdb && git submodule update --init --recursive
+RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 
 
@@ -20,13 +21,12 @@ ARG cap-add=SYS_RESOURCE
 ARG init=true
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=0 ./ /
 
 RUN cd /sdb/solana \
     && apt-get update -y
 WORKDIR /sdb/solana
 # RUN /bin/bash sdk/docker-solana/build.sh
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
