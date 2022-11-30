@@ -20,7 +20,7 @@ services:
       com.docker.devenvironments.name: sdb_dev
     volumes:
       # - volume-sdb:/sdb
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
 
   sdb:
     # pull_policy:
@@ -74,7 +74,7 @@ services:
     stdin_open: true
     volumes:
       - volume-yub:/sdb/solana
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
       # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
