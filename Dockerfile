@@ -9,6 +9,7 @@ RUN cd /sdb && git submodule update --init --recursive
 # 1
 FROM kindtek/teracy-ubuntu-20-04-dind-latest AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+ENV CI=true
 ENV CHANNEL=sdb_dev
 ARG privileged=true
 # ARG rm=true
