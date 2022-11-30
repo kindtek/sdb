@@ -18,6 +18,7 @@ ARG init=true
 USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
+RUN $here = pwd && echo "\n---------\n $here \n----------\n"
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
 RUN apt-get update -y
@@ -30,7 +31,6 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN $here = pwd && echo "\n---------\n $here \n----------\n"
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN apt-get update -y
