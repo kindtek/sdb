@@ -19,7 +19,7 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
-# ARG rm=true
+ARG rm=true
 ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
 ARG cap-add=SYS_RESOURCE
@@ -39,6 +39,8 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
+ARG rm=true
+
 # ARG rm=true
 ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
@@ -57,6 +59,8 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
+ARG rm=true
+
 # ARG rm=true
 ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
