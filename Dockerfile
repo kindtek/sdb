@@ -10,10 +10,10 @@ FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
 #     && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
 #     && apt-get update -y
 RUN apt-get update -y
-RUN chmod +x /etc/apt/sources.list && head -n -2 \
-    && /etc/apt/sources.list > tmp.txt \
-    && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
-    && apt-get update -y
+# RUN chmod +x /etc/apt/sources.list && head -n -2 \
+#     && /etc/apt/sources.list > tmp.txt \
+#     && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
+#     && apt-get update -y
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
@@ -32,7 +32,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
 #RUN /bin/bash sdk/docker-solana/build.sh --CI=true
-RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true 
+# RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true 
 
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
@@ -44,7 +44,7 @@ COPY --chown=0:0 --from=1 ./ /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN sh build-ubuntu.sh
-RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
+# RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
 
 #4
 FROM build-sdb_dev AS built-sol-sdb_dev
