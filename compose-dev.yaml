@@ -19,7 +19,7 @@ services:
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
     volumes:
-      - volume-sdb:/sdb
+      # - volume-sdb:/sdb
       - /var/run/docker.sock:/var/run/docker.sock
 
   sdb:
@@ -44,8 +44,9 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-    # - volume-sdb:/sdb
-    - /var/run/docker.sock:/var/run/docker.sock
+      - volume-sol:/sdb/solana
+      - volume-yub:/sdb/yub
+    # - /var/run/docker.sock:/var/run/docker.sock
 
     labels:
       com.docker.devenvironments: "true"
@@ -72,7 +73,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - volume-sdb:/sdb
+      - volume-yub:/sdb/solana
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
@@ -96,8 +97,8 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-    # volumes:
-    # - volume-sdb:/sdb
+    volumes:
+      - volume-sol:/sdb/yubico-net-sdk
     # - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
@@ -113,12 +114,12 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-sdb:
-    name: volume-sdb
+  # volume-sdb:
+  #   name: volume-sdb
+  #   external: true
+  volume-sol:
+    name: volume-sol
     external: false
-  # volume-sol:
-  #   name: volume-sol
-  #   external: false
-  # volume-yub:
-  #   name: volume-yub
-  #   external: false
+  volume-yub:
+    name: volume-yub
+    external: false
