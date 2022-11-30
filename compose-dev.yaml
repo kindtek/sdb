@@ -43,20 +43,17 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-    # volumes:
+    volumes:
     # - volume-sdb:/sdb
-    # - /var/run/docker.sock:/var/run/docker.sock
+    - /var/run/docker.sock:/var/run/docker.sock
 
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
+
   sol:
-    # pull_policy:
-    #   "always"
-    # depends_on:
-    #   - "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/ubuntu-solana/usr/bin
     ulimits:
@@ -66,7 +63,7 @@ services:
     image: kindtek/sdb_dev-sol
     build:
       context: .
-      # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
+      # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol-sdb_dev
     init: true
     entrypoint:
@@ -76,11 +73,10 @@ services:
     stdin_open: true
     volumes:
       - volume-sdb:/sdb
-      # - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
       # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
-      # - ./sdb/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -89,8 +85,6 @@ services:
   yub:
     # pull_policy:
     #   "always"
-    depends_on:
-      - "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     image: kindtek/sdb_dev-yub
