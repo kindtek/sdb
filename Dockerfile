@@ -18,7 +18,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-RUN chmod +x sdk/docker-solana/build.sh && \
+RUN chmod +x sdk/docker-solana/build.sh \
     && /bin/bash sdk/docker-solana/build.sh
 
 # 2
