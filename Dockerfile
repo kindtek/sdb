@@ -2,7 +2,7 @@
 FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
-COPY . ./sdb
+COPY . ./sd
 RUN cd /sdb && git submodule update --init --recursive
 
 
@@ -48,10 +48,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb /sdb
-
-
-
-WORKDIR /sdb
+WORKDIR /sdb/solana
 
 CMD ["git", "version"]
 # COPY --chown=0:0 --from=built-sol-sdb_dev ./run/docker.sock /run/docker.sock
