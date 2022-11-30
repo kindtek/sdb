@@ -3,7 +3,6 @@ FROM kindtek/teracy-ubuntu-20-04-dind-latest AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 COPY . ./sdb
-RUN apt-get update -y
 RUN cd /sdb && git submodule update --init --recursive
 
 
@@ -19,7 +18,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-RUN containerd
+RUN apt-get update -y
 RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
@@ -28,6 +27,7 @@ USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# RUN apt-get update -y
 # RUN /bin/bash build-ubuntu.sh
 
 # 3
