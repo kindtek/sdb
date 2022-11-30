@@ -10,9 +10,6 @@ ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 RUN apt-get update -y && apt-get install coreutils -y
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
-# RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
-
-
 
 # 1
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
@@ -46,12 +43,9 @@ ARG init=true
 USER root
 EXPOSE 8899
 # ARG init=true
-
 COPY --chown=0:0 --from=0 ./sdb /sdb
-
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-# RUN apt-get update -y
 # RUN /bin/bash build-ubuntu.sh
 
 # 3
