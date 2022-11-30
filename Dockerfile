@@ -55,7 +55,14 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # 3
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+ENV CI=true
 ENV CHANNEL=sdb_dev
+ARG privileged=true
+# ARG rm=true
+ARG cap-add=NET_ADMIN
+ARG cap-add=NET_RAW
+ARG cap-add=SYS_RESOURCE
+ARG init=true
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
