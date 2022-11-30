@@ -5,7 +5,9 @@ ENV CHANNEL=sdb_dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 COPY . ./sdb
-RUN cd /sdb && git submodule update --init --recursive
+RUN cd /sdb && \
+    && apt-get update -y 
+RUN git submodule update --init --recursive
 # RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 
@@ -26,8 +28,7 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./ /
 
-RUN cd /sdb/solana \
-    && apt-get update -y
+RUN cd /sdb/solana 
 WORKDIR /sdb/solana
 RUN /bin/bash sdk/docker-solana/build.sh
 
