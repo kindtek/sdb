@@ -7,20 +7,20 @@ services:
   #       - sdb:builder-sdb_dev
   #     target: builder-sdb_dev
   #   image: sdb:builder-sdb_dev
-  git:
-    build:
-      context: .
-      target: clone-git-sdb_dev
-    image: kindtek/sdb_dev-git
-    entrypoint: tail -f /dev/null
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
-    # volumes:
-    # - volume-sdb:/sdb
-    # - /var/run/docker.sock:/var/run/docker.sock
+  # git:
+  #   build:
+  #     context: .
+  #     target: clone-git-sdb_dev
+  #   image: kindtek/sdb_dev-git
+  #   entrypoint: tail -f /dev/null
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb_dev
+  #   # volumes:
+  #   # - volume-sdb:/sdb
+  #   # - /var/run/docker.sock:/var/run/docker.sock
 
   sdb:
     # pull_policy:
@@ -36,7 +36,8 @@ services:
     # working_dir: /sdb
     build:
       context: .
-      target: built-sdb_dev
+      # target: built-sdb_dev
+      target: clone-git-sdb_dev
       # cache_from:
       #   - sdb:builder-sdb_dev
       #   - sdb:kindtek/sdb-sdb_dev
