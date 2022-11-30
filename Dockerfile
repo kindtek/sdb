@@ -2,9 +2,11 @@
 FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
+ENV DOCKER_USERNAME=kindtek
+ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+# RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 
 
@@ -13,6 +15,7 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CI=true
 ENV CHANNEL=sdb_dev
+
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -26,7 +29,7 @@ COPY --chown=0:0 --from=0 ./ /
 RUN cd /sdb/solana \
     && apt-get update -y
 WORKDIR /sdb/solana
-# RUN /bin/bash sdk/docker-solana/build.sh
+RUN /bin/bash sdk/docker-solana/build.sh
 
 # RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
