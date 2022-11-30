@@ -22,7 +22,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
 RUN apt-get update -y
-# RUN /bin/bash sdk/docker-solana/build.sh
+RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind-latest AS built-yub-sdb_dev
