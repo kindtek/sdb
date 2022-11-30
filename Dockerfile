@@ -12,8 +12,7 @@ RUN chmod +x /etc/apt/sources.list && head -n -2 \
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
-FROM teracy/ubuntu:18.04-dind-latest AS built-sdb_dev
-
+FROM build-sdb_dev AS built-sdb_dev
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -33,7 +32,7 @@ RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 3
-FROM build-sdb_dev:18.04-dind-latest AS built-yub-sdb_dev
+FROM build-sdb_dev AS built-yub-sdb_dev
 USER root
 RUN cd /
 COPY --chown=0:0 --from=1 ./sdb /sdb
