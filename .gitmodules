@@ -6,3 +6,6 @@
 	path = yubico-net-sdk
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = sdb_dev
+[submodule "teracy-docker-files"]
+	path = teracy-docker-files
+	url = https://github.com/kindtek/teracy-docker-files
