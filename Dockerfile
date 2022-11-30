@@ -23,7 +23,7 @@ RUN cd /sdb/solana \
     && apt-get update -y \
     && apt-get -y install coreutils
 WORKDIR /sdb/solana
-RUN /bin/bash sdk/docker-solana/build.sh
+# RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
