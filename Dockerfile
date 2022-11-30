@@ -29,7 +29,7 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./ /
 WORKDIR /sdb/solana
-RUN /bin/bash sdk/docker-solana/build.sh
+# RUN /bin/bash sdk/docker-solana/build.sh
 
 # RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
