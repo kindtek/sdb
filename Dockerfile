@@ -3,6 +3,7 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CI=true
 ENV CHANNEL=sdb_dev
+ENV CHANNEL_OR_TAG=dev
 ENV BRANCH=dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
