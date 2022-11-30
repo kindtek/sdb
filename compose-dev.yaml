@@ -74,8 +74,8 @@ services:
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
-    # volumes:
-      # - volume-sdb:/sdb
+    volumes:
+      - volume-sdb:/sdb
       # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
