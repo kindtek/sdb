@@ -5,7 +5,7 @@ COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
 #1
-FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
+FROM teracy/ubuntu:20.04-dind-latest AS build-sdb_dev
 # RUN chmod +x /etc/apt/sources.list && head -n -2 \
 #     && /etc/apt/sources.list > tmp.txt \
 #     && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
