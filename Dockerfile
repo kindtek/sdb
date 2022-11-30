@@ -21,7 +21,7 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-RUN sh sdk/docker-solana/build.sh --CI=true 
+RUN /bin/bash sdk/docker-solana/build.sh --CI=true 
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 2
@@ -31,7 +31,7 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN sh build-ubuntu.sh
-RUN ./install.sh && sh build-ubuntu.sh
+RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
 
 #3
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
