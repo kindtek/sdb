@@ -3,9 +3,6 @@ FROM docker:git AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
-RUN head -n -2 /etc/apt/sources.list > tmp.txt && mv tmp.txt /etc/apt/sources.list
-RUN apt-get update -y && apt-key list  
-
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 1
 FROM teracy/ubuntu:18.04-dind-latest AS build-sol-sdb_dev
