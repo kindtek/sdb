@@ -11,7 +11,7 @@ services:
     build:
       context: .
       target: clone-git-sdb_dev
-    image: kindtek/git-sdb_dev
+    image: kindtek/sdb_dev-git
     entrypoint: tail -f /dev/null
     labels:
       com.docker.devenvironments: "true"
@@ -28,7 +28,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb-sdb_dev
+    image: kindtek/sdb_dev-sdb
     working_dir: /sdb
     build:
       context: .
@@ -59,7 +59,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/solana:stable
+    image: kindtek/sdb_dev-sol
     build:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
@@ -89,7 +89,7 @@ services:
       - "sdb"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/yub-sdb_dev
+    image: kindtek/sdb_dev-yub
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
