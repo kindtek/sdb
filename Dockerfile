@@ -7,7 +7,7 @@ ENV CHANNEL_OR_TAG=dev
 ENV BRANCH=dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
-RUN apt-get update -y
+RUN apt-get update -y && apt-get install coreutils -y
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 # RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
