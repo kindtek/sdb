@@ -27,7 +27,6 @@ RUN cd /sdb/solana \
     && systemctl enable containerd.service \
     && service docker start
 WORKDIR /sdb/solana
-RUN containerd
 RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
