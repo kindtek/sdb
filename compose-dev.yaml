@@ -18,7 +18,7 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-  volumes:
+    volumes:
       - volume-sdb:/sdb
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -44,8 +44,8 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     # volumes:
-      # - volume-sdb:/sdb
-      # - /var/run/docker.sock:/var/run/docker.sock
+    # - volume-sdb:/sdb
+    # - /var/run/docker.sock:/var/run/docker.sock
 
     labels:
       com.docker.devenvironments: "true"
@@ -103,8 +103,8 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     # volumes:
-      # - volume-sdb:/sdb
-      # - /var/run/docker.sock:/var/run/docker.sock
+    # - volume-sdb:/sdb
+    # - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
