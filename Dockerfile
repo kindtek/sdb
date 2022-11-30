@@ -19,7 +19,7 @@ RUN apt-get -y install \
     libssl-dev \
     lsb-release
 RUN mkdir -p /etc/apt/keyrings
-RUN -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 RUN echo \
