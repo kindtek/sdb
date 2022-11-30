@@ -25,6 +25,7 @@ RUN cd /sdb/solana \
     && apt-get -y install coreutils \
     && systemctl enable docker.service \
     && systemctl enable containerd.service \
+    && systemctl daemon-reload \
     && service docker start
 WORKDIR /sdb/solana
 RUN /bin/bash sdk/docker-solana/build.sh
