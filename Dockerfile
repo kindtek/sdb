@@ -1,4 +1,5 @@
-# 0
+# 0 
+# docker install instructions from https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
@@ -7,10 +8,29 @@ ENV BRANCH=dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 USER root
-RUN apt-get update -y && apt-get install coreutils -y \
-    && apt-get --assume-yes install libssl-dev \
-    && apt-get install fuse-overlayfs -y
+RUN apt-get remove docker docker-engine docker.io containerd runc
+RUN apt-get update -y
+RUN apt-get -y install \
+    ca-certificates \
+    curl \
+    coreutils \
+    fuse-overlayfs \
+    gnupg \
+    libssl-dev \
+    lsb-release
+RUN mkdir -p /etc/apt/keyrings
+RUN -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+RUN echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update -y
+RUN apt-get -y install \
+    docker-ce docker-ce-cli \
+    containerd.io \
+    docker-compose-plugin
+
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
@@ -50,7 +70,7 @@ ARG init=true
 USER root
 EXPOSE 8899
 # ARG init=true
-COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=0 ./ /
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash build-ubuntu.sh
