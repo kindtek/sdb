@@ -18,7 +18,8 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-RUN /bin/bash sdk/docker-solana/build.sh --CI=true
+RUN chmod +x sdk/docker-solana/build.sh && \
+    && /bin/bash sdk/docker-solana/build.sh --CI=true
 
 # 2
 FROM clone-git-sdb_dev AS built-yub-sdb_dev
