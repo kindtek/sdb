@@ -39,9 +39,9 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-    volumes:
-      - volume-sdb:/sdb
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+      # - volume-sdb:/sdb
+      # - /var/run/docker.sock:/var/run/docker.sock
 
     labels:
       com.docker.devenvironments: "true"
@@ -70,9 +70,9 @@ services:
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
-    volumes:
-      - volume-sdb:/sdb
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+      # - volume-sdb:/sdb
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
       # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
@@ -98,9 +98,9 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
-    volumes:
-      - volume-sdb:/sdb
-      - /var/run/docker.sock:/var/run/docker.sock
+    # volumes:
+      # - volume-sdb:/sdb
+      # - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
