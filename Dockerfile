@@ -7,7 +7,10 @@ ENV CHANNEL_OR_TAG=dev
 ENV BRANCH=dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
-RUN apt-get update -y && apt-get install coreutils -y && apt-get --assume-yes install libssl-dev
+USER root
+RUN apt-get update -y && apt-get install coreutils -y \
+    && apt-get --assume-yes install libssl-dev \
+    && apt-get install fuse-overlayfs
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
