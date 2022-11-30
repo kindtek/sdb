@@ -2,7 +2,7 @@
 FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
-COPY . ./sd
+COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
