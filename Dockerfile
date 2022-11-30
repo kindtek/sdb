@@ -24,13 +24,7 @@ RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-# FIX FOR:
-#   E: Malformed entry 52 in list file /etc/apt/sources.list ([option] no value)
-#   E: The list of sources could not be read.
-RUN chmod +x /etc/apt/sources.list && head -n -2 \
-    && /etc/apt/sources.list > tmp.txt \
-    && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
-    && apt-get update -y 
+#RUN /bin/bash sdk/docker-solana/build.sh --CI=true
 RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true 
 
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
@@ -41,10 +35,6 @@ USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN chmod +x /etc/apt/sources.list && head -n -2 \
-    && /etc/apt/sources.list > tmp.txt \
-    && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
-    && apt-get update -y 
 # RUN sh build-ubuntu.sh
 RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
 
