@@ -26,7 +26,7 @@ COPY --chown=0:0 --from=0 ./ /
 RUN cd /sdb/solana \
     && apt-get update -y
 WORKDIR /sdb/solana
-# RUN /bin/bash sdk/docker-solana/build.sh
+RUN /bin/bash sdk/docker-solana/build.sh
 
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
