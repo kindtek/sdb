@@ -36,7 +36,7 @@ RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
 # 3
-FROM teracy/ubuntu:18.04-dind-latest AS built-yub-sdb_dev
+FROM build-sdb_dev:18.04-dind-latest AS built-yub-sdb_dev
 USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
@@ -49,7 +49,7 @@ RUN chmod +x /etc/apt/sources.list && head -n -2 \
 RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
 
 #4
-FROM teracy/ubuntu:18.04-dind-latest AS built-sol-sdb_dev
+FROM build-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
