@@ -25,8 +25,8 @@ RUN cd /sdb/solana \
     && systemctl enable docker.service \
     systemctl enable docker.service
 WORKDIR /sdb/solana
-RUN containerd \
-    && /bin/bash sdk/docker-solana/build.sh
+RUN containerd
+RUN /bin/bash sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
