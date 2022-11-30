@@ -15,6 +15,7 @@ ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
+ARG cap-add=SYS_RESOURCE
 ARG init=true
 USER root
 EXPOSE 8899
@@ -23,7 +24,8 @@ RUN cd /sdb/solana \
     && apt-get update -y \
     && apt-get -y install coreutils \
     && systemctl enable docker.service \
-    systemctl enable docker.service
+    && systemctl enable containerd.service \
+    && service docker start
 WORKDIR /sdb/solana
 RUN containerd
 RUN /bin/bash sdk/docker-solana/build.sh
