@@ -30,8 +30,8 @@ USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-RUN sh build-ubuntu.sh
-# RUN /install.sh && sh build-ubuntu.sh
+# RUN sh build-ubuntu.sh
+RUN /install.sh && sh build-ubuntu.sh
 
 #3
 FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
