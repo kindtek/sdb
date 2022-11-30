@@ -4,10 +4,9 @@ ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+RUN apt-get update -y
 COPY . ./sdb
-RUN cd /sdb \
-    && apt-get update -y 
-RUN git submodule update --init --recursive
+RUN cd /sdb && git submodule update --init --recursive
 # RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 
 
