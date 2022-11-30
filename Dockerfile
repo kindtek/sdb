@@ -1,7 +1,6 @@
 # 0
 FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CI=true
 ENV CHANNEL=sdb_dev
 ENV CHANNEL_OR_TAG=dev
 ENV BRANCH=dev
@@ -18,7 +17,6 @@ RUN cd /sdb && git submodule update --init --recursive
 # 1
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CI=true
 ENV CHANNEL=sdb_dev
 ARG privileged=true
 # ARG rm=true
@@ -39,7 +37,6 @@ RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CI=true
 ENV CHANNEL=sdb_dev
 ARG privileged=true
 # ARG rm=true
@@ -58,7 +55,6 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # 3
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CI=true
 ENV CHANNEL=sdb_dev
 ARG privileged=true
 # ARG rm=true
