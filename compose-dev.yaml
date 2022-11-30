@@ -54,7 +54,7 @@ services:
     # depends_on:
     #   - "sdb"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/ubuntu-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
@@ -66,7 +66,7 @@ services:
       target: built-sol-sdb_dev
     init: true
     entrypoint:
-      - "/usr/bin/solana-run.sh"
+      - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
