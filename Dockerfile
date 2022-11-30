@@ -39,7 +39,7 @@ FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
-ARG rm=true
+# ARG rm=true
 ARG cap-add=NET_ADMIN
 ARG cap-add=NET_RAW
 ARG cap-add=SYS_RESOURCE
@@ -55,25 +55,25 @@ RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
 # RUN dockerd
 RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
-# 2
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
-ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CHANNEL=sdb_dev
-ARG privileged=true
-ARG rm=true
-
+# # 2
+# FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
+# ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
+# ENV CHANNEL=sdb_dev
+# ARG privileged=true
 # ARG rm=true
-ARG cap-add=NET_ADMIN
-ARG cap-add=NET_RAW
-ARG cap-add=SYS_RESOURCE
-ARG init=true
-USER root
-EXPOSE 8899
+
+# # ARG rm=true
+# ARG cap-add=NET_ADMIN
+# ARG cap-add=NET_RAW
+# ARG cap-add=SYS_RESOURCE
 # ARG init=true
-COPY --chown=0:0 --from=0 ./ /
-RUN cd /
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-# RUN /bin/bash build-ubuntu.sh
+# USER root
+# EXPOSE 8899
+# # ARG init=true
+# COPY --chown=0:0 --from=0 ./ /
+# RUN cd /
+# WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+# # RUN /bin/bash build-ubuntu.sh
 
 # 3
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev

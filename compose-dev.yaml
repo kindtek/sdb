@@ -83,28 +83,28 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-  yub:
-    # pull_policy:
-    #   "always"
-    environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/sdb_dev-yub
-    # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
-    build:
-      context: .
-      # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: built-yub-sdb_dev
-    init: true
-    entrypoint: tail -f /dev/null
-    stop_signal: SIGKILL
-    volumes:
-      - volume-sol:/sdb/yubico-net-sdk
-    # - /var/run/docker.sock:/var/run/docker.sock
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
+  # yub:
+  #   # pull_policy:
+  #   #   "always"
+  #   environment:
+  #     - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  #   image: kindtek/sdb_dev-yub
+  #   # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
+  #   build:
+  #     context: .
+  #     # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+  #     target: built-yub-sdb_dev
+  #   init: true
+  #   entrypoint: tail -f /dev/null
+  #   stop_signal: SIGKILL
+  #   volumes:
+  #     - volume-sol:/sdb/yubico-net-sdk
+  #   # - /var/run/docker.sock:/var/run/docker.sock
+  #   labels:
+  #     com.docker.devenvironments: "true"
+  #     com.docker.devenvironments.compose: "true"
+  #     com.docker.devenvironments.container: "true"
+  #     com.docker.devenvironments.name: sdb_dev
 networks:
   default:
     name: networks-sdb_dev
