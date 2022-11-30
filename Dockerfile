@@ -1,5 +1,6 @@
 # 0
 FROM docker:git AS clone-git-sdb_dev
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
@@ -22,6 +23,7 @@ RUN /bin/bash /install.sh
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
 FROM build-sdb_dev AS built-sdb_dev
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -39,6 +41,7 @@ RUN /bin/bash sdk/docker-solana/build.sh --CI=true
 
 # 3
 FROM build-sdb_dev AS built-yub-sdb_dev
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 USER root
 RUN cd /
 COPY --chown=0:0 --from=1 ./ /
@@ -48,6 +51,7 @@ RUN /bin/bash build-ubuntu.sh
 
 #4
 FROM build-sdb_dev AS built-sol-sdb_dev
+ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
