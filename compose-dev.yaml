@@ -32,7 +32,7 @@ services:
     working_dir: /sdb
     build:
       context: .
-      target: build-sdb_dev
+      target: built-sdb_dev
       # cache_from:
       #   - sdb:builder-sdb_dev
       #   - sdb:kindtek/sdb-sdb_dev
@@ -63,7 +63,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/solana/sdk/docker-solana/Dockerfile
-      target: build-sol-sdb_dev
+      target: built-sol-sdb_dev
     init: true
     entrypoint:
       - "/usr/bin/solana-run.sh"
@@ -94,7 +94,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: build-yub-sdb_dev
+      target: built-yub-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL

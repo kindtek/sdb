@@ -3,9 +3,15 @@ FROM docker:git AS clone-git-sdb_dev
 COPY . ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 
+FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
+RUN chmod +x /etc/apt/sources.list && head -n -2 \
+    && /etc/apt/sources.list > tmp.txt \
+    && mv tmp.txt /etc/apt/sources.list # fix for malformed list error \
+    && apt-get update -y 
+
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
-# 1
-FROM teracy/ubuntu:18.04-dind-latest AS build-sol-sdb_dev
+# 2
+FROM build-sdb_dev AS built-sdb_dev
 ARG privileged=true
 # ARG rm=true
 ARG cap-add=NET_ADMIN
@@ -29,8 +35,8 @@ RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true
 
 # RUN ./install.sh && sh sdk/docker-solana/build.sh --CI=true 
 
-# 2
-FROM teracy/ubuntu:18.04-dind-latest AS build-yub-sdb_dev
+# 3
+FROM teracy/ubuntu:18.04-dind-latest AS built-yub-sdb_dev
 USER root
 RUN cd /
 COPY --chown=0:0 --from=0 ./sdb /sdb
@@ -42,8 +48,8 @@ RUN chmod +x /etc/apt/sources.list && head -n -2 \
 # RUN sh build-ubuntu.sh
 RUN /bin/bash /install.sh && /bin/bash build-ubuntu.sh
 
-#3
-FROM teracy/ubuntu:18.04-dind-latest AS build-sdb_dev
+#4
+FROM teracy/ubuntu:18.04-dind-latest AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
