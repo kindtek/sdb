@@ -23,7 +23,7 @@ ENV DOCKER_TLS_CERTDIR=/certs
 USER root
 EXPOSE 8899
 RUN cd /
-COPY --chown=0:0 --from=1 ./sdb /sdb
+COPY --chown=0:0 --from=1 ./ /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
@@ -36,7 +36,7 @@ RUN /bin/bash /install.sh && /bin/bash sdk/docker-solana/build.sh --CI=true
 FROM build-sdb_dev AS built-yub-sdb_dev
 USER root
 RUN cd /
-COPY --chown=0:0 --from=1 ./sdb /sdb
+COPY --chown=0:0 --from=1 ./ /
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN sh build-ubuntu.sh
@@ -47,6 +47,7 @@ FROM build-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./ /
 COPY --chown=0:0 --from=2 ./sdb /sdb
 COPY --chown=0:0 --from=3 ./sdb /sdb
