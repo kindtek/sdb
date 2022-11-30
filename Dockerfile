@@ -1,7 +1,7 @@
 # 0
 FROM kindtek/teracy-ubuntu-20-04-dind-latest AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-
+ENV CHANNEL=sdb_dev
 COPY . ./sdb
 RUN apt-get update -y
 RUN cd /sdb && git submodule update --init --recursive
