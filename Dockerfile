@@ -47,8 +47,10 @@ FROM build-sdb_dev AS built-sol-sdb_dev
 USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 ./sdb /sdb
-COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=1 ./ /
+COPY --chown=0:0 --from=2 ./sdb /sdb
+COPY --chown=0:0 --from=3 ./sdb /sdb
+
 WORKDIR /sdb
 
 CMD ["git", "version"]
