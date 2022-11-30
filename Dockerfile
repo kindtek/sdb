@@ -17,7 +17,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /sdb/solana
 WORKDIR /sdb/solana
-# RUN /bin/bash sdk/docker-solana/build.sh --CI=true
+RUN /bin/bash sdk/docker-solana/build.sh --CI=true
 
 # 2
 FROM clone-git-sdb_dev AS built-yub-sdb_dev
@@ -26,7 +26,7 @@ USER root
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN cd /
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-# RUN /bin/bash build-ubuntu.sh
+RUN /bin/bash build-ubuntu.sh
 
 # 3
 FROM clone-git-sdb_dev AS built-sdb_dev
