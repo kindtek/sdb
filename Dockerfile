@@ -19,7 +19,7 @@ RUN cd /etc/apt \
 #     && /etc/apt/sources.list > tmp.txt \
 #     && mv tmp.txt /etc/apt/sources.list # fix for malformed list error 
 RUN apt-get update -y
-# RUN /bin/bash /install.sh
+RUN /bin/bash /install.sh
 
 # COPY --from=installed-rc-dind-git-sdb_dev ./sdb .
 # 2
