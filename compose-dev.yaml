@@ -45,8 +45,8 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-sol:/sdb/solana
-      - volume-yub:/sdb/yubico-net-sdk
+      - volume-sol:/sdb/sol
+      - volume-yub:/sdb/yub
     # - /var/run/docker.sock:/var/run/docker.sock
 
     labels:
