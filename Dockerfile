@@ -91,8 +91,8 @@ USER root
 EXPOSE 8899
 # COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb
-COPY --chown=0:0 --from=2 ./sdb /sdb
+# COPY --chown=0:0 --from=1 ./sdb /sdb
+# COPY --chown=0:0 --from=2 ./sdb /sdb
 # RUN cd /sdb/solana
 # WORKDIR /sdb/solana/sdk/docker-solana
 
