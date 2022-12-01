@@ -64,10 +64,10 @@ RUN mkdir /sdb/solana && mkdir /sdb/yubico-net-sdk
 
 # 4
 FROM built-sdb_dev AS built-yub-sdb_dev
-COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk/ /sdb/yubico-net-sdk/
 
 # 5
 FROM built-sdb_dev AS built-sol-sdb_dev
-COPY --chown=0:0 --from=2 ./sdb/solana /sdb/solana
+COPY --chown=0:0 --from=2 ./sdb/solana/ /sdb/solana/
 
 
