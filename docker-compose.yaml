@@ -1,28 +1,56 @@
 version: "3.8"
 services:
+  git:
+    build:
+      context: .
+      target: clone-git-sdb_dev
+    image: kindtek/sdb_dev-git
+    entrypoint: tail -f /dev/null
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
+    # volumes:
+      # - volume-sdb:/sdb
+      # - /var/run/docker.sock:/var/run/docker.sock
+
   sdb:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/sol-bin
+      - PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/ubuntu-solana/usr/bin
+      #:/sdb/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
         hard: 1000000
     image: kindtek/sdb_dev-sdb
-
+    # working_dir: /sdb
+    build:
+      context: .
+      # target: built-sdb_dev
+      target: built-sdb_dev
+      # cache_from:
+      #   - sdb:builder-sdb_dev
+      #   - sdb:kindtek/sdb-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-sol-bin:/usr/sol-bin
+      - volume-sol:/sdb/solana
+      - volume-yub:/sdb/yubico-net-sdk
+    # - /var/run/docker.sock:/var/run/docker.sock
+
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb_dev
+
   sol:
-    # pull_policy:
-    #   "always"
-    depends_on:
-      - "sdb"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/ubuntu-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
@@ -30,13 +58,20 @@ services:
     image: kindtek/sdb_dev-sol
     build:
       context: .
-      dockerfile: build/solana/sdk/docker-solana/Dockerfile
-    init: false
+      # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
+      target: built-sol-sdb_dev
+    init: true
+    entrypoint: tail -f /dev/null
+    # entrypoint:
+      # - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
+    tty: true
+    stdin_open: true
     volumes:
-      - volume-sol-bin:/build/solana/sdk/docker-solana/usr/bin
-      # - ./build/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
-      # - ./build/yubico-net-sdk/Yubico.NativeShims/ubuntu-x64:/var/run/docker.sock
+      - volume-sol:/sdb/solana
+      # - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8899:8899"
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -45,22 +80,27 @@ services:
   yub:
     # pull_policy:
     #   "always"
-    depends_on: 
-      - "sdb"
     environment:
-      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin
+      - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     image: kindtek/sdb_dev-yub
+    # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
-      dockerfile: build/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-    init: false
+      # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      target: built-yub-sdb_dev
+    init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
+    volumes:
+      - volume-yub:/sdb/yubico-net-sdk
+    # - /var/run/docker.sock:/var/run/docker.sock
+
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
+
 networks:
   default:
     name: networks-sdb_dev
@@ -70,5 +110,12 @@ networks:
   #   attachable: true
 
 volumes:
-  volume-sol-bin:
-    name: volume-sol-bin
+  # volume-sdb:
+  #   name: volume-sdb
+  #   external: true
+  volume-sol:
+    name: volume-sol
+    external: false
+  volume-yub:
+    name: volume-yub
+    external: false

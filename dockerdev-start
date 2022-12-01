@@ -1,0 +1,2 @@
+#!/bin/bash
+docker dev create https://github.com/kindtek/sdb.git@dev

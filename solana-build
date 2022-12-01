@@ -1,0 +1,3 @@
+#!/bin/bash
+CHANNEL=sdb-solana CI=true /bin/bash sdk/docker-solana/build.sh
+docker push kindtek/sdb_dev-solana:sdb-solana
