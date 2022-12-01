@@ -37,7 +37,7 @@ services:
     build:
       context: .
       # target: built
-      target: built
+      target: built-sdb
       # cache_from:
       #   - sdb:builder
       #   - sdb:kindtek/sdb
