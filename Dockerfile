@@ -19,9 +19,9 @@ USER root
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/solana
-# RUN /bin/bash /install.sh
+RUN /bin/bash /install.sh
 # RUN /bin/bash sdk/docker-solana/build.sh
-# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS build-yub-sdb_dev
