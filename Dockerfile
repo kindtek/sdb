@@ -8,30 +8,31 @@ ENV BRANCH=dev
 ENV DOCKER_USERNAME=kindtek
 ENV DOCKER_PASSWORD=dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
 USER root
-RUN apt-get remove docker docker-engine docker.io containerd runc
-RUN apt-get update -y
-RUN apt-get -y install \
-    ca-certificates \
-    curl \
-    coreutils \
-    fuse-overlayfs \
-    gnupg \
-    libssl-dev \
-    lsb-release
-RUN mkdir -p /etc/apt/keyrings
-RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+# RUN apt-get remove docker docker-engine docker.io containerd runc
+# RUN apt-get update -y
+# RUN apt-get -y install \
+#     ca-certificates \
+#     curl \
+#     coreutils \
+#     fuse-overlayfs \
+#     gnupg \
+#     libssl-dev \
+#     lsb-release
+# RUN mkdir -p /etc/apt/keyrings
+# RUN curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
-RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
-RUN echo \
-    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
-RUN apt-get update -y
-RUN apt-get -y install \
-    docker-ce docker-ce-cli \
-    containerd.io \
-    docker-compose-plugin
+# RUN docker login -u kindtek -p dckr_pat_7w8fzmOcy5EbRQiofMHFPBSVfHc
+# RUN echo \
+#     "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+#     $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+# RUN apt-get update -y
+# RUN apt-get -y install \
+#     docker-ce docker-ce-cli \
+#     containerd.io \
+#     docker-compose-plugin
 
 COPY . ./sdb
+RUN /bin/bash install.sh
 RUN cd /sdb && git submodule update --init --recursive
 
 # 1
@@ -78,6 +79,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
+ENV CI=true
 ARG privileged=true
 ARG rm=true
 
