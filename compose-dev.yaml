@@ -37,7 +37,7 @@ services:
     build:
       context: .
       # target: built-sdb_dev
-      target: clone-git-sdb_dev
+      target: built-sdb_dev
       # cache_from:
       #   - sdb:builder-sdb_dev
       #   - sdb:kindtek/sdb-sdb_dev
