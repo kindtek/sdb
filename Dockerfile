@@ -55,15 +55,14 @@ ARG init=true
 USER root
 EXPOSE 8899
 COPY . ./sdb
+COPY --chown=0:0 --from=0 ./sdb /sdb
 
 # 4
 FROM built-sdb_dev AS built-yub-sdb_dev
-COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubco-net-sdk
 
 # 5
 FROM built-sdb_dev AS built-sol-sdb_dev
-COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=2 ./sdb/solana /sdb/solana
 
 
