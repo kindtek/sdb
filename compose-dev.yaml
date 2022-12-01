@@ -173,7 +173,7 @@ volumes:
   #   external: true
   volume-sol:
     name: volume-sol
-    external: true
+    external: false
   volume-yub:
     name: volume-yub
-    external: true
+    external: false
