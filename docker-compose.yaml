@@ -3,7 +3,7 @@ services:
   git:
     build:
       context: .
-      target: clone-git-sdb_dev
+      target: clone-git
     image: kindtek/sdb_dev-git
     entrypoint: tail -f /dev/null
     labels:
@@ -29,11 +29,11 @@ services:
     # working_dir: /sdb
     build:
       context: .
-      # target: built-sdb_dev
-      target: built-sdb_dev
+      # target: built
+      target: built
       # cache_from:
-      #   - sdb:builder-sdb_dev
-      #   - sdb:kindtek/sdb-sdb_dev
+      #   - sdb:builder
+      #   - sdb:kindtek/sdb
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
@@ -59,7 +59,7 @@ services:
     build:
       context: .
       # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
-      target: built-sol-sdb_dev
+      target: built-sol
     init: true
     entrypoint: tail -f /dev/null
     # entrypoint:
@@ -87,7 +87,7 @@ services:
     build:
       context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: built-yub-sdb_dev
+      target: built-yub
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
@@ -103,7 +103,7 @@ services:
 
 networks:
   default:
-    name: networks-sdb_dev
+    name: networks
     attachable: true
   # portainer_agent:
   #   driver: overlay

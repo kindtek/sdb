@@ -1,14 +1,14 @@
 # 0 
-FROM docker:git
+FROM docker:git AS docker-copy
 COPY . ./sdb
 
 # 1
-FROM docker:git AS clone-git-sdb_dev
+FROM docker:git AS clone-git
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 RUN cd /sdb && git submodule update --init --recursive
 
 # 2
-FROM kindtek/teracy-ubuntu-20-04-dind AS build-sol-sdb_dev
+FROM kindtek/teracy-ubuntu-20-04-dind AS build-sol
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV CI=true
@@ -26,7 +26,7 @@ WORKDIR /sdb/solana
 # RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 3
-FROM kindtek/teracy-ubuntu-20-04-dind AS build-yub-sdb_dev
+FROM kindtek/teracy-ubuntu-20-04-dind AS build-yub
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV CI=true
@@ -45,23 +45,23 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 # 4
-FROM alpine AS building-sdb_dev
+FROM alpine AS building
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 5
-FROM building-sdb_dev AS built-sol-sdb_dev
+FROM building AS built-sol
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk
 
 # 6
-FROM building-sdb_dev AS built-yub-sdb_dev
+FROM building AS built-yub
 COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 RUN rm -rf /sol && rm -rf /sdb/solana
 
 # 7
-FROM building-sdb_dev AS built-sdb_dev
+FROM building AS built-sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb/
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /yub && rm -rf yubico-net-sdk
 
