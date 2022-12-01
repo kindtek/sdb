@@ -18,9 +18,9 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-    volumes:
+    # volumes:
       # - volume-sdb:/sdb
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
 
   sdb:
     # pull_policy:
@@ -74,7 +74,7 @@ services:
     stdin_open: true
     volumes:
       - volume-yub:/sdb/solana
-      - /var/run/docker.sock:/var/run/docker.sock
+      # - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8899:8899"
       # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
@@ -98,7 +98,7 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-sol:/sdb/yubico-net-sdk
+      - volume-yub:/sdb/yubico-net-sdk
     # - /var/run/docker.sock:/var/run/docker.sock
     labels:
       com.docker.devenvironments: "true"
@@ -119,7 +119,7 @@ volumes:
   #   external: true
   volume-sol:
     name: volume-sol
-    external: false
+    external: true
   volume-yub:
     name: volume-yub
-    external: false
+    external: true
