@@ -56,7 +56,7 @@ USER root
 EXPOSE 8899
 COPY . ./sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN rm -rf /sdb/solana && rm -r /sdb/yubico-net-sdk
+RUN rm -rf /sdb/solana/. && rm -r /sdb/yubico-net-sdk/.
 
 # 4
 FROM built-sdb_dev AS built-yub-sdb_dev
