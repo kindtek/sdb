@@ -17,7 +17,7 @@ ARG cap-add=SYS_RESOURCE
 ARG init=true
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 . ./
+COPY --chown=0:0 --from=0 ./sdb /sdb
 WORKDIR /sdb/solana
 # RUN /bin/bash /install.sh
 # RUN /bin/bash sdk/docker-solana/build.sh
@@ -36,7 +36,7 @@ ARG init=true
 USER root
 EXPOSE 8899
 ARG init=true
-COPY --chown=0:0 --from=0 . ./
+COPY --chown=0:0 --from=0 ./sdb /sdb
 # RUN /bin/bash /install.sh
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash build-ubuntu.sh
