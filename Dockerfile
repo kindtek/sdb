@@ -17,11 +17,11 @@ ARG cap-add=SYS_RESOURCE
 ARG init=true
 USER root
 EXPOSE 8899
-COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 WORKDIR /sdb/solana
-RUN /bin/bash /install.sh
+# RUN /bin/bash /install.sh
 # RUN /bin/bash sdk/docker-solana/build.sh
-RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
 FROM kindtek/teracy-ubuntu-20-04-dind AS build-yub-sdb_dev
@@ -36,7 +36,7 @@ ARG init=true
 USER root
 EXPOSE 8899
 ARG init=true
-COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash /install.sh
 # RUN /bin/bash /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
