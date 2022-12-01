@@ -4,7 +4,6 @@ COPY . ./sdb
 
 # 1
 FROM docker:git AS clone-git
-COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 RUN cd /sdb && git submodule update --init --recursive
 
 # 2
