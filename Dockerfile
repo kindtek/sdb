@@ -37,9 +37,9 @@ USER root
 EXPOSE 8899
 ARG init=true
 COPY --chown=0:0 --from=0 ./sdb /sdb
-# RUN /bin/bash /install.sh
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
-# RUN /bin/bash build-ubuntu.sh
+# RUN /bin/bash /install.sh
+# RUN /bin/bash /sdb/yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 # 3
 FROM alpine AS built-sdb_dev
