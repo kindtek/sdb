@@ -1,6 +1,6 @@
 # 0 
 # docker install instructions from https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-FROM kindtek/teracy-ubuntu-20-04-dind AS clone-git-sdb_dev
+FROM ubuntu:focal AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV CHANNEL_OR_TAG=dev
@@ -36,7 +36,7 @@ RUN /bin/bash install.sh
 RUN cd /sdb && git submodule update --init --recursive
 
 # 1
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-sol-sdb_dev
+FROM ubuntu:focal AS built-sol-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
@@ -53,10 +53,10 @@ WORKDIR /
 # RUN /bin/bash sdk/docker-solana/build.sh
 # RUN update-alternatives --set iptables /usr/sbin/iptables-legacy \
 #     && update-alternatives --set ip6tables /usr/sbin/ip6tables-legacy
-RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
+# RUN /bin/bash /sdb/solana/sdk/docker-solana/build.sh
 
 # 2
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub-sdb_dev
+FROM ubuntu:focal AS built-yub-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ARG privileged=true
@@ -76,7 +76,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN /bin/bash build-ubuntu.sh
 
 # 3
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-sdb_dev
+FROM ubuntu:focal AS built-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV CI=true
