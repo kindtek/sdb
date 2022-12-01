@@ -32,7 +32,7 @@ USER root
 #     docker-compose-plugin
 
 COPY . ./sdb
-RUN /bin/bash install.sh
+# RUN /bin/bash install.sh
 RUN cd /sdb && git submodule update --init --recursive
 
 # 1
