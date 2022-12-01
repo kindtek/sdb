@@ -46,7 +46,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 FROM alpine AS built-sdb_dev
 EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
-RUN rm -rf /sdb/solana{*,.*} && rm -rf /sdb/yubico-net-sdk{*,.*}
+RUN rm -rf /sdb/solana/{*,.*} && rm -rf /sdb/yubico-net-sdk/{*,.*}
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 4
