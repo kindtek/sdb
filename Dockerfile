@@ -4,6 +4,9 @@ USER root
 COPY . ./sdb
 # RUN /bin/bash install.sh
 RUN cd /sdb && git submodule update --init --recursive
+RUN ln -s /sdb/solana /sdb/sol
+RUN ln -s /sdb/yubico-net-sdk /sdb/yub
+
 
 # 1
 FROM kindtek/teracy-ubuntu-20-04-dind AS build-sol-sdb_dev

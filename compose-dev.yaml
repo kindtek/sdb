@@ -43,7 +43,6 @@ services:
       #   - sdb:kindtek/sdb-sdb_dev
     init: true
     entrypoint: tail -f /dev/null
-    command: ln -s /sdb/solana /sdb/sol && ln -s /sdb/yubico-net-sdk /sdb/yub
     stop_signal: SIGKILL
     volumes:
       - volume-sol:/sdb/solana
