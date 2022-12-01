@@ -1,6 +1,6 @@
 # 0 
 # docker install instructions from https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
-FROM ubuntu:focal AS clone-git-sdb_dev
+FROM docker:git AS clone-git-sdb_dev
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
 ENV CHANNEL=sdb_dev
 ENV CHANNEL_OR_TAG=dev
