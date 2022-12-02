@@ -1,3 +1,7 @@
 #!/bin/bash
+
+# cd yubico-net-sdk/Yubico.NativeShims
+# USER_ID=1000 GROUP_ID=1000 ARTIFACT_DIR=alpine-x64 /bin/bash build-alpine.sh
+
 cd yubico-net-sdk/Yubico.NativeShims
-USER_ID=1000 GROUP_ID=1000 ARTIFACT_DIR=alpine-x64 /bin/bash build-alpine.sh
+USER_ID=1000 GROUP_ID=1000 ARTIFACT_DIR=ubuntu-x64 /bin/bash build-ubuntu.sh
