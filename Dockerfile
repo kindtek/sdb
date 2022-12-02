@@ -16,14 +16,16 @@ FROM kindtek/solana-safedb-alpine AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
-COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
+COPY --chown=0:0 --from=0 /sdb/solana.* /sdb/
 WORKDIR /sdb/solana
 # clear sdb  dev space
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
-COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
+COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
+# add symlinks
 RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
-RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
+# solana copy pasta
+RUN export PATH="/sol/sdk/docker-solana/usr/bin":"$PATH"
 COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
 COPY /sdb/solana/sdk/fetch-spl.sh usr/bin
 RUN cd usr/bin && /bin/bash /fetch-spl.sh
