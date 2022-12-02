@@ -28,7 +28,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 5
-FROM kindtek/kindtek/sdb_dev-sol AS built-sol
+FROM build-sol AS built-sol
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 
