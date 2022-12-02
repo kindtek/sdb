@@ -47,8 +47,8 @@ services:
       context: .
       target: built-sol
     init: true
-    entrypoint: # tail -f /dev/null
-    - "/bin/bash solana-run.sh"
+    entrypoint: tail -f /dev/null
+    # - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
