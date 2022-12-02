@@ -21,12 +21,8 @@ RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/ed
 
 # want sol to have own isolated dev space
 EXPOSE 8899
-# copy empty directory
-COPY --chown=0:0 --from=0 /sdb/solana ./sdb/solana
-# clear sdb dir
-RUN rm -rf /sol && rm -f /sdb.*
-# replace with clean files
-COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
+# copy solana directory only
+COPY --chown=0:0 --from=1 /sdb/solana ./sdb/solana
 # add symlinks
 # RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
