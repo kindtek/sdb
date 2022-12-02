@@ -54,7 +54,7 @@ FROM alpine AS built-sdb
 RUN rm -rf /sdb/.gitmodules 
 # copy empty directory
 WORKDIR /sdb
-COPY --chown=0:0 --from=0 . .
+# COPY --chown=0:0 --from=0 . .
 # and gitmodules
 WORKDIR /sdb/.gitmodules
 COPY --chown=0:0 --from=1 . .
