@@ -41,7 +41,7 @@ RUN rm -rf /sdb
 # copy yubico directory only
 COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 # add symlinks
-RUN ln -s /sdb/yubico-net-sdk /yub
+# RUN ln -s /sdb/yubico-net-sdk /yub
 WORKDIR /yub/Yubico.NativeShims
 
 
