@@ -10,7 +10,7 @@ RUN apk update && \
 # pull the cloned dbs
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
-RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+# RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 2
 FROM built-git AS built-sol
@@ -26,7 +26,7 @@ COPY --chown=0:0 --from=kindtek/solana-safedb-alpine ./sdb/solana .
 # clear sdb dir
 RUN rm -rf /yub && rm -rf /sdb
 COPY --chown=0:0 --from=built-git ./sdb/solana .
-RUN ln -s /sdb/solana /sol
+# RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
 # add symlinks
 # RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
