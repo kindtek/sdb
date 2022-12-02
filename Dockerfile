@@ -63,7 +63,7 @@ COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 FROM building AS built-sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb/
 COPY --chown=0:0 --from=1 ./sdb /sdb/
-RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /yub && rm -rf yubico-net-sdk
+RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
 
 
