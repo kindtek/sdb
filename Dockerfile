@@ -5,7 +5,7 @@ COPY . ./sdb
 # 1
 FROM fresh-repo AS built-git
 RUN apk update \
-&& apk add bash
+    && apk add bash
 # pull the cloned dbs
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
@@ -23,11 +23,10 @@ RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
-RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH" && \
-    cp -f ../../scripts/run.sh usr/bin/solana-run.sh && \
-    cp -f ../../fetch-spl.sh usr/bin/ && \
-    cd usr/bin && \
-    /bin/bash /fetch-spl.sh
+RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
+COPY ../../scripts/run.sh usr/bin/solana-run.sh
+COPY ../../fetch-spl.sh usr/bin/
+RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 3
 FROM kindtek/yubico-safedb-alpine AS built-yub
