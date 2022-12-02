@@ -13,10 +13,14 @@ RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 2
 FROM kindtek/solana-safedb-alpine AS built-sol
+
+#debug
+RUN apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs
+
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb/solana.* /sdb/
+COPY --chown=0:0 --from=0 /sdb/solana.* /sdb
 WORKDIR /sdb/solana
 # clear sdb  dev space
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
