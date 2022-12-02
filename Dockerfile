@@ -52,8 +52,8 @@ WORKDIR /yub/Yubico.NativeShims
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 /sdb ./sdb
-RUN rm -rf /sdb/.gitmodules
-COPY --chown=0:0 --from=1 /sdb/.gitmodules ./sdb/.gitmodules
+# RUN rm -rf /sdb/.gitmodules 
+# COPY --chown=0:0 --from=1 /sdb/.gitmodules ./sdb/.gitmodules
 # wipe solana and yubico-net-sdk directories
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 COPY --chown=0:0 --from=2 /usr/bin ./usr/bin
