@@ -47,7 +47,6 @@ COPY --chown=0:0 --from=1 ./sdb /sdb/
 COPY --chown=0:0 --from=3 ./usr/bin* /usr/
 COPY --chown=0:0 --from=2 ./usr/bin* /usr/
 RUN cd /usr/bin && export PATH=`$PWD`/bin:`$PATH`
-RUN solana
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
