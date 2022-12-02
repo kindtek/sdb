@@ -8,7 +8,7 @@ RUN apk update && \
     apk add bash && \
     apk upgrade
 # pull the cloned dbs
-COPY --chown=0:0 --from=fresh-repo /sdb/solana ./sdb/solana
+COPY --chown=0:0 --from=fresh-repo /sdb ./sdb
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
 # RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
