@@ -22,8 +22,12 @@ WORKDIR /sdb/solana
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
-RUN ln -s /sdb/solana /sol
-
+RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
+RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH" && \
+    cp -f ../../scripts/run.sh usr/bin/solana-run.sh && \
+    cp -f ../../fetch-spl.sh usr/bin/ && \
+    cd usr/bin && \
+    /bin/bash /fetch-spl.sh
 
 # 3
 FROM kindtek/yubico-safedb-alpine AS built-yub
@@ -44,7 +48,8 @@ FROM alpine AS built-sdb
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb/
 COPY --chown=0:0 --from=3 ./usr/bin/usr* /usr/bin/
-COPY --chown=0:0 --from=2 ./usr/bin.usr* /usr/bin/
+COPY --chown=0:0 --from=3 ./sol/sdk/docker-solana/usr* /sol/sdk/docker-solana/
+COPY --chown=0:0 --from=2 ./usr/bin* /usr/bin/
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
