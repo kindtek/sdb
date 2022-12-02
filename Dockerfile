@@ -23,7 +23,7 @@ RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
 # add symlinks
-RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
+# RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
 RUN export PATH="/sol/sdk/docker-solana/usr/bin":"$PATH"
 # COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
@@ -39,7 +39,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 # replace with clean files
-COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk.* /sdb/
 RUN ln -s /sdb/yubico-net-sdk /yub
 
 
