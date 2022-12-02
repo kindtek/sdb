@@ -3,11 +3,12 @@ FROM docker:git AS fresh-repo
 COPY . ./sdb
 
 # 1
-FROM fresh-repo AS built-git
+FROM docker:git AS built-git
 RUN apk update && \
     apk add bash && \
     apk upgrade
 # pull the cloned dbs
+COPY --chown=0:0 --from=fresh-repo /sdb/solana ./sdb/solana
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
 # RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
@@ -24,7 +25,6 @@ EXPOSE 8899
 # copy empty directory
 # clear sdb dir
 RUN rm -rf /sdb
-COPY --chown=0:0 --from=fresh-repo /sdb/solana ./sdb/solana
 COPY --chown=0:0 --from=built-git /sdb/solana ./sdb/solana
 # RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
