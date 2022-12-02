@@ -61,7 +61,7 @@ COPY --chown=0:0 --from=1 . .
 # wipe solana and yubico-net-sdk directories
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 WORKDIR /usr/bin
-COPY --chown=0:0 --from=2 . .
+# COPY --chown=0:0 --from=2 . .
 # COPY --chown=0:0 --from=3 /sdb/solana/sdk/docker-solana/usr.* /sdb/solana/sdk/docker-solana/
 # COPY --chown=0:0 --from=3 . .
 
