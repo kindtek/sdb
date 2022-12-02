@@ -4,8 +4,9 @@ COPY . ./sdb
 
 # 1
 FROM fresh-repo AS built-git
-RUN apk update \
-    && apk add bash
+RUN apk update && \
+    apk add bash && \
+    apk upgrade
 # pull the cloned dbs
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
