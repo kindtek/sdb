@@ -8,6 +8,7 @@ RUN cd /sdb && git submodule update --init --recursive
 
 # 2
 FROM kindtek/sdb_dev-sol:sdb-solana AS built-sol
+EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 WORKDIR /sdb/solana
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
@@ -15,7 +16,6 @@ COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 
 # 3
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub
-EXPOSE 8899
 ARG init=true
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
