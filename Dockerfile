@@ -16,6 +16,7 @@ FROM kindtek/solana-safedb-alpine AS built-sol
 
 #debug
 RUN apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs
+RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing &&
 
 # want sol to have own isolated dev space
 EXPOSE 8899
