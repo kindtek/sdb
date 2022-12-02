@@ -22,6 +22,8 @@ WORKDIR /sdb/solana
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
+RUN ln -s /sdb/solana /sol
+
 
 # 3
 FROM kindtek/yubico-nativeshims-ubuntu:alpine AS built-yub
@@ -33,6 +35,8 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
+RUN ln -s /sdb/yubico-net-sdk /yub
+
 
 # 4
 FROM alpine AS built-sdb
@@ -40,7 +44,10 @@ EXPOSE 8899
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb/
-COPY --chown=0:0 --from=2 ./usr/bin/solana* /usr/bin/
+COPY --chown=0:0 --from=3 ./usr/bin* /usr/
+COPY --chown=0:0 --from=2 ./usr/bin* /usr/
+RUN cd /usr/bin && export PATH=`$PWD`/bin:`$PATH`
+RUN solana
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
