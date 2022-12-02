@@ -51,16 +51,17 @@ RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 5
 FROM building AS built-sol
+RUN rm -rf /sol && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
-RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk
 
 # 6
 FROM building AS built-yub
+RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
-RUN rm -rf /sol && rm -rf /sdb/solana
 
 # 7
 FROM building AS built-sdb
+COPY --chown=0:0 --from=0 ./sdb /sdb/
 COPY --chown=0:0 --from=1 ./sdb /sdb/
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /yub && rm -rf yubico-net-sdk
 
