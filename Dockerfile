@@ -40,7 +40,7 @@ FROM kindtek/yubico-safedb-alpine AS built-yub
 # copy empty directory
 COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 # clear sdb  dev space
-RUN rm -rf /sol && rm -rf /sdb
+RUN rm -rf /sol && rm -f /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 RUN ln -s /sdb/yubico-net-sdk /yub
@@ -52,8 +52,8 @@ WORKDIR /yub/Yubico.NativeShims
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 /sdb ./sdb
-# RUN rm -rf /sdb/.gitmodules 
-# COPY --chown=0:0 --from=1 /sdb/.gitmodules ./sdb/.gitmodules
+RUN rm -rf /sdb/.gitmodules 
+COPY --chown=0:0 --from=1 /sdb/.gitmodules ./sdb/.gitmodules
 # wipe solana and yubico-net-sdk directories
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 COPY --chown=0:0 --from=2 /usr/bin ./usr/bin
