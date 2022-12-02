@@ -56,7 +56,7 @@ RUN rm -rf /sdb/.gitmodules
 WORKDIR /sdb
 COPY --chown=0:0 --from=0 . .
 # and gitmodules
-WORKDIR /sdb.gitmodules
+WORKDIR /sdb/.gitmodules
 COPY --chown=0:0 --from=1 . .
 # wipe solana and yubico-net-sdk directories
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
