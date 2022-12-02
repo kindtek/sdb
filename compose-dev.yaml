@@ -10,13 +10,10 @@ services:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
+      com.docker.devenvironments.name: sdb
   sdb:
-    # pull_policy:
-    #   "always"
     environment:
       - PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/sdb/solana/sdk/docker-solana/usr/bin
-      #:/sdb/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:
         soft: 1000000
@@ -25,22 +22,18 @@ services:
     # working_dir: /sdb
     build:
       context: .
-      # target: built
       target: built-sdb
-      # cache_from:
-      #   - sdb:builder
-      #   - sdb:kindtek/sdb
     init: true
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-sol:/sdb/solana
-      - volume-yub:/sdb/yubico-net-sdk
+      - sol-vol-sdb:/sdb/solana
+      - yub-vol-sdb:/sdb/yubico-net-sdk
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
+      com.docker.devenvironments.name: sdb
 
   sol:
     environment:
@@ -52,28 +45,23 @@ services:
     image: kindtek/solana-safedb-alpine
     build:
       context: .
-      # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
       target: built-sol
     init: true
-    entrypoint: tail -f /dev/null
-    # entrypoint:
-      # - "/bin/bash solana-run.sh"
+    entrypoint: # tail -f /dev/null
+    - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
     volumes:
-      - volume-sol:/sdb/solana
-      # - /var/run/docker.sock:/var/run/docker.sock
+      - sol-vol-sdb:/sdb/solana
     ports:
       - "8899:8899"
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
+      com.docker.devenvironments.name: sdb
   yub:
-    # pull_policy:
-    #   "always"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
     image: kindtek/yubico-safedb-alpine
@@ -86,27 +74,21 @@ services:
     entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
-      - volume-yub:/sdb/yubico-net-sdk
+      - yub-vol-sdb:/sdb/yubico-net-sdk
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb_dev
+      com.docker.devenvironments.name: sdb
 networks:
   default:
-    name: networks
+    name: net
     attachable: true
-  # portainer_agent:
-  #   driver: overlay
-  #   attachable: true
 
 volumes:
-  # volume-sdb:
-  #   name: volume-sdb
-  #   external: true
-  volume-sol:
-    name: volume-sol
+  sol-vol-sdb:
+    name: yub-vol-sdb
     external: false
-  volume-yub:
-    name: volume-yub
+  yub-vol-sdb:
+    name: yub-vol-sdb
     external: false
