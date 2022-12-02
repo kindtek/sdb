@@ -26,7 +26,7 @@ RUN ln -s /sdb/solana /sol
 
 
 # 3
-FROM kindtek/yubico-safedb-ubuntu AS built-yub
+FROM kindtek/yubico-safedb-alpine AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
