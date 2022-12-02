@@ -13,7 +13,7 @@ RUN cd /sdb && git submodule update --init --recursive
 # RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 2
-FROM built-git AS built-sol
+FROM kindtek/solana-safedb-alpine AS built-sol
 
 #debug
 RUN apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs
@@ -24,7 +24,7 @@ EXPOSE 8899
 # copy empty directory
 # clear sdb dir
 RUN rm -rf /sdb
-COPY --chown=0:0 --from=kindtek/solana-safedb-alpine /sdb/solana ./sdb/solana
+COPY --chown=0:0 --from=fresh-repo /sdb/solana ./sdb/solana
 COPY --chown=0:0 --from=built-git /sdb/solana ./sdb/solana
 # RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
