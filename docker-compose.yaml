@@ -3,7 +3,7 @@ services:
   git:
     build:
       context: .
-      target: clone-sub-repos
+      target: built-git
     image: kindtek/sdb_dev-git
     entrypoint: tail -f /dev/null
     labels:
@@ -11,7 +11,7 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-    # volumes:
+      # volumes:
       # - volume-sdb:/sdb
       # - /var/run/docker.sock:/var/run/docker.sock
 
@@ -63,7 +63,7 @@ services:
     init: true
     entrypoint: tail -f /dev/null
     # entrypoint:
-      # - "/bin/bash solana-run.sh"
+    # - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
