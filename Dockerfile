@@ -25,7 +25,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=fresh-repo /sdb/solana ./sdb/solana
 WORKDIR /sdb/solana
 # clear sdb  dev space
-RUN rm -rf /yub && && rm -rf /sdb
+RUN rm -rf /yub && rm -rf /sdb
 # replace with clean files and create sdb dir
 COPY --chown=0:0 --from=built-git /sdb/solana ./sdb/solana
 # add symlinks
