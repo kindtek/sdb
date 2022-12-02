@@ -1,9 +1,9 @@
 # 0 
-FROM docker:git AS docker-copy
+FROM docker:git AS fresh-copy
 COPY . ./sdb
 
 # 1
-FROM docker:git AS clone-git
+FROM fresh-copy AS clone-git
 RUN cd /sdb && git submodule update --init --recursive
 
 # 2
