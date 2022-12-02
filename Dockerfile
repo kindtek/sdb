@@ -39,8 +39,8 @@ FROM kindtek/yubico-safedb-alpine AS built-yub
 # clear sdb  dev space
 # RUN rm -rf /sdb
 # copy yubico directory only
-WORKDIR /sdb/yubico-net-sdk
-COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk .
+# WORKDIR /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 # add symlinks
 # RUN ln -s /sdb/yubico-net-sdk /yub
 # WORKDIR /yub/Yubico.NativeShims
