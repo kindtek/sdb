@@ -4,7 +4,7 @@ services:
     build:
       context: .
       target: built-git
-    image: kindtek/sdb_dev-git
+    image: kindtek/safedb-repo
     entrypoint: tail -f /dev/null
     labels:
       com.docker.devenvironments: "true"
@@ -49,7 +49,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/solana-firewalled-alpine
+    image: kindtek/solana-safedb-alpine
     build:
       context: .
       # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
@@ -76,7 +76,7 @@ services:
     #   "always"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/yubico-nativeshims-alpine
+    image: kindtek/yubico-safedb-alpine
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
