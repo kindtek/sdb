@@ -24,8 +24,8 @@ RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
-COPY ../../scripts/run.sh usr/bin/solana-run.sh
-COPY ../../fetch-spl.sh usr/bin
+COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
+COPY /sdb/solana/sdk/fetch-spl.sh usr/bin
 RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 3
