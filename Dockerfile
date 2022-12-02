@@ -1,23 +1,14 @@
 # 0 
-FROM docker:git AS fresh-copy
+FROM docker:git AS fresh-repo
 COPY . ./sdb
 
 # 1
-FROM fresh-copy AS clone-git
+FROM fresh-repo AS clone-sub-repos
 RUN cd /sdb && git submodule update --init --recursive
 
 # 2
-FROM kindtek/teracy-ubuntu-20-04-dind AS build-sol
-ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=DontWarn
-ENV CHANNEL=sdb_dev
-ENV CI=true
-ARG privileged=true
-# ARG rm=true
-ARG cap-add=NET_ADMIN
-ARG cap-add=NET_RAW
-ARG cap-add=SYS_RESOURCE
-ARG init=true
-USER root
+FROM kindtek/sdb_dev-sol AS build-sol
+
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana
 WORKDIR /sdb/solana
 # RUN /bin/bash /install.sh
@@ -50,7 +41,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 5
-FROM building AS built-sol
+FROM kindtek/kindtek/sdb_dev-sol AS built-sol
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 
