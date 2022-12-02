@@ -1,12 +1,5 @@
 version: "3.8"
 services:
-  # builder:
-  #   build:
-  #     context: .
-  #     cache_from:
-  #       - sdb:builder
-  #     target: builder
-  #   image: sdb:builder
   git:
     build:
       context: .
@@ -18,10 +11,6 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-    # volumes:
-      # - volume-sdb:/sdb
-      # - /var/run/docker.sock:/var/run/docker.sock
-
   sdb:
     # pull_policy:
     #   "always"
@@ -47,8 +36,6 @@ services:
     volumes:
       - volume-sol:/sdb/solana
       - volume-yub:/sdb/yubico-net-sdk
-    # - /var/run/docker.sock:/var/run/docker.sock
-
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
@@ -100,66 +87,11 @@ services:
     stop_signal: SIGKILL
     volumes:
       - volume-yub:/sdb/yubico-net-sdk
-    # - /var/run/docker.sock:/var/run/docker.sock
-
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb_dev
-
-  # sol:
-  #   environment:
-  #     - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/sdb/solana/sdk/ubuntu-solana/usr/bin
-  #   ulimits:
-  #     nofile:
-  #       soft: 1000000
-  #       hard: 1000000
-  #   image: kindtek/sdb_dev-sol
-  #   build:
-  #     context: .
-  #     # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
-  #     target: built-sol
-  #   init: true
-  #   entrypoint:
-  #     - "/bin/bash solana-run.sh"
-  #   stop_signal: SIGKILL
-  #   tty: true
-  #   stdin_open: true
-  #   volumes:
-  #     - volume-yub:/sdb/solana
-  #     # - /var/run/docker.sock:/var/run/docker.sock
-  #   ports:
-  #     - "8899:8899"
-  #     # - ./sdb/solana/sdk/docker-solana/usr/bin:/usr/share/sol/bin
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb_dev
-
-  # yub:
-  #   # pull_policy:
-  #   #   "always"
-  #   environment:
-  #     - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-  #   image: kindtek/sdb_dev-yub
-  #   # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
-  #   build:
-  #     context: .
-  #     # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-  #     target: built-yub
-  #   init: true
-  #   entrypoint: tail -f /dev/null
-  #   stop_signal: SIGKILL
-  #   volumes:
-  #     - volume-sol:/sdb/yubico-net-sdk
-  #   # - /var/run/docker.sock:/var/run/docker.sock
-  #   labels:
-  #     com.docker.devenvironments: "true"
-  #     com.docker.devenvironments.compose: "true"
-  #     com.docker.devenvironments.container: "true"
-  #     com.docker.devenvironments.name: sdb_dev
 networks:
   default:
     name: networks
