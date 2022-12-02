@@ -41,7 +41,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb/
 COPY --chown=0:0 --from=2 ./usr/bin/solana* /usr/bin/
-
+RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
 
