@@ -16,7 +16,6 @@ COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 
 # 3
 FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub
-ARG init=true
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
