@@ -7,7 +7,8 @@ FROM fresh-repo AS built-git
 RUN apk update && \
     apk add bash 
 # pull the cloned dbs
-RUN cd /sdb && git submodule update --init --recursive
+WORKDIR /sdb
+RUN git submodule update --init --recursive
 # create shortcuts
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
@@ -22,7 +23,7 @@ RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/ed
 RUN rm -rf /sdb
 # copy solana directory only
 WORKDIR /sdb/solana
-COPY --chown=0:0 --from=1 /sdb/solana .
+COPY --chown=0:0 --from=1 . .
 # add symlinks
 RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
@@ -39,8 +40,8 @@ FROM kindtek/yubico-safedb-alpine AS built-yub
 # clear sdb  dev space
 # RUN rm -rf /sdb
 # copy yubico directory only
-# WORKDIR /sdb/yubico-net-sdk
-COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
+WORKDIR /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 . .
 # add symlinks
 # RUN ln -s /sdb/yubico-net-sdk /yub
 # WORKDIR /yub/Yubico.NativeShims
@@ -52,14 +53,17 @@ FROM alpine AS built-sdb
 # clear sdb  dev space
 RUN rm -rf /sdb/.gitmodules 
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb ./sdb
+WORKDIR /sdb
+COPY --chown=0:0 --from=0 . .
 # and gitmodules
-COPY --chown=0:0 --from=1 /sdb/.gitmodules ./sdb/.gitmodules
+WORKDIR /sdb.gitmodules
+COPY --chown=0:0 --from=1 . .
 # wipe solana and yubico-net-sdk directories
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
-COPY --chown=0:0 --from=2 /usr/bin ./usr/bin
+WORKDIR /usr/bin
+COPY --chown=0:0 --from=2 . .
 # COPY --chown=0:0 --from=3 /sdb/solana/sdk/docker-solana/usr.* /sdb/solana/sdk/docker-solana/
-COPY --chown=0:0 --from=3 /usr/bin ./usr/bin
+COPY --chown=0:0 --from=3 . .
 
 
 
