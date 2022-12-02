@@ -26,9 +26,9 @@ COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
 RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
 RUN export PATH="/sol/sdk/docker-solana/usr/bin":"$PATH"
-COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
-COPY /sdb/solana/sdk/fetch-spl.sh usr/bin/fetch-spl.sh
-RUN cd usr/bin && /bin/bash /fetch-spl.sh
+# COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
+# COPY /sdb/solana/sdk/fetch-spl.sh usr/bin/fetch-spl.sh
+# RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 3
 FROM kindtek/yubico-safedb-alpine AS built-yub
