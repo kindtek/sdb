@@ -57,7 +57,7 @@ COPY --chown=0:0 --from=1 /sdb/.git/modules ./sdb/.git/modules
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 COPY --chown=0:0 --from=3 /usr/bin ./usr/bin
 # COPY --chown=0:0 --from=3 /sdb/solana/sdk/docker-solana/usr.* /sdb/solana/sdk/docker-solana/
-COPY --chown=0:0 --from=4 /usr/bin ./usr/bin
+# COPY --chown=0:0 --from=4 /usr/bin ./usr/bin
 
 
 
