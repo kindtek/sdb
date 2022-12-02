@@ -21,7 +21,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb_dev-sdb
+    image: kindtek/safedb
     # working_dir: /sdb
     build:
       context: .
@@ -49,7 +49,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/sdb_dev-sol
+    image: kindtek/solana-firewalled-alpine
     build:
       context: .
       # dockerfile: /sdb/solana/sdk/docker-solana/Dockerfile
@@ -76,7 +76,7 @@ services:
     #   "always"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/yubico-nativeshims-ubuntu
+    image: kindtek/yubico-nativeshims-alpine
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .

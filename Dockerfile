@@ -12,7 +12,7 @@ RUN cd /sdb && git submodule update --init --recursive
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 2
-FROM kindtek/sdb_dev-sol:sdb-solana AS built-sol
+FROM kindtek/solana-firewalled-alpine AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
@@ -26,7 +26,7 @@ RUN ln -s /sdb/solana /sol
 
 
 # 3
-FROM kindtek/yubico-nativeshims-ubuntu:alpine AS built-yub
+FROM kindtek/yubico-nativeshims-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
