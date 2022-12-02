@@ -10,7 +10,7 @@ services:
   git:
     build:
       context: .
-      target: clone-sub-repos
+      target: built-git
     image: kindtek/sdb_dev-git
     entrypoint: tail -f /dev/null
     labels:
