@@ -1,6 +1,12 @@
 {
   "recommendations": [
     "ms-azuretools.vscode-docker",
-    "formulahendry.docker-extension-pack"
+    "formulahendry.docker-extension-pack",
+    "henriiik.docker-linter",
+    "donjayamanne.githistory",
+    "christian-kohler.path-intellisense",
+    "esbenp.prettier-vscode",
+    "redhat.vscode-yaml",
+    "praveersinghchauhan.abyssplus"
   ]
 }
