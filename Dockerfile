@@ -14,17 +14,17 @@ RUN cd /sdb && git submodule update --init --recursive
 
 # 2
 FROM kindtek/solana-safedb-alpine AS built-sol
-
+EXPOSE 8899
 #debug
 RUN apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs
 RUN apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing
-
 # want sol to have own isolated dev space
-EXPOSE 8899
+# clear sdb  dev space
+RUN rm -rf /sdb
 # copy solana directory only
 COPY --chown=0:0 --from=1 /sdb/solana ./sdb/solana
 # add symlinks
-# RUN ln -s /sdb/solana /sol
+RUN ln -s /sdb/solana /sol
 WORKDIR /sdb/sol
 
 # solana copy pasta
@@ -37,11 +37,10 @@ WORKDIR /sdb/sol
 FROM kindtek/yubico-safedb-alpine AS built-yub
 # want yub to have own isolated dev space
 # clear sdb  dev space
-RUN rm -rf /sol && rm -rf /sdb/
-# copy empty directory
-COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
-# replace with clean files
+RUN rm -rf /sdb
+# copy yubico directory only
 COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
+# add symlinks
 RUN ln -s /sdb/yubico-net-sdk /yub
 WORKDIR /yub/Yubico.NativeShims
 
