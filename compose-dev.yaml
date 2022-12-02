@@ -15,7 +15,7 @@ services:
     # pull_policy:
     #   "always"
     environment:
-      - PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - PATH=/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/sdb/solana/sdk/docker-solana/usr/bin
       #:/sdb/solana/sdk/docker-solana/usr/bin
     ulimits:
       nofile:

@@ -40,13 +40,11 @@ RUN ln -s /sdb/yubico-net-sdk /yub
 
 # 4
 FROM alpine AS built-sdb
-EXPOSE 8899
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb/
-COPY --chown=0:0 --from=3 ./usr/bin* /usr/
-COPY --chown=0:0 --from=2 ./usr/bin* /usr/
-RUN cd /usr/bin && export PATH=`$PWD`/bin:`$PATH`
+COPY --chown=0:0 --from=3 ./usr/bin/usr* /usr/bin/
+COPY --chown=0:0 --from=2 ./usr/bin.usr* /usr/bin/
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
