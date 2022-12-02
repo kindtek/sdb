@@ -37,7 +37,7 @@ WORKDIR /sdb/sol
 FROM kindtek/yubico-safedb-alpine AS built-yub
 # want yub to have own isolated dev space
 # clear sdb  dev space
-RUN rm -rf /sol && rm -f /sdb/
+RUN rm -rf /sol && rm -rf /sdb/
 # copy empty directory
 COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 # replace with clean files
