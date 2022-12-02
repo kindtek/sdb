@@ -1,0 +1,2 @@
+cd /sdb/yubico-net-sdk/Yubico.NativeShims
+/bin/bash build-ubuntu.sh
