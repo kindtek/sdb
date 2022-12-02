@@ -20,8 +20,8 @@ COPY --chown=0:0 --from=0 /sdb/solana.* /sdb/
 WORKDIR /sdb/solana
 # clear sdb  dev space
 RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
-# replace with clean files
-COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
+# replace with clean files and create sdb dir
+COPY --chown=0:0 --from=1 /sdb/solana.* ./sdb
 # add symlinks
 # RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
