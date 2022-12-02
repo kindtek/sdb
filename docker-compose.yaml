@@ -3,7 +3,7 @@ services:
   git:
     build:
       context: .
-      target: clone-git
+      target: clone-sub-repos
     image: kindtek/sdb_dev-git
     entrypoint: tail -f /dev/null
     labels:
@@ -30,7 +30,7 @@ services:
     build:
       context: .
       # target: built
-      target: built
+      target: built-sdb
       # cache_from:
       #   - sdb:builder
       #   - sdb:kindtek/sdb
@@ -82,7 +82,7 @@ services:
     #   "always"
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/sdb_dev-yub
+    image: kindtek/yubico-nativeshims-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
