@@ -22,7 +22,7 @@ RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 COPY --chown=0:0 --from=1 ./sdb/solana /sdb/solana
 
 # 3
-FROM kindtek/teracy-ubuntu-20-04-dind AS built-yub
+FROM kindtek/yubico-nativeshims-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
