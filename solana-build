@@ -1,5 +1,5 @@
 #!/bin/bash
 cd solana
-CHANNEL=kindtek/solana-firewalled-alpine:latest CI=true /bin/bash sdk/docker-solana/build.sh
-docker kindtek/solana-firewalled-alpine:latest tag kindtek/solana-firewalled-alpine:sdb-0.0.1 
-docker push kindtek/solana-firewalled-alpine:latest
+CHANNEL=kindtek/solana-safedb-alpine:latest CI=true /bin/bash sdk/docker-solana/build.sh
+docker kindtek/solana-safedb-alpine:latest tag kindtek/solana-safedb-alpine:sdb-0.0.1 
+docker push kindtek/solana-safedb-alpine:latest
