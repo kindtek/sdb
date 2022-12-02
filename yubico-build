@@ -1,2 +1,2 @@
 cd /sdb/yubico-net-sdk/Yubico.NativeShims
-/bin/bash build-ubuntu.sh
+USER_ID=1000 GROUP_ID=1000 ARTIFACT_DIR=ubuntu-x64 /bin/bash build-ubuntu.sh
