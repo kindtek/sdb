@@ -1,5 +1,5 @@
 [submodule "solana"]
-	shallow = false
+	shallow = true
 	path = solana
 	url = https://github.com/kindtek/solana.git
 	branch = sdb_dev
