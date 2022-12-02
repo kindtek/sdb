@@ -34,7 +34,7 @@ RUN cd usr/bin && /bin/bash /fetch-spl.sh
 FROM kindtek/yubico-safedb-alpine AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
