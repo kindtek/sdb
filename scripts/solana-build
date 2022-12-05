@@ -1,12 +1,12 @@
 #!/bin/bash
 set -ax
 cd ../solana
-# /bin/bash ../scripts/solana-version-get
+# /bin/bash 
 . ci/check-channel-version.sh
+export STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
 . ../sdb.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
 . ../sol.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
 set +a
-
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh
