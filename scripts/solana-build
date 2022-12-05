@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ax
-/bin/bash scripts/solana-version-get
+/bin/bash solana-version-get
 . ../sdb.env
 . ../sol.env
 set +a
