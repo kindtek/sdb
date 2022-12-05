@@ -14,7 +14,8 @@ RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 RUN /bin/bash solana-version-get
 
 # 2
-FROM "${SDB_SOL_DOCKER_IMG}" AS built-sol
+# TODO - MAKE IMAGE NAME DYNAMIC
+FROM "kindtek/solana-safedb-debian" AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
@@ -33,7 +34,8 @@ RUN export PATH="/sdb/solana/sdk/docker-solana/usr"/bin:"$PATH"
 RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 3
-FROM "${SDB_YUB_DOCKER_IMG}" AS built-yub
+# TODO - MAKE IMAGE NAME DYNAMIC
+FROM kindtek/yubico-safedb-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
 COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk

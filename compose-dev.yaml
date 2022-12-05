@@ -45,6 +45,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
+# TODO - MAKE IMAGE NAME DYNAMIC
     image: kindtek/solana-safedb-debian
     build:
       context: .
@@ -68,6 +69,7 @@ services:
     env_file:
       - sdb.env
       - yub.env
+# TODO - MAKE IMAGE NAME DYNAMIC
     image: kindtek/yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
