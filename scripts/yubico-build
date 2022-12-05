@@ -5,9 +5,11 @@ export GROUP_ID=1000
 export ARTIFACT_DIR=ubuntu-x64 
 
 cd ../
-set -ax
-export <(cat sdb.env | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
-set +ax
+set -x
+if [ -f .env ]; then
+  export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
+fi
+set +x
 cd yubico-net-sdk/Yubico.NativeShims
 /bin/bash build-ubuntu.sh
 
