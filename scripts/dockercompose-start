@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ax
 
-source ../.ini
+source "../.ini"
 cd ../yubico-net-sdk/Yubico.NativeShims
 docker compose up -d
