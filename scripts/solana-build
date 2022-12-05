@@ -1,4 +1,5 @@
 #!/bin/bash
+/bin/bash scripts/solana-version-get
 set -ax
 . ../sdb.env
 . ../sol.env
