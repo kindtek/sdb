@@ -64,7 +64,7 @@ services:
   yub:
     environment:
       - PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-    image: kindtek/yubico-safedb-alpine
+    image: kindtek/yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
