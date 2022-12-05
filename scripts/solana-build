@@ -2,7 +2,6 @@
 set -ax
 . ../sdb.env
 . ../sol.env
-. ../yub.env
 set +a
 
 cd ../solana
