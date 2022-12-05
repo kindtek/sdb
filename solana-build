@@ -1,5 +1,5 @@
 #!/bin/bash
-cd $(pwd)/solana/sdk/docker-solana
-echo $(pwd)/solana/sdk/docker-solana
+
+echo $(pwd)
 CHANNEL=latest CI=true /bin/bash build.sh
 docker push kindtek/solana-safedb-debian:latest
