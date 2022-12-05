@@ -2,8 +2,8 @@
 set -ex
 
 cd "$(dirname "$0")"/../..
-eval "$(/sdb/solana/ci/channel-info.sh)"
-source sdb/solana/ci/rust-version.sh
+eval "$(solana/ci/channel-info.sh)"
+source solana/ci/rust-version.sh
 
 CHANNEL_OR_TAG=
 if [[ -n "$CI_TAG" ]]; then
