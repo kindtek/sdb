@@ -1,7 +1,6 @@
 #!/bin/bash
 set -xa
 . ../sdb.env
-. ../sol.env
 . ../yub.env
 set +a
 
