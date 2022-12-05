@@ -3,7 +3,7 @@ services:
   git:
     build:
       context: .
-      # target: built-git
+      target: built-git
     image: kindtek/safedb-repo
     entrypoint: tail -f /dev/null
     labels:
