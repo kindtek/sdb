@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 set -ex
 cd ../solana
-cd "$(dirname "$0")"/../..
 eval "$(ci/channel-info.sh)"
 source ci/rust-version.sh
 
