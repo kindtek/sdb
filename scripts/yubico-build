@@ -11,7 +11,7 @@ if [ -f sdb.env ]; then
 fi
 set +x
 cd yubico-net-sdk/Yubico.NativeShims
-/bin/bash build-ubuntu.sh
+/bin/bash build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID
 
 docker build tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
 docker build push kindtek/yubico-safedb-ubuntu:latest
