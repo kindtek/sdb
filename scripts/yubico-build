@@ -13,5 +13,5 @@ set +a
 
 /bin/bash yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID
 
-docker build tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
+docker tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
 docker build push kindtek/yubico-safedb-ubuntu:latest
