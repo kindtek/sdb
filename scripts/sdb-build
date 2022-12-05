@@ -1,2 +1,4 @@
+#!/bin/bash
+source ../sdb.env
 /bin/bash solana-build
 /bin/bash yubico-build
