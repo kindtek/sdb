@@ -10,7 +10,11 @@ source <(cat sdb.env | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/=
 source <(cat yub.env | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
 set +a
 
-/bin/bash yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID $SDB_VERSION $SDB_YUB_DOCKER $SDB_YUB_DOCKER_IMG $SDB_YUB_DOCKER_TAG_GENERAL $SDB_YUB_DOCKER_TAG_X64 $SDB_YUB_DOCKER_TAG_X86 $SDB_YUB_DOCKER_TAG_ARM64
+/bin/bash \
+$ARTIFACT_DIR $GROUP_ID $USER_ID $SDB_VERSION $SDB_YUB_DOCKER \
+$SDB_YUB_DOCKER_IMG $SDB_YUB_DOCKER_TAG_GENERAL \
+$SDB_YUB_DOCKER_TAG_X64 $SDB_YUB_DOCKER_TAG_X86 $SDB_YUB_DOCKER_TAG_ARM64 \
+yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh
 
 docker tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
 docker build push kindtek/yubico-safedb-ubuntu:latest
