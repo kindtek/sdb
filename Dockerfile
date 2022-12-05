@@ -11,7 +11,6 @@ RUN apk update \
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
-RUN /bin/bash solana-version-get
 
 # 2
 # TODO - MAKE IMAGE NAME DYNAMIC
