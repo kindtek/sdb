@@ -1,13 +1,10 @@
 #!/bin/bash
 set -xa
 
-if [ -f ../sdb.env ]; then
-  export $(echo $(cat ../sdb.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-if [ -f yub.env ]; then
-  export $(echo $(cat ../yub.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-set +a
+source ../sdb.env
+source ../sol.env
+source ../yub.env
+
 
 cd ../yubico-net-sdk/Yubico.NativeShims
 /bin/bash build-${YUBICO_BUILD_ENV}.sh
