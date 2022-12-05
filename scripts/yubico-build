@@ -1,17 +1,15 @@
 #!/bin/bash
 set -xa
 
-cd ..
-set -a
-if [ -f sdb.env ]; then
-  export $(echo $(cat sdb.env | sed 's/#.*//g'| xargs) | envsubst)
+if [ -f ../sdb.env ]; then
+  export $(echo $(cat ../sdb.env | sed 's/#.*//g'| xargs) | envsubst)
 fi
 if [ -f yub.env ]; then
-  export $(echo $(cat yub.env | sed 's/#.*//g'| xargs) | envsubst)
+  export $(echo $(cat ../yub.env | sed 's/#.*//g'| xargs) | envsubst)
 fi
 set +a
 
-cd yubico-net-sdk/Yubico.NativeShims
+cd ../yubico-net-sdk/Yubico.NativeShims
 /bin/bash build-${YUBICO_BUILD_ENV}.sh
 
 docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest

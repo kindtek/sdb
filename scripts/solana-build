@@ -1,16 +1,15 @@
 #!/bin/bash
-cd ..
 set -a
-if [ -f sdb.env ]; then
-  export $(echo $(cat sdb.env | sed 's/#.*//g'| xargs) | envsubst)
+if [ -f ../sdb.env ]; then
+  export $(echo $(cat ../sdb.env | sed 's/#.*//g'| xargs) | envsubst)
 fi
-if [ -f sol.env ]; then
-  export $(echo $(cat sol.env | sed 's/#.*//g'| xargs) | envsubst)
+if [ -f ../sol.env ]; then
+  export $(echo $(cat ../sol.env | sed 's/#.*//g'| xargs) | envsubst)
 fi
 set +a
 
-cd solana
-CHANNEL=latest CI=true /bin/bash sdk/docker-solana/build.sh
+cd ../solana
+/bin/bash sdk/docker-solana/build.sh
 docker push kindtek/solana-safedb-debian:latest
 
 docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest
