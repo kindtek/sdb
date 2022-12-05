@@ -9,4 +9,3 @@ cd ../yubico-net-sdk/Yubico.NativeShims
 
 docker tag ${SDB_YUB_DOCKER} ${SDB_YUB_DOCKER_IMG}:latest
 docker build push ${SDB_YUB_DOCKER_IMG}:latest
-
