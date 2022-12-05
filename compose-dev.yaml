@@ -42,7 +42,7 @@ services:
       nofile:
         soft: 1000000
         hard: 1000000
-    image: kindtek/solana-safedb-alpine
+    image: kindtek/solana-safedb-debian
     build:
       context: .
       target: built-sol
