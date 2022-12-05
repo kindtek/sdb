@@ -27,6 +27,7 @@ ARG SDB_SOL_DOCKER_TAG=$SDB_SOL_DOCKER_TAG
 ARG SDB_SOL_DOCKER=$SDB_SOL_DOCKER
 ARG SDB_SOL_PATH=$SDB_SOL_PATH
 ARG "kindtek/solana-safedb-debian" AS built-sol
+FROM kindtek/solana-safedb-debian AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
