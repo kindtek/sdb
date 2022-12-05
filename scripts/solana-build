@@ -9,4 +9,4 @@ cd ../solana
 docker push kindtek/solana-safedb-debian:latest
 
 docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest
-docker build push ${SDB_SOL_DOCKER_IMG}:latest
+docker push ${SDB_SOL_DOCKER_IMG}:latest
