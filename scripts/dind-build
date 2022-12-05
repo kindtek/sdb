@@ -1,4 +1,4 @@
 #!/bin/bash
-cd teracy-docker-files/ubuntu/base/Dockerfile
+cd ../../teracy-docker-files/ubuntu/base/Dockerfile
 docker build -t kindtek/teracy-ubuntu-20-04-dind .
 docker push kindtek/teracy-ubuntu-20-04-dind:latest

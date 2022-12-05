@@ -1,5 +1,5 @@
 #!/bin/bash
 set -a
 /bin/bash solana-version-get
-source sdb.env
+source ../sdb.env
 docker compose up -d
