@@ -1,2 +1,4 @@
 #!/bin/bash
-docker compose up
+set -a
+source sdb.env
+docker-compose up -d

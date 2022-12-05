@@ -1,5 +1,6 @@
 # 0 
 FROM docker:git AS fresh-repo
+
 COPY . ./sdb
 
 # 1
@@ -10,9 +11,10 @@ RUN apk update \
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
 RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+RUN /bin/bash solana-version-get
 
 # 2
-FROM kindtek/solana-safedb-debian AS built-sol
+FROM "$SDB_SOL_DOCKER_IMG" AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
@@ -31,7 +33,7 @@ RUN export PATH="/sdb/solana/sdk/docker-solana/usr"/bin:"$PATH"
 RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 3
-FROM kindtek/yubico-safedb-debian AS built-yub
+FROM "$SDB_YUB_DOCKER_IMG" AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
 COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
