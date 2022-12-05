@@ -12,4 +12,6 @@ else
   SOLANA_CHANNEL_OR_TAG=$CHANNEL
 fi
 
+echo "$SOLANA_CHANNEL_OR_TAG" \n
+
 exit 0
