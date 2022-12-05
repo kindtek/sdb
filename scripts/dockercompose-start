@@ -1,5 +1,5 @@
 #!/bin/bash
 set -ax
 
-/bin/bash ../.ini
+source ../.ini
 docker compose up -d
