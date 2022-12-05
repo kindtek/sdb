@@ -1,4 +1,5 @@
 #!/bin/bash
+export SDB_VERSION=A.1
 set -ax
 . ../sdb.env
 . ../yub.env

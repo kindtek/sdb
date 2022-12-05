@@ -1,9 +1,11 @@
 #!/bin/bash
 /bin/bash scripts/solana-version-get
+export SDB_VERSION=A.1
 set -ax
 . ../sdb.env
 . ../sol.env
 set +a
+
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh
