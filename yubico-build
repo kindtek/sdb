@@ -3,5 +3,5 @@
 cd $(pwd)/yubico-net-sdk/Yubico.NativeShims
 USER_ID=1000 GROUP_ID=1000 ARTIFACT_DIR=ubuntu-x64 /bin/bash build-ubuntu.sh
 
-docker build tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:1.5.0-A.1-bionic:latest
+docker build tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
 docker build push kindtek/yubico-safedb-ubuntu:latest
