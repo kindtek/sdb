@@ -1,15 +1,13 @@
 #!/bin/bash
-
+-xa
 export USER_ID=1000 
 export GROUP_ID=1000 
 export ARTIFACT_DIR=ubuntu-x64 
 
 cd ../
-set -x
 if [ -f sdb.env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
 fi
-set +x
 cd yubico-net-sdk/Yubico.NativeShims
 /bin/bash build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID
 
