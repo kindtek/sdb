@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -ex
-source ../sdb.env
-cd ../solana
+cd ../
+eval "$(../sdb.env)"
+cd solana
 eval "$(ci/channel-info.sh)"
 source ci/rust-version.sh
 
@@ -11,7 +12,5 @@ if [[ -n "$CI_TAG" ]]; then
 else
   SOLANA_CHANNEL_OR_TAG=$CHANNEL
 fi
-
-echo "$SOLANA_CHANNEL_OR_TAG" \n
 
 exit 0
