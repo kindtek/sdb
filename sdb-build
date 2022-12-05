@@ -1,0 +1,2 @@
+/bin/bash solana-build
+/bin/bash yubico-build
