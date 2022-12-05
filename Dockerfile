@@ -68,7 +68,7 @@ WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
-RUN ln -s /sdb/yubico-net-sdk /yub
+# RUN ln -s /sdb/yubico-net-sdk /yub
 
 
 # 4
