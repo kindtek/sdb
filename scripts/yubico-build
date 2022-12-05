@@ -1,5 +1,5 @@
 #!/bin/bash
--xa
+set -xa
 export USER_ID=1000 
 export GROUP_ID=1000 
 export ARTIFACT_DIR=ubuntu-x64 
