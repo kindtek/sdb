@@ -8,6 +8,6 @@ set +a
 cd ../yubico-net-sdk/Yubico.NativeShims
 /bin/bash build-${YUBICO_BUILD_ENV}.sh
 
-docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest
-docker build push ${SDB_SOL_DOCKER_IMG}:latest
+docker tag ${SDB_YUB_DOCKER} ${SDB_YUB_DOCKER_IMG}:latest
+docker build push ${SDB_YUB_DOCKER_IMG}:latest
 
