@@ -1,4 +1,5 @@
 #!/bin/bash
+seat -ax
 cd ../solana
 . ../.ini
 set +a
