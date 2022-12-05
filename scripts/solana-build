@@ -1,7 +1,8 @@
 #!/bin/bash
 set -ax
-/bin/bash solana-version-get
-. ../solana/ci/check-channel-version.sh
+cd ../solana
+/bin/bash ../scripts/solana-version-get
+. ci/check-channel-version.sh
 . ../sdb.env
 . ../sol.env
 set +a
