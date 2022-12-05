@@ -1,7 +1,6 @@
 #!/bin/bash
 set -ax
-. ../.ini
-
+. ../sdb_sol.ini
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh
@@ -9,3 +8,4 @@ docker push kindtek/solana-safedb-debian:latest
 
 docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest
 docker push ${SDB_SOL_DOCKER_IMG}:latest
+set +ax

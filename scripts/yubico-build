@@ -1,7 +1,7 @@
 #!/bin/bash
-seat -ax
+set -ax
 cd ../solana
-. ../.ini
+. ../sdb_yub.ini
 set +a
 
 cd ../yubico-net-sdk/Yubico.NativeShims
@@ -9,3 +9,4 @@ cd ../yubico-net-sdk/Yubico.NativeShims
 
 docker tag ${SDB_YUB_DOCKER} ${SDB_YUB_DOCKER_IMG}:latest
 docker build ${SDB_YUB_DOCKER_IMG}:latest
+set +a
