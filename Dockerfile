@@ -10,7 +10,7 @@ RUN apk update \
 # pull the cloned dbs
 RUN cd /sdb && git submodule update --init --recursive
 # create shortcuts
-RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+# RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
 # 2
 # TODO - MAKE IMAGE NAME DYNAMIC
@@ -37,7 +37,7 @@ RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
 COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
 # add symlinks
-RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
+# RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
 RUN export PATH="/sdb/solana/sdk/docker-solana/usr"/bin:"$PATH"
 # COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
