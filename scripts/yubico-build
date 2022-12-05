@@ -4,12 +4,11 @@ export USER_ID=1000
 export GROUP_ID=1000 
 export ARTIFACT_DIR=ubuntu-x64 
 
-cd ../
-if [ -f sdb.env ]; then
+if [ -f ../sdb.env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
 fi
-cd yubico-net-sdk/Yubico.NativeShims
-/bin/bash build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID
+
+/bin/bash yubico-net-sdk/Yubico.NativeShims/build-ubuntu.sh $ARTIFACT_DIR $GROUP_ID $USER_ID
 
 docker build tag kindtek/yubico-safedb-ubuntu kindtek/yubico-safedb-ubuntu:latest
 docker build push kindtek/yubico-safedb-ubuntu:latest
