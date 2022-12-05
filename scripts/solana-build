@@ -1,12 +1,8 @@
 #!/bin/bash
-set -a
-if [ -f ../sdb.env ]; then
-  export $(echo $(cat ../sdb.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-if [ -f ../sol.env ]; then
-  export $(echo $(cat ../sol.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-set +a
+set -ax
+source ../sdb.env
+source ../sol.env
+source ../yub.env
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh

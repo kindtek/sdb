@@ -1,17 +1,9 @@
 #!/bin/bash
-set -a
+set -ax
 
-
-if [ -f ../sdb.env ]; then
-  export $(echo $(cat ../sdb.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-if [ -f ../sol.env ]; then
-  export $(echo $(cat ../sol.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-if [ -f ../yub.env ]; then
-  export $(echo $(cat ../yub.env | sed 's/#.*//g'| xargs) | envsubst)
-fi
-set +a
+source ../sdb.env
+source ../sol.env
+source ../yub.env
 
 cd ../yubico-net-sdk/Yubico.NativeShims
 docker compose up -d
