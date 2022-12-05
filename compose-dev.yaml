@@ -14,6 +14,8 @@ services:
   sdb:
     env_file:
       - sdb.env
+      - sol.env
+      - yub.env
     ulimits:
       nofile:
         soft: 1000000
@@ -38,6 +40,7 @@ services:
   sol:
     env_file:
       - sdb.env
+      - sol.env
     ulimits:
       nofile:
         soft: 1000000
@@ -64,6 +67,7 @@ services:
   yub:
     env_file:
       - sdb.env
+      - yub.env
     image: kindtek/yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
@@ -84,7 +88,6 @@ networks:
   default:
     name: net
     attachable: true
-
 volumes:
   sol-vol-sdb:
     name: yub-vol-sdb
