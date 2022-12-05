@@ -3,8 +3,8 @@ set -ax
 cd ../solana
 # /bin/bash ../scripts/solana-version-get
 . ci/check-channel-version.sh
-. ../sdb.env CHANNEL_OR_TAG=$CHANNEL_OR_TAG SOLANA_CHANNEL_OR_TAG=$CHANNEL_OR_TAG=$CHANNEL_OR_TAG
-. ../sol.env CHANNEL_OR_TAG=$CHANNEL_OR_TAG SOLANA_CHANNEL_OR_TAG=$CHANNEL_OR_TAG=$CHANNEL_OR_TAG
+. ../sdb.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
+. ../sol.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
 set +a
 
 
