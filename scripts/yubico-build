@@ -6,7 +6,7 @@ export ARTIFACT_DIR=ubuntu-x64
 
 cd ../
 set -x
-if [ -f .env ]; then
+if [ -f sdb.env ]; then
   export $(echo $(cat .env | sed 's/#.*//g'| xargs) | envsubst)
 fi
 set +x
