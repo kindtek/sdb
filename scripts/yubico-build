@@ -1,7 +1,6 @@
 #!/bin/bash
-set -ax
-. ../sdb.env
-. ../yub.env
+cd ../solana
+. ../.ini
 set +a
 
 cd ../yubico-net-sdk/Yubico.NativeShims

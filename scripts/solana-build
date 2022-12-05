@@ -1,11 +1,6 @@
 #!/bin/bash
 set -ax
-cd ../solana
-# /bin/bash 
-. ci/check-channel-version.sh
-export STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
-. ../sdb.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
-. ../sol.env STABLE_CHANNEL_LATEST_TAG=$STABLE_CHANNEL_LATEST_TAG
+. ../.ini
 set +a
 
 cd ../solana
