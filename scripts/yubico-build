@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd $(pwd)/yubico-net-sdk/Yubico.NativeShims
+cd ../yubico-net-sdk/Yubico.NativeShims
 USER_ID=1000 
 GROUP_ID=1000 
 ARTIFACT_DIR=ubuntu-x64 
