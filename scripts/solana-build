@@ -1,8 +1,12 @@
 #!/bin/bash
 cd ..
 set -a
-source <(cat ../sdb.env | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
-source <(cat ../yub.env | sed -e '/^#/d;/^\s*$/d' -e "s/'/'\\\''/g" -e "s/=\(.*\)/='\1'/g")
+if [ -f sdb.env ]; then
+  export $(echo $(cat sdb.env | sed 's/#.*//g'| xargs) | envsubst)
+fi
+if [ -f sol.env ]; then
+  export $(echo $(cat sol.env | sed 's/#.*//g'| xargs) | envsubst)
+fi
 set +a
 
 cd solana
