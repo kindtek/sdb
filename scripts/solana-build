@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ax
-source ../sdb.env
-source ../sol.env
-source ../yub.env
+source "../sdb.env"
+source "../sol.env"
+source "../yub.env"
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh

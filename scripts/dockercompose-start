@@ -1,9 +1,9 @@
 #!/bin/bash
 set -ax
 
-source ../sdb.env
-source ../sol.env
-source ../yub.env
+source "../sdb.env"
+source "../sol.env"
+source "../yub.env"
 
 cd ../yubico-net-sdk/Yubico.NativeShims
 docker compose up -d
