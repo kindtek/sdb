@@ -7,7 +7,7 @@ COPY . ./sdb
 FROM fresh-repo AS building-git
 RUN apk update \
     && apk add bash  \
-    && apke updgrad
+    && apke updgrade
 
 # 2
 FROM building-git AS built-git
