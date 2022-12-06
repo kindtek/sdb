@@ -18,17 +18,14 @@ FROM kindtek/solana-safedb-debian AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
-WORKDIR /sdb
-COPY --chown=0:0 --from=0 ./sdb .
+COPY --chown=0:0 --from=0 ./sdb/solana /
 # clear sdb  dev space
 # RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
-WORKDIR /sdb/solana
-COPY --chown=0:0 --from=1 ./sdb/solana ./sdb
-RUN rm -rf ../yubico-net-sdk
+COPY --chown=0:0 --from=1 ./sdb/solana /
 
 # add symlinks
-# RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
+RUN ln -s /solana /sol
 # solana copy pasta
 RUN export PATH="/sdb/solana/sdk/docker-solana/usr"/bin:"$PATH"
 # COPY /sdb/solana/sdk/scripts/run.sh usr/bin/solana-run.sh
@@ -39,14 +36,13 @@ RUN export PATH="/sdb/solana/sdk/docker-solana/usr"/bin:"$PATH"
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
-COPY --chown=0:0 --from=0 ./sdb .
+COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /
 # WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 # RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 
-WORKDIR /sdb/yubico-net-sdk
 # replace with clean files
-COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk .
+COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /
 # RUN ln -s /sdb/yubico-net-sdk /yub
 # RUN rm -rf ./solana
 
@@ -54,14 +50,14 @@ COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk .
 # 4
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
-COPY --chown=0:0 --from=0 ./sdb .
-COPY --chown=0:0 --from=1 ./sdb* .
-COPY --chown=0:0 --from=3 ./usr/bin .
+COPY --chown=0:0 --from=0 ./sdb ./sdb
+COPY --chown=0:0 --from=1 ./sdb ./sdb
+COPY --chown=0:0 --from=3 ./usr/bin ./usr
 
 # COPY --chown=0:0 --from=3 ./usr/bin/usr /usr/bin/
 # COPY --chown=0:0 --from=3 ./sdb/solana/sdk/docker-solana/usr ./
 # COPY --chown=0:0 --from=2 /usr/bin/solana/sdk/docker-solana/usr ./
-RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
+# RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 
 
 
