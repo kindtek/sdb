@@ -29,7 +29,7 @@ FROM kindtek/solana-safedb-debian AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb ./sdb/
+COPY --chown=0:0 --from=0 /sdb ./sdb
 WORKDIR /sdb/solana
 # clear sdb  dev space
 # RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
@@ -62,7 +62,7 @@ ARG ARTIFACT_DIR=$YUBICO_BUILD_ENV_X64
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb ./sdb/
+COPY --chown=0:0 --from=0 /sdb ./sdb
 # WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 # RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
