@@ -40,7 +40,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 WORKDIR /solana
 COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
+COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin/fetch-spl.sh
 RUN export PATH=/solana/sdk/docker-solana/usr/bin:$PATH
 RUN apt-get update -qq && apt-get -yq install curl
 RUN /bin/bash fetch-spl.sh
