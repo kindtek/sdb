@@ -74,7 +74,7 @@ WORKDIR /sdb/yubico-net-sdk
 # replace with clean files
 COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk .
 # RUN ln -s /sdb/yubico-net-sdk /yub
-RUN rm -rf ../solana
+# RUN rm -rf ../solana
 
 
 # 4
