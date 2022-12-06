@@ -7,13 +7,7 @@ COPY . ./sdb
 FROM fresh-repo AS building-git
 RUN apk update \
     && apk add bash  \
-    && apke updgrade
-
-# # 2
-# FROM building-git AS cloning-git
-# # clone the submodule repos
-# RUN cd /sdb && git submodule update --init --recursive
-
+    && apke updgrad
 
 # 2
 FROM building-git AS built-git
@@ -36,7 +30,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 WORKDIR /solana
 COPY scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY fetch-spl.sh sdk/docker-solana/usr/bin
+COPY scripts/fetch-spl.sh sdk/docker-solana/usr/bin
 RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
 # TODO: add symlinks and RUN ON ENTRY...
 RUN cd usr/bin && /bin/bash /fetch-spl.sh
