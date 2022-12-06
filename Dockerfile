@@ -21,6 +21,13 @@ COPY --chown=0:0 --from=1 . .
 # pull the cloned dbs
 WORKDIR /sdb
 RUN git submodule update --init --recursive
+COPY --chown=0:0 --from=0 ./sdb/solana /solana 
+
+WORKDIR /sdb/solana
+COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
+COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
+RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
+RUN /bin/bash fetch-spl.sh
 # # TODO: create shortcuts on entry
 # RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
 
@@ -34,6 +41,7 @@ WORKDIR /solana
 COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
 COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
 RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
+RUN apt-get update && apt-get install curl
 RUN /bin/bash fetch-spl.sh
 # TODO: add symlinks and RUN ON ENTRY...
 
