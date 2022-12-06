@@ -29,11 +29,11 @@ EXPOSE 8899
 #copy empty folders for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 WORKDIR /solana
-COPY scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY scripts/fetch-spl.sh sdk/docker-solana/usr/bin
+COPY --chown=0:0 --from=2 scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
+COPY --chown=0:0 --from=2 fetch-spl.sh sdk/docker-solana/usr/bin
 RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
+RUN /bin/bash /fetch-spl.sh
 # TODO: add symlinks and RUN ON ENTRY...
-RUN cd usr/bin && /bin/bash /fetch-spl.sh
 
 # 4
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
