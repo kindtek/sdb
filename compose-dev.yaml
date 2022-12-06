@@ -16,6 +16,8 @@ services:
       - sdb.env
       - sol.env
       - yub.env
+    args:
+      - SAFEDB_VERSION=$SAFETYDB_VERSION
     ulimits:
       nofile:
         soft: 1000000
@@ -41,6 +43,18 @@ services:
     env_file:
       - sdb.env
       - sol.env
+    args:
+      - SOLANA_CHANNEL=latest  
+      - SOLANA_CI=true
+      - SOLANA_BUILD=$SOLANA_BUILD
+      - SOLANA_BUILD_ENV=$SOLANA_BUILD_ENV
+      - SOLANA_BUILD_ENV_VERSION=$SOLANA_BUILD_ENV_VERSION
+      - SOLANA_BUILD_ENV_NAME=$SOLANA_BUILD_ENV_NAME
+      - SDB_SOL_DOCKER_IMG=$SDB_SOL_DOCKER_IMG
+      - SDB_SOL_DOCKER_TAG=$SDB_SOL_DOCKER_TAG
+      - SDB_SOL_DOCKER="$SDB_SOL_DOCKER_IMG:$SDB_SOL_DOCKER_TAG"
+      - SDB_SOL_PATH=$SDB_SOL_PATH
+      
     ulimits:
       nofile:
         soft: 1000000
@@ -69,6 +83,23 @@ services:
     env_file:
       - sdb.env
       - yub.env
+    args:
+      - YUBICO_USER_ID=$YUBICO_USER_ID
+      - YUBICO_GROUP_ID=$YUBICO_GROUP_ID
+      - YUBICO_ARTIFACT_DIR=$YUBICO_ARTIFACT_DIR
+      - YUBICO_BUILD=$YUBICO_BUILD
+      - YUBICO_BUILD_ENV=$YUBICO_BUILD_ENV
+      - YUBICO_BUILD_ENV_VERSION=$YUBICO_BUILD_ENV_VERSION
+      - YUBICO_BUILD_ENV_NAME=$YUBICO_BUILD_ENV_NAME
+      - SDB_YUB_DOCKER_IMG=$SDB_YUB_DOCKER_IMG
+      - SDB_YUB_DOCKER_TAG=$SDB_YUB_DOCKER_TAG
+      # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
+      # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
+      # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
+      - SDB_YUB_DOCKER="$SDB_YUB_DOCKER_IMG=$SDB_YUB_DOCKER_TAG"
+      - YUBICO_USER_ID=$YUBICO_USER_ID
+      - YUBICO_GROUP_ID=$YUBICO_GROUP_ID
+      - YUBICO_ARTIFACT_DIR="$YUBICO_BUILD_ENV-X64"
 # TODO - MAKE IMAGE NAME DYNAMIC
     image: kindtek/yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
