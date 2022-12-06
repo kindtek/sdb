@@ -1,7 +1,6 @@
 #!/bin/bash
 set -ax
 . ../sdb.ini
-. ../solana/ci/check-channel-version.sh
 . ../sdb_sol.ini
 set +ax
 
