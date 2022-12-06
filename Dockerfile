@@ -1,28 +1,43 @@
 # 0 
 FROM docker:git AS fresh-repo
-
+# use cloned repoo
 COPY . ./sdb
 
 # 1
-FROM fresh-repo AS built-git
+FROM fresh-repo AS building-git
 RUN apk update \
-    && apk add bash
-# pull the cloned dbs
-RUN cd /sdb && git submodule update --init --recursive
-# create shortcuts
-# RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+    && apk add bash  \
+    && apke updgrade
 
 # 2
+FROM building-git AS cloning-git
+# clone the submodule repos
+RUN cd /sdb && git submodule update --init --recursive
+
+
+# 3
+FROM building-git AS built-git
+#copy empty folders for mounting volumes
+COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana 
+COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk 
+# copy over up/-dates/-grades
+COPY --chown=0:0 --from=1 . .
+# pull the cloned dbs
+WORKDIR /sdb
+RUN git submodule update --init --recursive
+# # TODO: create shortcuts on entry
+# RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+
+# 3
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-debian AS built-sol
-# want sol to have own isolated dev space
 EXPOSE 8899
-# copy empty directory
-COPY --chown=0:0 --from=0 ./sdb/solana /
-# clear sdb  dev space
+#copy empty folders for mounting volumes
+COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 # RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 # replace with clean files
-COPY --chown=0:0 --from=1 ./sdb/solana /
+COPY --chown=0:0 --from=1 . .
+COPY --chown=0:0 --from=2 ./sdb/solana /solana
 
 # add symlinks
 RUN ln -s /solana /sol
