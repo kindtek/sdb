@@ -81,11 +81,12 @@ RUN rm -rf ./solana
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
+WORKDIR /sdb
+COPY --chown=0:0 --from=1 . ./sdb
 # COPY --chown=0:0 --from=3 ./usr/bin/usr /usr/bin/
 # COPY --chown=0:0 --from=3 ./sdb/solana/sdk/docker-solana/usr ./
-WORKDIR /usr/bin
-COPY --chown=0:0 --from=2 /usr/bin ./usr/bin
+WORKDIR /usr
+COPY --chown=0:0 --from=2 /usr/bin/solana/sdk/docker-solana/usr ./
 RUN rm -rf /sdb/solana && rm -rf /sdb/yubico-net-sdk
 
 
