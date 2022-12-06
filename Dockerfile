@@ -39,8 +39,9 @@ EXPOSE 8899
 #copy empty folders for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 WORKDIR /solana
-COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin/fetch-spl.sh
+COPY --chown=0:0 --from=2 ./sdb/solana /solana
+RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
+RUN cp fetch-spl.sh sdk/docker-solana/usr/bin
 RUN export PATH=/solana/sdk/docker-solana/usr/bin:$PATH
 RUN apt-get update -qq && apt-get -yq install curl
 RUN /bin/bash fetch-spl.sh
