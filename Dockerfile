@@ -22,9 +22,8 @@ COPY --chown=0:0 --from=1 . .
 WORKDIR /sdb
 RUN git submodule update --init --recursive
 COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana 
-WORKDIR /sdb/solana
-RUN cp /sdb/solana/scripts/run.sh /sdb/solana/sdk/docker-solana/usr/bin/solana-run.sh
-RUN cp /sdb/solana/fetch-spl.sh /sdb/solana/sdk/docker-solana/usr/bin/fetch-spl.sh
+RUN cp solana/scripts/run.sh solana/sdk/docker-solana/usr/bin/solana-run.sh
+RUN cp solana/fetch-spl.sh solana/sdk/docker-solana/usr/bin/fetch-spl.sh
 RUN export PATH=/solana/sdk/docker-solana/usr/bin:$PATH
 # RUN apt-get update -qq && apt-get -yq install curl
 RUN /bin/bash fetch-spl.sh
