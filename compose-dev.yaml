@@ -56,13 +56,13 @@ services:
       args:
       - SOLANA_CHANNEL=latest  
       - SOLANA_CI=true
-      - SOLANA_BUILD=${SOLANA_BUILD:debug.compose}
-      - SOLANA_BUILD_ENV=${SOLANA_BUILD_ENV:debug.compose}
-      - SOLANA_BUILD_ENV_VERSION=${SOLANA_BUILD_ENV_VERSION:debug.compose}
-      - SOLANA_BUILD_ENV_NAME=${SOLANA_BUILD_ENV_NAME:debug.compose}
-      - SDB_SOL_DOCKER_IMG=${SDB_SOL_DOCKER_IMG:debug.compose:debug.compose}
-      - SDB_SOL_DOCKER_TAG=${SDB_SOL_DOCKER_TAG:debug.compose:debug.compose}-${SAFEDB_VERSION:debug.compose}-${SOLANA_BUILD_ENV_NAME:debug.compose}
-      - SDB_SOL_DOCKER=${SDB_SOL_DOCKER_IMG:debug.compose}:${SDB_SOL_DOCKER_TAG:debug.compose}
+      - SOLANA_BUILD=${SOLANA_BUILD:-debug.compose}
+      - SOLANA_BUILD_ENV=${SOLANA_BUILD_ENV:-debug.compose}
+      - SOLANA_BUILD_ENV_VERSION=${SOLANA_BUILD_ENV_VERSION:-debug.compose}
+      - SOLANA_BUILD_ENV_NAME=${SOLANA_BUILD_ENV_NAME:-debug.compose}
+      - SDB_SOL_DOCKER_IMG=${SDB_SOL_DOCKER_IMG:-debug.compose}
+      - SDB_SOL_DOCKER_TAG=${SDB_SOL_DOCKER_TAG:-debug.compose}-${SAFEDB_VERSION:-debug.compose}-${SOLANA_BUILD_ENV_NAME:-debug.compose}
+      - SDB_SOL_DOCKER=${SDB_SOL_DOCKER_IMG:-debug.compose}-${SDB_SOL_DOCKER_TAG:-debug.compose}
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
     entrypoint: tail -f /dev/null
@@ -93,14 +93,14 @@ services:
       args:
         - YUBICO_USER_ID=1000 
         - YUBICO_GROUP_ID=1000
-        - YUBICO_BUILD=${YUBICO_BUILD:debug.compose}
-        - YUBICO_BUILD_ENV=${YUBICO_BUILD_ENV:debug.compose}
-        - YUBICO_BUILD_ENV_VERSION=${YUBICO_BUILD_ENV_VERSION:debug.compose}
-        - YUBICO_BUILD_ENV_NAME=${YUBICO_BUILD_ENV_NAME:debug.compose}
-        - SDB_YUB_DOCKER_IMG=${SDB_YUB_DOCKER_IMG:debug.compose}
-        - SDB_YUB_DOCKER_TAG=${YUBICO_BUILD:debug.compose}-${SAFEDB_VERSION:debug.compose}-${YUBICO_BUILD_ENV_NAME:debug.compose}
-        - SDB_YUB_DOCKER=${SDB_YUB_DOCKER_IMG::debug.compose}:${SDB_YUB_DOCKER_TAG::debug.compose}
-        - YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV:debug.compose}-x64
+        - YUBICO_BUILD=${YUBICO_BUILD:-debug.compose}
+        - YUBICO_BUILD_ENV=${YUBICO_BUILD_ENV:-debug.compose}
+        - YUBICO_BUILD_ENV_VERSION=${YUBICO_BUILD_ENV_VERSION:-debug.compose}
+        - YUBICO_BUILD_ENV_NAME=${YUBICO_BUILD_ENV_NAME:-debug.compose}
+        - SDB_YUB_DOCKER_IMG=${SDB_YUB_DOCKER_IMG:-debug.compose}
+        - SDB_YUB_DOCKER_TAG=${YUBICO_BUILD:-debug.compose}-${SAFEDB_VERSION:-debug.compose}-${YUBICO_BUILD_ENV_NAME:-debug.compose}
+        - SDB_YUB_DOCKER=${SDB_YUB_DOCKER_IMG::-debug.compose}:${SDB_YUB_DOCKER_TAG::-debug.compose}
+        - YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV:-debug.compose}-x64
       
       # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
