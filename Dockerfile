@@ -30,12 +30,13 @@ FROM kindtek/solana-safedb-debian AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb/solana.* /sdb/
+COPY --chown=0:0 --from=0 /sdb ./sdb
 WORKDIR /sdb/solana
 # clear sdb  dev space
-RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
+# RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
+RUN rm -rf /sdb/yubico-net-sdk
 # replace with clean files
-COPY --chown=0:0 --from=1 /sdb/solana.* /sdb/
+COPY --chown=0:0 --from=1 /sdb/solana ./sdb/solana
 # add symlinks
 # RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
@@ -62,23 +63,24 @@ ARG ARTIFACT_DIR=$YUBICO_BUILD_ENV_X64
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
+COPY --chown=0:0 --from=0 /sdb ./sdb
 WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 # RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 # replace with clean files
-COPY --chown=0:0 --from=1 ./sdb/yubico-net-sdk /sdb/yubico-net-sdk
+COPY --chown=0:0 --from=1 /sdb/yubico-net-sdk ./sdb/yubico-net-sdk
 # RUN ln -s /sdb/yubico-net-sdk /yub
 
 
 # 4
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
-COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb/
+COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 . .
 # COPY --chown=0:0 --from=3 ./usr/bin/usr /usr/bin/
 # COPY --chown=0:0 --from=3 ./sdb/solana/sdk/docker-solana/usr ./
-COPY --chown=0:0 --from=2 ./usr/bin /usr/bin/
+WORKDIR /usr/bin
+COPY --chown=0:0 --from=2 /usr/bin ./
 RUN rm -rf /sdb/solana && rm -rf yubico-net-sdk
 
 
