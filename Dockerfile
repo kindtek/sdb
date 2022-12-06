@@ -5,9 +5,11 @@ COPY . ./sdb
 
 # 1
 FROM fresh-repo AS building-git
-RUN apk update \
-    && apk add bash  \
-    && apk upgrade
+RUN apk update && \
+    apk upgrade && \
+    apk --no-cache add bash && \
+    apk --no-cache add curl
+
 
 # 2
 FROM building-git AS built-git
