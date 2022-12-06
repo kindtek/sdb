@@ -21,7 +21,7 @@ COPY --chown=0:0 --from=1 . .
 # pull the cloned dbs
 WORKDIR /sdb
 RUN git submodule update --init --recursive
-COPY --chown=0:0 --from=0 ./sdb/solana /solana 
+COPY --chown=0:0 --from=0 ./sdb/solana /sdb/solana 
 WORKDIR /sdb/solana
 RUN cp /sdb/solana/scripts/run.sh /sdb/solana/sdk/docker-solana/usr/bin/solana-run.sh
 RUN cp /sdb/solana/fetch-spl.sh /sdb/solana/sdk/docker-solana/usr/bin/fetch-spl.sh
