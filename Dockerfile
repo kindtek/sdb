@@ -49,11 +49,14 @@ RUN /bin/bash fetch-spl.sh
 # 4
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 
+
 # 5
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 . .
+COPY --chown=0:0 --from=1 . .
 COPY --chown=0:0 --from=2 . .
+
 
 
 
