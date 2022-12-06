@@ -24,8 +24,8 @@ RUN git submodule update --init --recursive
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 
 WORKDIR /sdb/solana
-COPY scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
+COPY /sdb/solana/scripts/run.sh /sdb/solana/sdk/docker-solana/usr/bin/solana-run.sh
+COPY /sdb/solana/fetch-spl.sh /sdb/solana/sdk/docker-solana/usr/bin
 RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
 RUN /bin/bash fetch-spl.sh
 # # TODO: create shortcuts on entry
@@ -40,9 +40,9 @@ COPY --chown=0:0 --from=0 ./sdb/solana /solana
 WORKDIR /solana
 COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
 COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
-RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
-RUN apt-get update && apt-get install curl
-RUN /bin/bash fetch-spl.sh
+# RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
+# RUN apt-get update && apt-get install curl
+# RUN /bin/bash fetch-spl.sh
 # TODO: add symlinks and RUN ON ENTRY...
 
 # 4
