@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ax
+. ../sdb.ini
 . ../sdb_sol.ini
 
 cd ../solana

@@ -1,6 +1,7 @@
 #!/bin/bash
 set -ax
 cd ../solana
+. ../sdb.ini
 . ../sdb_yub.ini
 set +a
 
