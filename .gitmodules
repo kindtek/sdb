@@ -2,12 +2,12 @@
 	shallow = true
 	path = solana
 	url = https://github.com/kindtek/solana.git
-	branch = sdb_dev
+	branch = solana-sdb-debian
 [submodule "yubico-net-sdk"]
 	shallow = true
 	path = yubico-net-sdk
 	url = https://github.com/kindtek/yubico-net-sdk.git
-	branch = sdb_dev
+	branch = yubico-sdb-ubuntu
 [submodule "teracy-docker-files"]
 	shallow = true
 	path = teracy-docker-files
