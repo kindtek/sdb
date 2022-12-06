@@ -1,5 +1,8 @@
 {
   "DockerRun.DisableDockerrc": true,
   "cmake.sourceDirectory": "${workspaceFolder}/yubico-net-sdk/Yubico.NativeShims",
-  "C_Cpp.default.configurationProvider": "numaru.vscode-cmake-lite"
+  "C_Cpp.default.configurationProvider": "numaru.vscode-cmake-lite",
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": "file:///home/n8k/repos/kindtek/sdb/compose-dev.yaml"
+  }
 }
