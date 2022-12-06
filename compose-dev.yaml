@@ -105,8 +105,8 @@ services:
       # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
-    init: true
-    entrypoint: tail -f /dev/null
+    # init: true
+    # entrypoint: tail -f /dev/null
     stop_signal: SIGKILL
     volumes:
       - yub-vol-sdb:/sdb/yubico-net-sdk
