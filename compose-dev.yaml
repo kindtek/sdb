@@ -101,6 +101,7 @@ services:
         - SDB_YUB_DOCKER_TAG=${YUBICO_BUILD:-debug.compose}-${SAFEDB_VERSION:-debug.compose}-${YUBICO_BUILD_ENV_NAME:-debug.compose}
         - SDB_YUB_DOCKER=${SDB_YUB_DOCKER_IMG:-debug.compose}:${SDB_YUB_DOCKER_TAG:-debug.compose}
         - YUBICO_ARTIFACT_DIR=${YUBICO_BUILD_ENV:-debug.compose}-x64
+        - SOLANA_SDB_PATH=$SOLANA_SDB_PATH
       
       # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
