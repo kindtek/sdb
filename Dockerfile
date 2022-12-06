@@ -24,8 +24,8 @@ RUN git submodule update --init --recursive
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 
 WORKDIR /sdb/solana
-COPY --chown=0:0 --from=2 /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY --chown=0:0 --from=2 /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
+COPY  /sdb/solana/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
+COPY /sdb/solana/fetch-spl.sh sdk/docker-solana/usr/bin
 RUN export PATH="/solana/sdk/docker-solana/usr"/bin:"$PATH"
 RUN /bin/bash fetch-spl.sh
 # # TODO: create shortcuts on entry
