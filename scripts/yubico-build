@@ -6,8 +6,8 @@ cd ../solana
 set +a
 
 cd ../yubico-net-sdk/Yubico.NativeShims
-/bin/bash build-${YUBICO_BUILD_ENV}.sh
+YUBICO_ARTIFACT_DIR=${YUBICO_ARTIFIACT_DIR} SDB_YUB_DOCKER_IMG=${SDB_YUB_DOCKER_IMG} SDB_YUB_DOCKER=$${SDB_YUB_DOCKER} \
+/bin/bash build-${YUBICO_BUILD_ENV}.sh 
 
-# docker tag ${SDB_YUB_DOCKER} ${SDB_YUB_DOCKER_IMG}:latest
 docker build ${SDB_YUB_DOCKER}
 set +a
