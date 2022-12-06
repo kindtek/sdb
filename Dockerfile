@@ -25,7 +25,6 @@ ARG SDB_SOL_DOCKER_TAG=$SDB_SOL_DOCKER_TAG
 # ARG SDB_SOL_DOCKER_TAG=$SDB_SOL_DOCKER_TAG
 ARG SDB_SOL_DOCKER=$SDB_SOL_DOCKER
 ARG SDB_SOL_PATH=$SDB_SOL_PATH
-ARG "kindtek/solana-safedb-debian" AS built-sol
 FROM kindtek/solana-safedb-debian AS built-sol
 # want sol to have own isolated dev space
 EXPOSE 8899
@@ -36,7 +35,7 @@ WORKDIR /sdb/solana
 # RUN rm -rf /yub && rm -rf /sdb/yubico-net-sdk && rm -rf /sdb
 RUN rm -rf ../yubico-net-sdk
 # replace with clean files
-COPY --chown=0:0 --from=1 /sdb/solana ./sdb/solana
+COPY --chown=0:0 --from=1 /sdb ./sdb/
 # add symlinks
 # RUN ln -s /sdb/solana /sol && cd /sol/sdk/docker-solana
 # solana copy pasta
@@ -63,8 +62,8 @@ ARG ARTIFACT_DIR=$YUBICO_BUILD_ENV_X64
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 # want yub to have own isolated dev space
 # copy empty directory
-COPY --chown=0:0 --from=0 /sdb ./sdb
-WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
+COPY --chown=0:0 --from=0 /sdb ./sdb/
+# WORKDIR /sdb/yubico-net-sdk/Yubico.NativeShims
 # clear sdb  dev space
 # RUN rm -rf /sol && rm -rf /sdb/solana && rm -rf /sdb
 RUN rm -rf /sdb/solana
