@@ -22,6 +22,12 @@ COPY --chown=0:0 --from=1 . .
 WORKDIR /sdb
 RUN git submodule update --init --recursive
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
+WORKDIR /sdb/solana
+RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
+RUN cp fetch-spl.sh sdk/docker-solana/usr/bin
+RUN export PATH=/solana/sdk/docker-solana/usr/bin:$PATH
+RUN apt-get update -qq && apt-get -yq install curl
+RUN /bin/bash fetch-spl.sh
 
 # WORKDIR /sdb/solana
 # COPY /sdb/solana/scripts/run.sh /sdb/solana/sdk/docker-solana/usr/bin/solana-run.sh
@@ -40,11 +46,7 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 WORKDIR /solana
 COPY --chown=0:0 --from=2 ./sdb/solana /solana
-RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh
-RUN cp fetch-spl.sh sdk/docker-solana/usr/bin
-RUN export PATH=/solana/sdk/docker-solana/usr/bin:$PATH
-RUN apt-get update -qq && apt-get -yq install curl
-RUN /bin/bash fetch-spl.sh
+
 # TODO: add symlinks and RUN ON ENTRY...
 
 # 4
