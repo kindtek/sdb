@@ -1,0 +1,14 @@
+#!/bin/bash
+set -ax
+cd ../
+. ../sdb.ini
+. sdb.ini
+set +a
+
+# TODO: add compose yaml
+cd solana/sdk/docker-solana
+
+docker login
+docker compose build
+docker compose push
+docker compose up -d

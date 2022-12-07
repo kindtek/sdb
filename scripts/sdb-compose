@@ -1,0 +1,10 @@
+#!/bin/bash
+set -ax
+cd ../
+. sdb.ini
+set +a
+
+docker login
+docker compose build
+docker compose push
+docker compose up -d
