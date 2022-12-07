@@ -5,6 +5,8 @@ cd ../solana
 set +ax
 
 cd ../solana
+docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 /bin/bash sdk/docker-solana/build.sh
-docker tag ${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG} ${SDB_SOL_DOCKER_IMG}:latest
-docker push ${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}
+
+docker tag "${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}" "${SDB_SOL_DOCKER_IMG}:latest"
+docker push "${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}"
