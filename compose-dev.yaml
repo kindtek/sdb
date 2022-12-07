@@ -126,7 +126,7 @@ networks:
     attachable: true
 volumes:
   sol-vol-sdb:
-    name: yub-vol-sdb
+    name: sol-vol-sdb
     external: false
   yub-vol-sdb:
     name: yub-vol-sdb
