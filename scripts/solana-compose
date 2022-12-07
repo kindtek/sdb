@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ax
-cd ../yub
+cd ../sol
 . sdb.ini
 set +a
 
