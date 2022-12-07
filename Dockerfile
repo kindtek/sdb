@@ -31,7 +31,6 @@ WORKDIR /sdb
 # COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
 # COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
-# RUN /bin/bash fetch-spl.sh
 
 # 3
 # TODO - MAKE IMAGE NAME DYNAMIC
@@ -63,6 +62,17 @@ COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/sdb.env /
 COPY --chown=0:0 --from=3 . .
+
+RUN apt-get update -qq && \
+    apt-get install -yq wget curl
+RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
+    cp fetch-spl.sh sdk/docker-solana/usr/bin && \
+    export PATH="/sol/sdk/docker-solana/usr/bin:${PATH}"
+
+# COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
+# COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
+# RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
+RUN /bin/bash fetch-spl.sh
 
 
 
