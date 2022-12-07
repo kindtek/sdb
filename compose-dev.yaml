@@ -13,7 +13,7 @@ services:
       com.docker.devenvironments.name: sdb
   sdb:
     env_file:
-      - sdb.env
+      - /sdb/sdb.env
       # - solana/sdb.env
       # - yubico-net-sdk/sdb.env
     
