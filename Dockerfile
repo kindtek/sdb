@@ -59,6 +59,7 @@ FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=1 . .
+COPY --chown=0:0 --from=3 ./sdb/sol/sdk/docker-solana/usr/bin /sol/sdk/docker-solana/usr/bin
 COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/sdb.env /
