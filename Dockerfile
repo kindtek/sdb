@@ -8,7 +8,8 @@ FROM fresh-repo AS building-git
 RUN apk update && \
     apk upgrade && \
     apk --no-cache add bash && \
-    apk --no-cache add curl
+    apk --no-cache add curl && \
+    apk --no-cache add wget
 
 
 # 2
