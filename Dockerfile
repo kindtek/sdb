@@ -49,7 +49,7 @@ RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
-FROM kindtek/yubico-safedb-ubuntu AS built-yub
+FROM ubuntu:bionic AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
