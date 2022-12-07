@@ -86,7 +86,7 @@ services:
     # env_file:
     #   - ../sdb.env
       # - sdb.env
-    image: yubico-safedb-ubuntu:1.5.0-A.1-bionic
+    image: yubico-safedb-ubuntu:latest
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
@@ -110,8 +110,8 @@ services:
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
-    entrypoint:
-      - "/bin/bash sdb.ini"
+    entrypoint: tail -f /dev/null
+      # - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
       - yub-vol-sdb:/sdb/yubico-net-sdk
