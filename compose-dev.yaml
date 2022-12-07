@@ -6,7 +6,7 @@ services:
       target: built-git
     image: kindtek/safedb-repo
     entrypoint: tail -f /dev/null
-      - sdb.ini
+      # - sdb.ini
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
