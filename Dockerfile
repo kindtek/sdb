@@ -31,7 +31,7 @@ RUN /bin/bash fetch-spl.sh
 RUN /bin/bash solan-run.sh
 
 # 4
-FROM building-workbench AS built-git
+FROM cloned-repo AS built-git
 WORKDIR /sdb
 # WORKDIR /sdb/sol
 # COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
