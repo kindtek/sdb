@@ -68,7 +68,7 @@ services:
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
     entrypoint:
-      - apt-get update -yq && apt-get install -yy wget
+      # - apt-get update -yq && apt-get install -yy wget
       - /bin/bash solana-run.sh
     command:
       - solana validators
