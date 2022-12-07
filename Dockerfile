@@ -41,7 +41,7 @@ RUN apt-get update -qq && \
     apt-get install -yq wget curl
 RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     cp fetch-spl.sh sdk/docker-solana/usr/bin && \
-    export PATH="/sol/sdk/docker-solana/usr/bin:${PATH}"
+    export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/bash fetch-spl.sh
 
 WORKDIR /sol
