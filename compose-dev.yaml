@@ -43,9 +43,8 @@ services:
 
   sol:
     env_file:
+      - ../sdb.env
       - sdb.env
-      - solana/sdb.env
-      - yubico-net-sdk/sdb.env
     ulimits:
       nofile:
         soft: 1000000
@@ -53,7 +52,7 @@ services:
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-safedb-debian
     build:
-      context: .
+      context: solana
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  
@@ -84,12 +83,12 @@ services:
       com.docker.devenvironments.name: sdb
   yub:
     env_file:
+      - ../sdb.env
       - sdb.env
-      - yubico-net-sdk/sdb.env
     image: yubico-safedb-ubuntu:1.5.0-A.1-bionic
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: .
+      context: yubico-net-sdk
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: built-yub
       # TODO - MAKE IMAGE NAME DEPEND ON $YUBICO_BUILD_ENV
