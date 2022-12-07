@@ -5,7 +5,7 @@ cd ../sol
 set +a
 
 # TODO: add compose yaml
-cd solana/sdk/docker-solana
+cd sdk/docker-solana
 
 docker login
 docker compose build

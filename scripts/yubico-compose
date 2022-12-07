@@ -4,7 +4,7 @@ cd ../yub
 . sdb.ini
 set +a
 
-cd yubico-net-sdk/Yubico.NativeShims
+cd Yubico.NativeShims
 
 docker login
 docker compose build
