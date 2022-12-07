@@ -11,6 +11,7 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
+      tty: true
   sdb:
     env_file: #sdb.env
       - sdb.env
@@ -33,6 +34,7 @@ services:
     # command: 
     #   - "/bin/bash"
     stop_signal: SIGKILL
+    tty: true
     volumes:
       - sol-vol-sdb:/sdb/solana
       - yub-vol-sdb:/sdb/yubico-net-sdk
@@ -110,8 +112,11 @@ services:
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
-    command: sleep infinity
+    command: 
+      - sleep 
+      - infinity
     stop_signal: SIGKILL
+    tty: true
     volumes:
       - yub-vol-sdb:/yubico-net-sdk
     labels:
