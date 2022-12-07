@@ -1,9 +1,7 @@
 #!/bin/bash
 set -ax
-. ../sdb.ini
-. ../sol/sdb.ini
+. ../solana/sdb.ini
 set +ax
-
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh

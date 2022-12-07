@@ -1,6 +1,5 @@
 #!/bin/bash
 set -ax
-. ../sdb.ini
 . ../sdb_yub.ini
 set +a
 
