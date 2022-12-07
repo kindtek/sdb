@@ -37,14 +37,13 @@ WORKDIR /sdb
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=fresh-repo ./sdb/sol /sol
+WORKDIR /sol
 RUN apt-get update -qq && \
     apt-get install -yq wget curl
 RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     cp fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH="/sol/sdk/docker-solana/usr/bin:${PATH}"
 RUN /bin/bash fetch-spl.sh
-
-WORKDIR /sol
 EXPOSE 8899
 
 # 5
@@ -61,7 +60,7 @@ COPY --chown=0:0 --from=cloned-repo . .
 COPY --chown=0:0 --from=building-git ./sdb/sol/sdb.env /sol-sdb.env
 COPY --chown=0:0 --from=building-git ./sdb/yub/sdb.env /yub-sdb.env
 COPY --chown=0:0 --from=building-git ./sdb/sdb.env /
-COPY --chown=0:0 --from=built-sol . .
+COPY --chown=0:0 --from=built-git . .
 
 
 
