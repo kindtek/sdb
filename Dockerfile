@@ -8,7 +8,7 @@ FROM fresh-repo AS cloned-repo
 RUN cd /sdb && git submodule update --init --recursive
 
 # 2
-FROM cloned-repo
+FROM cloned-repo as building-workbench
 RUN apk update && \
     apk upgrade && \
     apk --no-cache add bash && \
@@ -16,14 +16,11 @@ RUN apk update && \
     apk --no-cache add wget
 # RUN /bin/bash sol/fetch-spl.sh
 
+# FROM building-workbench as built-workbench
+
 
 # 3
-FROM cloned-repo AS built-git
-#copy empty folders for mounting volumes
-COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
-# copy over up/-dates/-grades
-COPY --chown=0:0 --from=2 . .
+FROM building-git AS built-git
 # pull the cloned dbs
 WORKDIR /sdb
 
@@ -36,7 +33,7 @@ WORKDIR /sdb
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/sol /sol
+COPY --chown=0:0 --from=fresh-repo ./sdb/sol /sol
 WORKDIR /sol
 RUN apt-get update -qq && \
     apt-get install -yq wget curl
@@ -51,18 +48,18 @@ EXPOSE 8899
 # 4
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/yub /yub
+COPY --chown=0:0 --from=fresh-repo ./sdb/yub /yub
 WORKDIR /yub
 
 # 5
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
-COPY --chown=0:0 --from=0 . .
-COPY --chown=0:0 --from=1 . .
-COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
-COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
-COPY --chown=0:0 --from=2 ./sdb/sdb.env /
-COPY --chown=0:0 --from=3 . .
+COPY --chown=0:0 --from=fresh-repo . .
+COPY --chown=0:0 --from=cloned-repo . .
+COPY --chown=0:0 --from=building-workbench ./sdb/sol/sdb.env /sol-sdb.env
+COPY --chown=0:0 --from=building-workbench ./sdb/yub/sdb.env /yub-sdb.env
+COPY --chown=0:0 --from=building-workbench ./sdb/sdb.env /
+COPY --chown=0:0 --from=built-sol . .
 WORKDIR /sdb
 
 
