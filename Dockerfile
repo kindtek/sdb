@@ -41,7 +41,7 @@ COPY --chown=0:0 --from=0 ./sdb/sol /sol
 #copy envs so compose can use them
 COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/sdb.env /
-WORKDIR sol
+WORKDIR /sol
 
 WORKDIR /sol
 EXPOSE 8899
