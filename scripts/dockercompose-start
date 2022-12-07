@@ -1,8 +1,8 @@
 #!/bin/bash
 set -ax
 cd ../
+. ../sdb.ini
 . sdb.ini
-. sdb_yub.ini
 set +a
 
 cd yubico-net-sdk/Yubico.NativeShims
