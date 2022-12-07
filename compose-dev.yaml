@@ -30,9 +30,8 @@ services:
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
-    entrypoint: 
+    command: 
       - "/bin/bash"
-    #   - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
       - sol-vol-sdb:/sdb/solana
@@ -69,10 +68,10 @@ services:
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
     entrypoint:
-      - "/bin/bash apt-get update -y && apt-get install -q wget"
+      - "apt-get update -y && apt-get install -q wget"
       - "/bin/bash solana-run.sh"
     command:
-      - "/bin/bash solana validators"
+      - "solana validators"
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
@@ -115,7 +114,6 @@ services:
     init: true
     command: 
       - "/bin/bash"
-      # - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
       - yub-vol-sdb:/yubico-net-sdk
