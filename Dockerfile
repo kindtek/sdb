@@ -27,8 +27,8 @@ RUN cp scripts/run.sh /sdb/sol/solana-run.sh
 RUN mv solana-run.sh sdk/docker-solana/usr/bin && \
     cp fetch-spl.sh sdk/docker-solana/usr/bin
     #RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/bash fetch-spl.sh
-RUN /bin/bash scripts/solan-run.sh
+RUN /bin/bash sdk/docker-solana/usr/binfetch-spl.sh && \
+    /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
 FROM cloned-repo AS built-git
