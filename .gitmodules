@@ -1,7 +1,7 @@
 [submodule "solana"]
 	active = true
 	shallow = true
-	path = sdb/sol
+	path = sol
 	url = https://github.com/kindtek/solana.git
 	branch = solana-sdb-debian
 	recurse = true
