@@ -4,7 +4,7 @@ cd ../
 . sdb.ini
 set +a
 
-docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+docker login
 docker compose build
 docker compose push
 docker compose up -d
