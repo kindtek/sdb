@@ -29,7 +29,8 @@ services:
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
-    entrypoint: tail -f /dev/null
+    entrypoint: 
+      - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
       - sol-vol-sdb:/sdb/solana
@@ -67,6 +68,7 @@ services:
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
     entrypoint: # tail -f /dev/null
+    - "/bin/bash sdb.ini"
     - "/bin/bash solana-run.sh"
     stop_signal: SIGKILL
     tty: true
@@ -107,8 +109,9 @@ services:
       # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
-    # init: true
-    # entrypoint: tail -f /dev/null
+    init: true
+    entrypoint:
+      - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
       - yub-vol-sdb:/sdb/yubico-net-sdk
