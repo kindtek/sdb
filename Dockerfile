@@ -32,7 +32,7 @@ WORKDIR /sdb
 # COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
-# 3
+# 4
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
@@ -48,13 +48,13 @@ RUN /bin/bash fetch-spl.sh
 WORKDIR /sol
 EXPOSE 8899
 
-# 4
+# 5
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
 
-# 5
+# 6
 FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 . .
