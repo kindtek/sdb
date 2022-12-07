@@ -15,8 +15,8 @@ services:
   sdb:
     env_file: #sdb.env
       - sdb.env
-      - sol-sdb.env
-      - yub-sdb.env
+      # - sol-sdb.env
+      # - yub-sdb.env
     
     ulimits:
       nofile:
@@ -43,9 +43,9 @@ services:
       com.docker.devenvironments.name: sdb
 
   sol:
-    env_file:
-      - sol-sdb.env
-      - sdb.env
+    # env_file:
+      # - sol-sdb.env
+      # - sdb.env
     ulimits:
       nofile:
         soft: 1000000
@@ -85,9 +85,9 @@ services:
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
   yub:
-    env_file: # sdb.env
-      - yub-sdb.env
-      - sdb.env
+    # env_file: # sdb.env
+    #   - yub-sdb.env
+    #   - sdb.env
     image: yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
