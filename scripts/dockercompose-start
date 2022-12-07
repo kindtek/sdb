@@ -1,8 +1,13 @@
 #!/bin/bash
 set -ax
-. ../sdb.ini
-. ../sdb_yub.ini
+cd ../
+. sdb.ini
+. sdb_yub.ini
 set +a
 
 cd yubico-net-sdk/Yubico.NativeShims
+
+docker login
+docker compose build
+docker compose push
 docker compose up -d
