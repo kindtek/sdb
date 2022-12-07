@@ -71,6 +71,7 @@ services:
       - apt-get update -y && apt-get install -q wget
       - "/bin/bash solana-run.sh"
     command:
+      - "/bin/bash"
       - "solana validators"
     stop_signal: SIGKILL
     tty: true
@@ -112,7 +113,7 @@ services:
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
-    entrypoint: tail -f /dev/null
+    command: /bin/bash
       # - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:

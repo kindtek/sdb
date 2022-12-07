@@ -38,14 +38,14 @@ FROM kindtek/solana-safedb-debian AS built-sol
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
 # COPY --chown=0:0 --from=2 ./sdb/solana /solana
 RUN ln -s /solana /sol
-# WORKDIR /sol
-# EXPOSE 8899
+WORKDIR /sol
+EXPOSE 8899
 
 # 4
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /yubico-net-sdk
 RUN ln -s /yubico-net-sdk /yub
-# WORKDIR /yub
+WORKDIR /yub
 
 # 5
 FROM alpine AS built-sdb
