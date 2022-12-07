@@ -6,5 +6,5 @@ set +ax
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh
-docker tag ${SDB_SOL_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG} ${SDB_SOL_DOCKER_IMG}:latest
-docker push ${SDB_SOL_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}
+docker tag ${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG} ${SDB_SOL_DOCKER_IMG}:latest
+docker push ${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}
