@@ -5,7 +5,7 @@ set -ax
 set +a
 
 cd ../yubico-net-sdk/Yubico.NativeShims
-/bin/bash build-${YUBICO_BUILD_ENV}.sh 
+/bin/bash build-${YUBICO_BUILD_ENV}.sh
 
 docker push ${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}
 set +ax

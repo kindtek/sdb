@@ -20,7 +20,6 @@
 <br>
 
 ### Misc
-####   `./solana-version-get`
 ####   `./dind-build`
 <br>
 
