@@ -5,7 +5,7 @@ COPY . ./sdb
 
 # 1
 FROM fresh-repo AS cloned-repo
-RUN git submodule update --init --recursive
+RUN cd /sdb && git submodule update --init --recursive
 
 # 2
 FROM cloned-repo AS building-git
