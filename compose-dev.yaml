@@ -29,6 +29,7 @@ services:
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
+    command: tail -f /dev/null
     # command: 
     #   - "/bin/bash"
     stop_signal: SIGKILL
@@ -66,8 +67,8 @@ services:
       - SDB_SOL_DOCKER=${SDB_SOL_DOCKER_IMG:-debug.compose}-${SDB_SOL_DOCKER_TAG:-debug.compose}
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
-    entrypoint: # tail -f /dev/null
-      - /bin/bash solana-run.sh
+    # entrypoint: #tail -f /dev/null
+      # - /bin/bash solana-run.sh
     command: tail -f /dev/null    #   - solana validators
     stop_signal: SIGKILL
     tty: true
