@@ -1,7 +1,6 @@
 #!/bin/bash
 set -ax
 cd ../
-. ../sdb.ini
 . sdb.ini
 set +a
 
