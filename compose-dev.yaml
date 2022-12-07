@@ -85,8 +85,8 @@ services:
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
   yub:
-    env_file: # sdb.env
-       - yubico-net-sdk/sdb.env
+    env_file: sdb.env
+      #  - yubico-net-sdk/sdb.env
       # - sdb.env
     image: yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
