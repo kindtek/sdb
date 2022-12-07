@@ -68,8 +68,8 @@ services:
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
     entrypoint:
-      - "apt-get update -y && apt-get install -q wget"
-      - "/bin/bash solana-run.sh"
+      - apt-get update -y && apt-get install -q wget
+      - /bin/bash solana-run.sh
     command:
       - "solana validators"
     stop_signal: SIGKILL
@@ -113,7 +113,7 @@ services:
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
     command: 
-      - "/bin/bash"
+      - /bin/bash
     stop_signal: SIGKILL
     volumes:
       - yub-vol-sdb:/yubico-net-sdk
