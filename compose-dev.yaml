@@ -110,7 +110,7 @@ services:
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
-    entrypoint: tail -f /dev/null
+    command: tail -f /dev/null
       # - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
