@@ -74,7 +74,7 @@ services:
     tty: true
     stdin_open: true
     volumes:
-      - sol-vol-sdb:/sdb/solana
+      - sol-vol-sdb:/solana
     ports:
       - "8899:8899"
     labels:
@@ -110,11 +110,11 @@ services:
       # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
       # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
     init: true
-    command: tail -f /dev/null
+    entrypoint: tail -f /dev/null
       # - "/bin/bash sdb.ini"
     stop_signal: SIGKILL
     volumes:
-      - yub-vol-sdb:/sdb/yubico-net-sdk
+      - yub-vol-sdb:/yubico-net-sdk
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
