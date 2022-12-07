@@ -71,7 +71,7 @@ services:
       - apt-get update -yq && apt-get install -yy wget
       - /bin/bash solana-run.sh
     command:
-      - "solana validators"
+      - solana validators
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
