@@ -52,7 +52,7 @@ services:
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-safedb-debian
     build:
-      context: solana
+      context: .
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  
@@ -88,7 +88,7 @@ services:
     image: yubico-safedb-ubuntu:1.5.0-A.1-bionic
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: yubico-net-sdk
+      context: .
       # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: built-yub
       # TODO - MAKE IMAGE NAME DEPEND ON $YUBICO_BUILD_ENV
