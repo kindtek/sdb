@@ -30,8 +30,8 @@ services:
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
-    command: 
-      - "/bin/bash"
+    # command: 
+    #   - "/bin/bash"
     stop_signal: SIGKILL
     volumes:
       - sol-vol-sdb:/sdb/solana
@@ -67,11 +67,11 @@ services:
       - SDB_SOL_DOCKER=${SDB_SOL_DOCKER_IMG:-debug.compose}-${SDB_SOL_DOCKER_TAG:-debug.compose}
       - SDB_SOL_PATH=$SDB_SOL_PATH      
     init: true
-    entrypoint:
-      # - apt-get update -yq && apt-get install -yy wget
-      - /bin/bash solana-run.sh
-    command:
-      - solana validators
+    entrypoint: tail -f /dev/null
+    #   # - apt-get update -yq && apt-get install -yy wget
+    #   - /bin/bash solana-run.sh
+    # command:
+    #   - solana validators
     stop_signal: SIGKILL
     tty: true
     stdin_open: true
