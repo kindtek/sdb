@@ -36,7 +36,7 @@ RUN /bin/bash solana/fetch-spl.sh
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/solana /solana 
-RUN ln -s /solana /sol
+RUN ln -fs /solana /sol
 WORKDIR /sol
 EXPOSE 8899
 
@@ -44,7 +44,7 @@ EXPOSE 8899
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /yubico-net-sdk
-# RUN ln -s /yubico-net-sdk /yub
+RUN ln -fs /yubico-net-sdk /yub
 # WORKDIR /yub
 
 # 5
@@ -53,7 +53,7 @@ FROM alpine AS built-sdb
 COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=1 . .
 COPY --chown=0:0 --from=2 . .
-RUN ln -s /sdb/solana /sol && ln -s /sdb/yubico-net-sdk /yub
+RUN ln -fs /sdb/solana /sol && ln -fs /sdb/yubico-net-sdk /yub
 
 
 
