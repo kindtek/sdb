@@ -46,7 +46,7 @@ EXPOSE 8899
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /yubico-net-sdk
-RUN ln -fs /yubico-net-sdk /yub
+# RUN ln -fs /yubico-net-sdk /yub
 # WORKDIR /yub
 
 # 5
