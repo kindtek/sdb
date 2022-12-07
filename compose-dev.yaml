@@ -44,7 +44,7 @@ services:
 
   sol:
     env_file:
-      - solana/sdb.env
+      # - solana/sdb.env
       - sdb.env
     ulimits:
       nofile:
