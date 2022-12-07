@@ -20,7 +20,7 @@ RUN apk update && \
 
 
 # 3
-FROM building-git AS built-git
+FROM building-workbench AS built-git
 # pull the cloned dbs
 WORKDIR /sdb
 
