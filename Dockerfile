@@ -37,9 +37,13 @@ WORKDIR /sdb
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
-# #copy envs so compose can use them
-# COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
-# COPY --chown=0:0 --from=2 ./sdb/sdb.env /
+RUN apt-get update -qq && \
+    apt-get install -yq wget curl
+RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
+    cp fetch-spl.sh sdk/docker-solana/usr/bin && \
+    export PATH="/sol/sdk/docker-solana/usr/bin:${PATH}"
+RUN /bin/bash fetch-spl.sh
+
 WORKDIR /sol
 EXPOSE 8899
 
@@ -47,10 +51,6 @@ EXPOSE 8899
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
-# # copy envs so compose can use them
-# COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
-# COPY --chown=0:0 --from=2 ./sdb/sdb.env /
-# RUN ln -fs /yubico-net-sdk /yub
 WORKDIR /yub
 
 # 5
@@ -63,16 +63,6 @@ COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/sdb.env /
 COPY --chown=0:0 --from=3 . .
 
-RUN apt-get update -qq && \
-    apt-get install -yq wget curl
-RUN cp scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
-    cp fetch-spl.sh sdk/docker-solana/usr/bin && \
-    export PATH="/sol/sdk/docker-solana/usr/bin:${PATH}"
-
-# COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
-# COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
-# RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
-RUN /bin/bash fetch-spl.sh
 
 
 
