@@ -1,18 +1,18 @@
-[submodule "solana"]
+[submodule "kindtek:solana"]
 	active = true
 	shallow = true
 	path = sol
 	url = https://github.com/kindtek/solana.git
 	branch = solana-sdb-debian
 	recurse = true
-[submodule "yubico-net-sdk"]
+[submodule "kindtek:yubico-net-sdk"]
 	active = true
 	shallow = true
 	path = yub
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = yubico-sdb-ubuntu
 	recurse = true
-[submodule "dind"]
+[submodule "kindtek:teracy-docker-files"]
 	shallow = true
 	path = dind
 	url = https://github.com/kindtek/teracy-docker-files
