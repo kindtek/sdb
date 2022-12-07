@@ -1,10 +1,10 @@
 #!/bin/bash
 set -ax
-. ../solana/sdb.ini
+cd ../solana
+. sdb.ini
 set +ax
 
 cd ../solana
 /bin/bash sdk/docker-solana/build.sh
+docker tag ${SDB_SOL_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG} ${SDB_SOL_DOCKER_IMG}:latest
 docker push ${SDB_SOL_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}
-# docker tag ${SDB_SOL_DOCKER} ${SDB_SOL_DOCKER_IMG}:latest
-# docker push ${SDB_SOL_DOCKER_IMG}:latest

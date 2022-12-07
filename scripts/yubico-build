@@ -1,9 +1,10 @@
 #!/bin/bash
 set -ax
-. ../sdb_yub.ini
+cd ../yubico-net-sdk
+. sdb.ini
 set +a
 
-cd ../yubico-net-sdk/Yubico.NativeShims
+cd Yubico.NativeShims
 /bin/bash build-${YUBICO_BUILD_ENV}.sh
 
 docker push ${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}
