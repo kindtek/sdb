@@ -45,7 +45,7 @@ services:
   sol:
     env_file:
       - ../sdb.env
-      - sdb.env
+      # - sdb.env
     ulimits:
       nofile:
         soft: 1000000
@@ -85,7 +85,7 @@ services:
   yub:
     env_file:
       - ../sdb.env
-      - sdb.env
+      # - sdb.env
     image: yubico-safedb-ubuntu:1.5.0-A.1-bionic
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
