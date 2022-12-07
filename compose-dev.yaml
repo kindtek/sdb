@@ -15,8 +15,8 @@ services:
   sdb:
     env_file: #sdb.env
       - sdb.env
-      - solana/sdb.env
-      - yubico-net-sdk/sdb.env
+      - sol-sdb.env
+      - yub-sdb.env
     
     ulimits:
       nofile:
@@ -44,7 +44,7 @@ services:
 
   sol:
     env_file:
-      - solana/sdb.env
+      - sol-sdb.env
       - sdb.env
     ulimits:
       nofile:
@@ -86,7 +86,7 @@ services:
       com.docker.devenvironments.name: sdb
   yub:
     env_file: # sdb.env
-      - yubico-net-sdk/sdb.env
+      - yub-sdb.env
       - sdb.env
     image: yubico-safedb-ubuntu
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims

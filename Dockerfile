@@ -37,7 +37,12 @@ RUN /bin/bash solana/fetch-spl.sh
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-debian AS built-sol
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/solana /solana 
+COPY --chown=0:0 --from=0 ./sdb/solana /solana
+#copy envs so compose can use them
+COPY --chown=0:0 --from=2 ./sdb/solana/sdb.env /sol-sdb.env
+COPY --chown=0:0 --from=2 ./sdb/sdb.env /
+
+
 RUN ln -fs /solana /sol
 WORKDIR /sol
 EXPOSE 8899
@@ -46,6 +51,9 @@ EXPOSE 8899
 FROM kindtek/yubico-safedb-ubuntu AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /yubico-net-sdk
+#copy envs so compose can use them
+COPY --chown=0:0 --from=2 ./sdb/yubico-net-sdk/sdb.env /yub-sdb.env
+COPY --chown=0:0 --from=2 ./sdb/sdb.env /
 # RUN ln -fs /yubico-net-sdk /yub
 # WORKDIR /yub
 
@@ -54,6 +62,9 @@ FROM alpine AS built-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 COPY --chown=0:0 --from=0 . .
 COPY --chown=0:0 --from=1 . .
+COPY --chown=0:0 --from=2 ./sdb/solana/sdb.env /sol-sdb.env
+COPY --chown=0:0 --from=2 ./sdb/yubico-net-sdk/sdb.env /yub-sdb.env
+COPY --chown=0:0 --from=2 ./sdb/sdb.env /
 COPY --chown=0:0 --from=3 . .
 RUN ln -fs /sdb/solana /sol && ln -fs /sdb/yubico-net-sdk /yub
 
