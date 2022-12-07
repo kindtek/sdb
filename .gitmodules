@@ -1,14 +1,14 @@
 [submodule "solana"]
 	active = true
 	shallow = true
-	path = sol
+	path = solana
 	url = https://github.com/kindtek/solana.git
 	branch = solana-sdb-debian
 	recurse = true
 [submodule "yubico-net-sdk"]
 	active = true
 	shallow = true
-	path = sdb/yub
+	path = yubico-net-sdk
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = yubico-sdb-ubuntu
 	recurse = true
