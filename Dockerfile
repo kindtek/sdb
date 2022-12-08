@@ -11,7 +11,7 @@ RUN git submodule update --init --recursive
 # 2 - use later
 FROM cloned-repo AS building-workbench
 WORKDIR /
-RUN apk update && \
+RUN apk --no-cache update && \
     apk --no-cache add \
     bash \
     curl \
@@ -36,7 +36,7 @@ RUN apk update && \
     musl-utils \
     musl-libintl \
     apk --no-cache upgrade musl \
-    apk upgrade
+    apk --no-cache upgrade
 
 # RUN /bin/bash sol/fetch-spl.sh
 
