@@ -42,7 +42,7 @@ WORKDIR /sdb
 
 # 5
 # TODO - MAKE IMAGE NAME DYNAMIC
-FROM building-workbench AS building-sol
+FROM building-workbench AS built-sol
 EXPOSE 8899
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
