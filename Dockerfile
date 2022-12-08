@@ -52,11 +52,6 @@ FROM kindtek/solana-safedb-alpine:latest AS built-sol
 #     _SOL=$_SOL \
 #     _SOLANA=$_SOLANA \
 #     EOF"
-EXPOSE 8899
-#copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/sol $_SOL
-COPY --chown=0:0 --from=2 ./sdb/sol $_SOL
-COPY --chown=0:0 --from=3 ./sdb/sol $_SOL
 WORKDIR /$_SOLANA
 RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
@@ -73,7 +68,7 @@ FROM kindtek/yubico-safedb-alpine:latest AS built-yub
 #     _YUBICO=$_YUBICO \
 #     EOF"
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/yub /yub
+COPY --chown=0:0 --from=0 ./sdb/yub /$_YUB
 WORKDIR /yub
 
 # 7
@@ -99,9 +94,14 @@ ARG _SOL='sol'
 ARG _SOLANA='sdb/sol'
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-COPY --chown=0:0 --from=7 ./sdb /sdb
+COPY --chown=0:0 --from=4 ./sdb /sdb
 RUN export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH
 WORKDIR /sdb
+EXPOSE 8899
+RUN install -D $_SOL/scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
+    install -D $_SOL/fetch-spl.sh sdk/docker-solana/usr/bin && \
+    export PATH=/$_SOL/sdk/docker-solana/usr/bin:$PATH && \
+    /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 # add $_YUB/ICO = /yub variable to environment
 # add $_SOL/ANA = /sol variable to environment
 # RUN "_SOL='sol' \
