@@ -26,11 +26,12 @@ RUN apk --no-cache update && \
     libgcc \
     bzip2 \
     libressl-dev \
-    # <debug
-    apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs && \
-    apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
-    # /debug>
+    # # <debug
+    # apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs && \
+    # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
+    # # /debug>
     linux-headers \
+    make \
     musl \
     musl-dev \
     musl-utils \
