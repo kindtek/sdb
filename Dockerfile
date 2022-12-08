@@ -60,7 +60,7 @@ RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
-FROM kindtek/yubico-safedb-ubuntu:latest AS built-yub
+FROM kindtek/yubico-safedb-alpine:latest AS built-yub
 # add $_YUB/ICO = /yub variable to environment
 RUN _YUB='yub' \
 _YUBICO='yub' \
