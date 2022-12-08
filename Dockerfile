@@ -32,7 +32,7 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
-    cargo build-all && \
+    cargo build --all && \
     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
