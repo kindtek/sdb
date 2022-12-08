@@ -17,7 +17,8 @@ RUN apk update && \
     apk --no-cache add curl && \
     apk --no-cache add wget && \
     apk --no-cache add bzip2 && \
-    apk --no-cache add libressl-dev
+    apk --no-cache add libressl-dev && \
+    apk --no-cache add cargo
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
