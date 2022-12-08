@@ -41,6 +41,8 @@ WORKDIR /sdb
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
 # 5
+ARG _SOL=$_SOL
+ARG _SOLANA=$_SOLANA
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-alpine:latest AS built-sol
 # add $_SOL/ANA variable to environment
@@ -73,6 +75,8 @@ COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
 
 # 7
+ARG _SOL=$_SOL
+ARG _SOLANA=$_SOLANA
 FROM built-workbench AS building-sdb
 # add $_SOL/ANA = /sol variable to environment
 # add $_SOL/ANA variable to environment
@@ -90,6 +94,8 @@ RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 
 
 # Final
+ARG _SOL=$_SOL
+ARG _SOLANA=$_SOLANA
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 COPY --chown=0:0 --from=7 ./sdb /sdb
