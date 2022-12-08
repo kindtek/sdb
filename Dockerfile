@@ -96,8 +96,8 @@ ARG _SOL='sol'
 ARG _SOLANA='sdb/sol'
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-COPY --chown=0:0 --from=1 ./sdb /sdb
-COPY --chown=0:0 --from=3 ./sdb/sdk/docker-solana /$_SOLANA/sdk/docker-solana
+COPY --chown=0:0 --from=3 ./sdb /sdb
+# COPY --chown=0:0 --from=3 ./sdb/sdk/docker-solana /$_SOLANA/sdk/docker-solana
 
 RUN export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH
 WORKDIR /sdb
