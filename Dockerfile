@@ -30,9 +30,12 @@ RUN apk update && \
     # apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs && \
     # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     # /debug>
-    linux-headers && \
-    musl-libintl && \
-    apk --no-cache upgrade musl && \
+    linux-headers \
+    musl \
+    musl-dev \
+    musl-utils \
+    musl-libintl \
+    apk --no-cache upgrade musl \
     apk upgrade
 
 # RUN /bin/bash sol/fetch-spl.sh
