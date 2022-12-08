@@ -1,10 +1,11 @@
 #!/bin/bash
 set -ax
+./docker-login
+
 cd ../
 . sdb.ini
 set +a
 
-docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 docker compose build
 docker compose push
 docker compose up -d

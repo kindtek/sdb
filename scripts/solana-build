@@ -1,11 +1,13 @@
 #!/bin/bash
 set -ax
-cd ../solana
-. sdb.ini
-set +ax
+./docker-login
 
 cd ../solana
-docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
+. sdb.ini
+set +a
+
+
+cd ../solana
 /bin/bash sdk/docker-solana/build.sh
 
 docker tag "${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}" "${SDB_SOL_DOCKER_IMG}:latest"

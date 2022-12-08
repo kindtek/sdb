@@ -1,5 +1,6 @@
 #!/bin/bash
 set -ax
+./docker-login
 cd ../sol
 . sdb.ini
 set +a
@@ -7,7 +8,6 @@ set +a
 # TODO: add compose yaml
 cd sdk/docker-solana
 
-docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
 docker compose build
 docker compose push
 docker compose up -d
