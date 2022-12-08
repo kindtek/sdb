@@ -28,8 +28,8 @@ WORKDIR /sdb/sol
 EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
-    export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
+    export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH && \
+    /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
@@ -42,17 +42,19 @@ WORKDIR /sdb
 
 # 5
 # TODO - MAKE IMAGE NAME DYNAMIC
-FROM building-workbench AS built-sol
+FROM kindtek/solana-alpine:latest AS built-sol
 EXPOSE 8899
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
 COPY --chown=0:0 --from=2 ./sdb/sol /sol
+COPY --chown=0:0 --from=3 ./sdb/sol /sol
+
 WORKDIR /sol
 RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
-FROM ubuntu:bionic AS built-yub
+FROM kindtek/yubico-ubuntu:latest AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
