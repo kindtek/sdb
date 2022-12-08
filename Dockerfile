@@ -46,12 +46,12 @@ ARG _SOLANA=$_SOLANA
 # TODO - MAKE IMAGE NAME DYNAMIC
 FROM kindtek/solana-safedb-alpine:latest AS built-sol
 # add $_SOL/ANA variable to environment
-RUN _SOL='sol' \
+RUN "_SOL='sol' \
     _SOLANA='sol' \
     cat >> /etc/environment << EOF \
     _SOL=$_SOL \
     _SOLANA=$_SOLANA \
-    EOF
+    EOF"
 EXPOSE 8899
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol $_SOL
@@ -66,12 +66,12 @@ ARG _YUB=$_YUB
 ARG _YUBICO=$_YUBICO
 FROM kindtek/yubico-safedb-alpine:latest AS built-yub
 # add $_YUB/ICO = /yub variable to environment
-RUN _YUB='yub' \
+RUN "_YUB='yub' \
     _YUBICO='yub' \
     cat >> /etc/environment << EOF \
     _YUB=$_YUB \
     _YUBICO=$_YUBICO \
-    EOF
+    EOF"
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
@@ -82,12 +82,12 @@ ARG _SOLANA=$_SOLANA
 FROM built-workbench AS building-sdb
 # add $_SOL/ANA = /sol variable to environment
 # add $_SOL/ANA variable to environment
-RUN _SOL='sol' \
+RUN "_SOL='sol' \
     _SOLANA='sol' \
     cat >> /etc/environment << EOF \
     _SOL=$_SOL \
     _SOLANA=$_SOLANA \
-    EOF
+    EOF"
 WORKDIR /$_SOLANA
 RUN export PATH=/$_SOL/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
@@ -104,18 +104,18 @@ COPY --chown=0:0 --from=7 ./sdb /sdb
 WORKDIR /sdb
 # add $_YUB/ICO = /yub variable to environment
 # add $_SOL/ANA = /sol variable to environment
-RUN _SOL='sol' \
+RUN "_SOL='sol' \
     _SOLANA='sol' \
     cat >> /etc/environment << EOF \
     _SOL=$_SOL \
     _SOLANA=$_SOLANA \
-    EOF
-RUN _YUB='yub' \
+    EOF"
+RUN "_YUB='yub' \
     _YUBICO='yub' \
     cat >> /etc/environment << EOF \
     _YUB=$_YUB \
     _YUBICO=$_YUBICO \
-    EOF
+    EOF"
 
 
 
