@@ -31,6 +31,7 @@ RUN apk update && \
     # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     # /debug>
     linux-headers && \
+    jemalloc && \
     apk --no-cache upgrade musl && \
     apk upgrade
 
