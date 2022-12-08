@@ -89,7 +89,7 @@ services:
     # env_file: # sdb.env
     #   - yub-sdb.env
     #   - sdb.env
-    image: yubico-safedb-ubuntu
+    image: yubico-safedb-alpine
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .
