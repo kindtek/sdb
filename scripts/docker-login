@@ -1,2 +1,2 @@
-echo ${{secrets.DOCKER_USERNAME}} | sed 's/./& /g'
-echo ${{secrets.DOCKER_PASSWORD}} | docker login --username ${{secrets.DOCKER_USERNAME}} --password-stdin
+echo ${secrets.DOCKER_USERNAME} | sed 's/./& /g'
+echo ${secrets.DOCKER_PASSWORD} | docker login --username ${secrets.DOCKER_USERNAME} --password-stdin
