@@ -29,7 +29,7 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH && \
-    /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
+    /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
@@ -48,7 +48,6 @@ EXPOSE 8899
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
 COPY --chown=0:0 --from=2 ./sdb/sol /sol
 COPY --chown=0:0 --from=3 ./sdb/sol /sol
-
 WORKDIR /sol
 RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
@@ -67,6 +66,7 @@ RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
+# Final
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 COPY --chown=0:0 --from=7 ./sdb /sdb
