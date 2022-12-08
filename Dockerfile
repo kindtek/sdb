@@ -29,7 +29,7 @@ RUN apk update && \
     # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     # /debug>
     apk upgrade musl && \
-    apk upgrade \
+    apk upgrade
 
 # RUN /bin/bash sol/fetch-spl.sh
 
