@@ -34,8 +34,8 @@ RUN apk --no-cache update && \
     musl \
     musl-dev \
     musl-utils \
-    musl-libintl \
-    apk --no-cache upgrade musl \
+    musl-libintl && \
+    apk --no-cache upgrade musl && \
     apk --no-cache upgrade
 
 # RUN /bin/bash sol/fetch-spl.sh
