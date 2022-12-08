@@ -3,7 +3,7 @@
 	shallow = true
 	path = sol
 	url = https://github.com/kindtek/solana.git
-	branch = solana-sdb-debian
+	branch = solana-sdb-alpine
 	recurse = true
 [submodule "kindtek:yubico-net-sdk"]
 	active = true

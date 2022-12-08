@@ -42,10 +42,11 @@ WORKDIR /sdb
 
 # 5
 # TODO - MAKE IMAGE NAME DYNAMIC
-FROM debian:bullseye AS built-sol
+FROM building-workbench AS building-sol
 EXPOSE 8899
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
+COPY --chown=0:0 --from=2 ./sdb/sol /sol
 WORKDIR /sol
 RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh

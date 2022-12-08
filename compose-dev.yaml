@@ -53,9 +53,10 @@ services:
         soft: 1000000
         hard: 1000000
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
-    image: kindtek/solana-safedb-debian
+    image: kindtek/solana-safedb-alpine
     build:
       context: .
+      dockerfile: sol/sdk/docker-solana/Dockerfile.alpine
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  
