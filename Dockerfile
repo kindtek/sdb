@@ -42,7 +42,7 @@ WORKDIR /sdb
 
 # 5
 # TODO - MAKE IMAGE NAME DYNAMIC
-FROM kindtek/solana-alpine:latest AS built-sol
+FROM kindtek/solana-safedb-alpine:latest AS built-sol
 EXPOSE 8899
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/sol /sol
@@ -54,7 +54,7 @@ RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
-FROM kindtek/yubico-ubuntu:latest AS built-yub
+FROM kindtek/yubico-safedb-ubuntu:latest AS built-yub
 #copy empty folder for mounting volumes
 COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
