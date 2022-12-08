@@ -21,6 +21,8 @@ RUN apk update && \
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
+ARG _SOL='sol'
+ARG _SOLANA='sdb/sol'
 FROM building-workbench AS built-workbench
 # pull the cloned dbs
 COPY --chown=0:0 --from=0 ./sdb/sol /sdb/sol
@@ -28,7 +30,7 @@ WORKDIR /sdb/sol
 EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
-    export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH && \
+    export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
@@ -94,7 +96,9 @@ ARG _SOL='sol'
 ARG _SOLANA='sdb/sol'
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-COPY --chown=0:0 --from=4 ./sdb /sdb
+COPY --chown=0:0 --from=1 ./sdb /sdb
+COPY --chown=0:0 --from=3 ./sdb/sdk/docker-solana /$_SOLANA/sdk/docker-solana
+
 RUN export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH
 WORKDIR /sdb
 EXPOSE 8899
