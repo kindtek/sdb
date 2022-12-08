@@ -8,7 +8,7 @@ FROM fresh-repo AS cloned-repo
 WORKDIR /sdb
 RUN git submodule update --init --recursive
 
-# 2 - discard later
+# 2 - use later
 FROM cloned-repo AS building-workbench
 WORKDIR /
 RUN apk update && \
@@ -18,7 +18,7 @@ RUN apk update && \
     apk --no-cache add wget
 # RUN /bin/bash sol/fetch-spl.sh
 
-
+# 3
 FROM building-workbench AS built-workbench
 # pull the cloned dbs
 COPY --chown=0:0 --from=0 ./sdb/sol /sdb/sol
@@ -55,18 +55,15 @@ COPY --chown=0:0 --from=0 ./sdb/yub /yub
 WORKDIR /yub
 
 # 7
-FROM alpine AS built-sdb
+FROM built-workbench AS building-sdb
 # build so that sdb interfaces seamlessly with yub and sol
-COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb
-COPY --chown=0:0 --from=3 ./sdb/sol/sdk/docker-solana/usr/bin /sdb/sol/sdk/docker-solana/usr/bin
 WORKDIR /sdb/sol
 RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh && \
     /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
-COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
-COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
-COPY --chown=0:0 --from=2 ./sdb/sdb.env /
+
+FROM building-workbench AS built-sdb
+COPY --chown=0:0 --from=7 ./sdb /sdb
 WORKDIR /sdb
 
 
