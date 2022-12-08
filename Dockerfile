@@ -25,8 +25,8 @@ FROM building-workbench AS built-workbench
 COPY --chown=0:0 --from=0 ./sdb/sol /sdb/sol
 WORKDIR /sdb/sol
 EXPOSE 8899
-RUN cp -p scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
-    cp -p fetch-spl.sh sdk/docker-solana/usr/bin
+RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
+    install -D fetch-spl.sh sdk/docker-solana/usr/bin
     #RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh && \
     /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
