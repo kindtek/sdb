@@ -35,13 +35,12 @@ RUN apk --no-cache update && \
     musl-dev \
     musl-utils \
     musl-libintl \
-    openssl-dev \
     pkgconfig \
     rustup \
     wget && \
     apk --no-cache upgrade musl && \
     apk --no-cache upgrade
-    
+
 RUN rustup-init -t x86_64-unknown-linux-musl --default-toolchain nightly --profile minimal -y
 RUN git clone https://github.com/sfackler/rust-openssl /build
 RUN cd /build && /root/.cargo/bin/cargo build --release
