@@ -56,7 +56,7 @@ COPY --chown=0:0 --from=0 ./sdb/sol $_SOL
 COPY --chown=0:0 --from=2 ./sdb/sol $_SOL
 COPY --chown=0:0 --from=3 ./sdb/sol $_SOL
 WORKDIR /$_SOLANA
-RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
+RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
@@ -83,7 +83,7 @@ _SOL=$_SOL \
 _SOLANA=$_SOLANA \
 EOF
 WORKDIR /$_SOLANA
-RUN export PATH=$_SOL/sdk/docker-solana/usr/bin:$PATH
+RUN export PATH=/$_SOL/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-sdb-run.sh
 # add $_SOL/ANA variable to environment
