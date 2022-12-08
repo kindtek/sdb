@@ -8,7 +8,7 @@ FROM fresh-repo AS cloned-repo
 WORKDIR /sdb
 RUN git submodule update --init --recursive
 
-# 2
+# 2 - discard later
 FROM cloned-repo AS building-workbench
 WORKDIR /
 RUN apk update && \
@@ -19,7 +19,6 @@ RUN apk update && \
 # RUN /bin/bash sol/fetch-spl.sh
 
 
-# 3 - discard
 FROM building-workbench AS built-workbench
 # pull the cloned dbs
 COPY --chown=0:0 --from=0 ./sdb/sol /sdb/sol
@@ -28,8 +27,8 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-# RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh && \
-#     /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
+RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh && \
+    /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
 FROM cloned-repo AS built-git
@@ -62,8 +61,8 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=3 ./sdb/sol/sdk/docker-solana/usr/bin /sol/sdk/docker-solana/usr/bin
 RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/bash /sol/sdk/docker-solana/usr/bin/fetch-spl.sh && \
-    /bin/bash /sol/sdk/docker-solana/usr/bin/solana-run.sh
+RUN /bin/sh /sol/sdk/docker-solana/usr/bin/fetch-spl.sh && \
+    /bin/sh /sol/sdk/docker-solana/usr/bin/solana-run.sh
 COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/yub/sdb.env /yub-sdb.env
 COPY --chown=0:0 --from=2 ./sdb/sdb.env /
