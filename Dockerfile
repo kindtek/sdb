@@ -5,10 +5,12 @@ COPY . ./sdb
 
 # 1
 FROM fresh-repo AS cloned-repo
-RUN cd /sdb && git submodule update --init --recursive
+WORKDIR /sdb
+RUN git submodule update --init --recursive
 
 # 2
 FROM cloned-repo AS building-workbench
+WORKDIR /
 RUN apk update && \
     apk upgrade && \
     apk --no-cache add bash && \
