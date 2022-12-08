@@ -15,7 +15,9 @@ RUN apk update && \
     apk upgrade && \
     apk --no-cache add bash && \
     apk --no-cache add curl && \
-    apk --no-cache add wget
+    apk --no-cache add wget && \
+    apk --no-cache add bzip2 && \
+    apk --no-cache add libressl-dev
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
@@ -27,8 +29,8 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh 
-# RUN /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
+RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
+# RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
 FROM cloned-repo AS built-git
@@ -59,10 +61,11 @@ FROM built-workbench AS building-sdb
 # build so that sdb interfaces seamlessly with yub and sol
 WORKDIR /sdb/sol
 RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh && \
-    /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
+RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh 
+# RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 FROM building-workbench AS built-sdb
+# RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 COPY --chown=0:0 --from=7 ./sdb /sdb
 WORKDIR /sdb
 
