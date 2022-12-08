@@ -8,5 +8,5 @@ set +a
 cd Yubico.NativeShims
 /bin/bash build-${YUBICO_BUILD_ENV}.sh
 
-docker tag  "${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}"  "${SDB_YUB_DOCKER_IMG}:latest"
+# docker tag  "${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}"  "${SDB_YUB_DOCKER_IMG}:latest"
 docker push "${SDB_YUB_DOCKER_IMG}:${SDB_YUB_DOCKER_TAG}"
