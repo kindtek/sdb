@@ -12,8 +12,3 @@
 	url = https://github.com/kindtek/yubico-net-sdk.git
 	branch = yubico-sdb-ubuntu
 	recurse = true
-# [submodule "kindtek:teracy-docker-files"]
-# 	shallow = true
-# 	path = dind
-# 	url = https://github.com/kindtek/teracy-docker-files
-	
