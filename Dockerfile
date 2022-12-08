@@ -31,6 +31,7 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
+    cargo build-all && \
     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
@@ -97,6 +98,8 @@ ARG _SOLANA='sdb/sol'
 FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 COPY --chown=0:0 --from=3 ./sdb /sdb
+# COPY --chown=0:0 --from=3 ./usr/bin/solana* /usr/bin
+
 # COPY --chown=0:0 --from=3 ./sdb/sdk/docker-solana /$_SOLANA/sdk/docker-solana
 
 RUN export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH
