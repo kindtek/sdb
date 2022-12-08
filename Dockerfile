@@ -21,22 +21,30 @@ RUN apk --no-cache update && \
     libc6-compat \
     libgcc \
     libressl-dev \
+    gcc \
     gcompat \
+    glib-dev \
     eudev-libs \
     # # <debug
     # apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs && \
     # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     # # /debug>
     linux-headers \
-    pkgconfig \
     make \
     musl \
     musl-dev \
     musl-utils \
     musl-libintl \
+    openssl-dev \
+    pkgconfig \
+    rustup \
     wget && \
     apk --no-cache upgrade musl && \
     apk --no-cache upgrade
+    
+RUN rustup-init -t x86_64-unknown-linux-musl --default-toolchain nightly --profile minimal -y
+RUN git clone https://github.com/sfackler/rust-openssl /build
+RUN cd /build && /root/.cargo/bin/cargo build --release
 
 # RUN /bin/bash sol/fetch-spl.sh
 
