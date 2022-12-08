@@ -27,8 +27,8 @@ EXPOSE 8899
 RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
     export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh && \
-    /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
+RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh 
+# RUN /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
 FROM cloned-repo AS built-git
@@ -61,7 +61,7 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 COPY --chown=0:0 --from=3 ./sdb/sol/sdk/docker-solana/usr/bin /sdb/sol/sdk/docker-solana/usr/bin
 WORKDIR /sdb/sol
-RUN export PATH=/sol/sdk/docker-solana/usr/bin:$PATH
+RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 RUN /bin/sh sdk/docker-solana/usr/bin/fetch-spl.sh && \
     /bin/sh sdk/docker-solana/usr/bin/solana-run.sh
 COPY --chown=0:0 --from=2 ./sdb/sol/sdb.env /sol-sdb.env
