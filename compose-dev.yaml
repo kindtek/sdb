@@ -76,7 +76,7 @@ services:
     stop_signal: SIGKILL
     stdin_open: true
     volumes:
-      - sol-vol-sdb:/solana
+      - sol-vol-sdb:/sol
     ports:
       - "8899:8899"
     labels:
@@ -118,7 +118,7 @@ services:
       - infinity
     stop_signal: SIGKILL
     volumes:
-      - yub-vol-sdb:/yubico-net-sdk
+      - yub-vol-sdb:/yub
     labels:
       com.docker.devenvironments: "true"
       com.docker.devenvironments.compose: "true"
