@@ -15,27 +15,26 @@ RUN apk --no-cache update && \
     apk --no-cache add \
     bash \
     curl \
-    wget \
     bzip2 \
-    libressl-dev \
     cargo \
     eudev-dev \
     libc6-compat \
+    libgcc \
+    libressl-dev \
     gcompat \
     eudev-libs \
-    libgcc \
-    bzip2 \
-    libressl-dev \
     # # <debug
     # apk -UvX http://dl-4.alpinelinux.org/alpine/edge/main add -u nodejs && \
     # apk add --no-cache mono --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing && \
     # # /debug>
     linux-headers \
+    pkgconfig \
     make \
     musl \
     musl-dev \
     musl-utils \
-    musl-libintl && \
+    musl-libintl \
+    wget && \
     apk --no-cache upgrade musl && \
     apk --no-cache upgrade
 
