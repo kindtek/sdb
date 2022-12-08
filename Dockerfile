@@ -19,7 +19,7 @@ RUN apk update && \
     apk --no-cache add bzip2 && \
     apk --no-cache add libressl-dev && \
     apk --no-cache add cargo && \
-    apk --no-cache eudev-dev
+    apk --no-cache add eudev-dev
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
