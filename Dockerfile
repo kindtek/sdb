@@ -31,17 +31,21 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 
 # 3
 FROM scratch AS building-sol
+# FROM debian:bullseye AS building-sol
 
 
 # 4
 FROM scratch AS building-yub
+# FROM ubuntu:latest AS building-yub
 
-# 3
+# 5
 FROM alpine:latest AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 WORKDIR /$_SOL
-COPY --chown=0:0 --from=3 ./sdb/sol /tmp/$_SOLANA
+COPY --chown=0:0 --from=3 . .
+# might copy some contents over from tmp/sol later not but might not need them
+COPY --chown=0:0 --from=3 ./sdb/sol ./tmp/sol
 # make sure folder remains empty
 RUN rm /${_SOLANA}    
 # copy single empty folder to solana-sdb for future volume mount point
@@ -59,7 +63,7 @@ WORKDIR /$_SOLANA
 RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
-# 4
+# 6
 FROM alpine:latest AS yubico-sdb
 ARG _YUB='yub'
 ARG _YUBICO='yub'
