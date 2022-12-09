@@ -10,7 +10,7 @@ WORKDIR /sdb
 RUN git config --global --add safe.directory /sdb && \
 cd /sdb && git submodule update --init --recursive
 
-# 2 - directories only
+# 2 - repo directory only
 FROM scratch AS skinny-repo
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
@@ -36,8 +36,8 @@ COPY --chown=0:0 --from=alpine:latest . .
 RUN rm -rf /solana /sol 
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/sol /${_SOLANA:-'sol'}
-WORKDIR /$_SOLANA
-RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
+WORKDIR /${_SOLANA}
+RUN export "PATH=/${sol}/sdk/docker-solana/usr/bin:${PATH}"
 
 
 # 6
