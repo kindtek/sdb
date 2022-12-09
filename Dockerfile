@@ -18,12 +18,12 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 
 # 3
 FROM scratch AS building-sol
-WORKDIR /
+WORKDIR /sol
 # FROM debian:bullseye AS building-sol
 
 # 4
 FROM scratch as building-yub
-WORKDIR /
+WORKDIR /yub
 # FROM ubuntu:latest AS building-yub
 
 # 5
