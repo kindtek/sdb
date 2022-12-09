@@ -4,7 +4,7 @@ services:
     build:
       context: .
       target: devspace
-    image: kindtek/safedb-repo
+    image: kindtek/devspace-sdb
     command: tail -f /dev/null      # - sdb.ini
     labels:
       com.docker.devenvironments: "true"
@@ -17,12 +17,11 @@ services:
       - sdb.env
       # - sol-sdb.env
       # - yub-sdb.env
-    
     ulimits:
       nofile:
         soft: 100000
         hard: 1000000
-    image: kindtek/repo
+    image: kindtek/repo-sdb
     # working_dir: /sdb
     build:
       context: .
@@ -43,14 +42,15 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
-  building-sdb:
-    build:
-      args:
-        - _SOL='sol'
-        - _SOLANA='sdb/sol'
-        - _YUB='yub'
-        - _YUBICO='sdb/yub'
-      target: building-sdb
+  # building-sdb:
+  #   image: kindtek/repo-db
+  #   build:
+  #     args:
+  #       - _SOL='sol'
+  #       - _SOLANA='sdb/sol'
+  #       - _YUB='yub'
+  #       - _YUBICO='sdb/yub'
+      # target: building-sdb
   building-sol:
     image: kindtek/solana-safedb-debian
     build:
