@@ -40,6 +40,7 @@ RUN apk --no-cache update && \
     apk --no-cache upgrade musl && \
     apk --no-cache upgrade
 
+RUN curl https://rustwasm.github.io/wasm-pack/installer/init.sh -sSf | sh
 RUN rustup-init -t x86_64-unknown-linux-musl --default-toolchain nightly --profile minimal -y
 RUN git clone https://github.com/sfackler/rust-openssl /build
 RUN cd /build && /root/.cargo/bin/cargo build --release
