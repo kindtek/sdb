@@ -9,7 +9,8 @@ services:
         - _SOLANA='sol'
       # context: ./${_SOLANA:-'sol'}
       context: .
-      dockerfile: $_SOL/sdk/docker-solana/Dockerfile.debian
+      # dockerfile: $_SOL/sdk/docker-solana/Dockerfile.debian
+      dockerfile: sol/sdk/docker-solana/Dockerfile.debian
       target: building-sol
   building-yub:
     image: kindtek/yubico-safedb-ubuntu
@@ -19,8 +20,8 @@ services:
         - _YUBICO='yub'
       # context: ./${_YUBICO:-'yub'}
       context: .
-
-      dockerfile: $_YUB/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      # dockerfile: $_YUB/Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      dockerfile: yub/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: building-yub
   sol:
     # env_file:
