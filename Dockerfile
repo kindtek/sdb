@@ -1,5 +1,5 @@
 # 0 
-FROM docker:git AS fresh-repo
+FROM alpine:build-base AS fresh-repo
 # use cloned repoo
 COPY . ./sdb
 
@@ -47,9 +47,9 @@ RUN cd /build && /root/.cargo/bin/cargo build --release
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
+FROM building-workbench AS built-workbench
 ARG _SOL='sol'
 ARG _SOLANA='sdb/sol'
-FROM building-workbench AS built-workbench
 # pull the cloned dbs
 COPY --chown=0:0 --from=0 ./sdb/sol /sdb/sol
 WORKDIR /sdb/sol
@@ -62,7 +62,10 @@ RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
 # RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
 
 # 4
-FROM cloned-repo AS built-git
+FROM docker:git AS built-git
+COPY --chown=0:0 --from=0 ./sdb /sdb
+COPY --chown=0:0 --from=1 ./sdb /sdb
+
 WORKDIR /sdb
 # WORKDIR /sdb/sol
 # COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
@@ -70,10 +73,10 @@ WORKDIR /sdb
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
 # 5
+FROM kindtek/solana-safedb-alpine:latest AS built-sol
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 # TODO - MAKE IMAGE NAME DYNAMIC
-FROM kindtek/solana-safedb-alpine:latest AS built-sol
 # add $_SOL/ANA variable to environment
 # RUN "_SOL='sol' \
 #     _SOLANA='sol' \
@@ -86,8 +89,6 @@ RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 6
-ARG _YUB='yub'
-ARG _YUBICO='yub'
 FROM kindtek/yubico-safedb-alpine:latest AS built-yub
 # add $_YUB/ICO = /yub variable to environment
 # RUN "_YUB='yub' \
@@ -101,8 +102,6 @@ COPY --chown=0:0 --from=0 ./sdb/yub /$_YUB
 WORKDIR /yub
 
 # 7
-ARG _SOL='sol'
-ARG _SOLANA='sdb/sol'
 FROM built-workbench AS building-sdb
 # add $_SOL/ANA = /sol variable to environment
 # add $_SOL/ANA variable to environment
@@ -119,9 +118,9 @@ RUN /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
 
 
 # Final
+FROM building-workbench AS built-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sdb/sol'
-FROM building-workbench AS built-sdb
 # RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
 COPY --chown=0:0 --from=3 ./sdb /sdb
 # COPY --chown=0:0 --from=3 ./usr/bin/solana* /usr/bin
