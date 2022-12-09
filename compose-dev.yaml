@@ -60,7 +60,7 @@ services:
     image: kindtek/solana-safedb-alpine
     build:
       context: .
-      dockerfile: sdk/docker-solana/Dockerfile.alpine
+      dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  
