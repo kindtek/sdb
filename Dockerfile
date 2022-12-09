@@ -16,20 +16,6 @@ COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
 # RUN /bin/bash sol/fetch-spl.sh
 
-
-# RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
-#     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
-#     export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
-#     cargo build --all && \
-#     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
-# RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
-
-
-# WORKDIR /sdb/sol
-# COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
-# COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
-# RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
-
 # 3
 FROM scratch AS building-sol
 # FROM debian:bullseye AS building-sol
@@ -73,6 +59,33 @@ RUN rm -rf /yubico-net-sdk /yub
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-'yub'}
 WORKDIR $YUBICO
+
+
+FROM skinny-repo AS devspace
+RUN addgroup -S devspace && adduser -SD dev -h /home/dev -s /bin/ash -u 1000 -G devspace
+WORKDIR  /home/dev
+
+FROM devspace AS sdbspace
+RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1001 -G sdbspace
+WORKDIR /home/sdb
+
+FROM sdbspace AS userpace
+RUN addgroup -S userspace && adduser -S user -h /home/user -s /bin/ash -u 1002 -G userspace
+WORKDIR /home/sdb
+
+# RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
+#     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
+#     export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
+#     cargo build --all && \
+#     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
+# RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
+
+
+# WORKDIR /sdb/sol
+# COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
+# COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
+# RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
+
 # add $_YUB/ICO = /yub variable to environment
 # RUN "_YUB='yub' \
 #     _YUBICO='yub' \
@@ -98,18 +111,4 @@ WORKDIR $YUBICO
 #     _YUB=$_YUB \
 #     _YUBICO=$_YUBICO \
 #     EOF"
-
-
-
-FROM skinny-repo AS devspace
-RUN addgroup -S devspace && adduser -SD dev -h /home/dev -s /bin/ash -u 1000 -G devspace
-WORKDIR  /home/dev
-
-FROM devspace AS sdbspace
-RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1001 -G sdbspace
-WORKDIR /home/sdb
-
-FROM sdbspace AS userpace
-RUN addgroup -S userspace && adduser -S user -h /home/user -s /bin/ash -u 1002 -G userspace
-WORKDIR /home/sdb
 
