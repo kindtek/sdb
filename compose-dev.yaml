@@ -1,6 +1,5 @@
 version: "3.8"
 services:
-  
   building-sol:
     image: kindtek/solana-safedb-debian
     build:
