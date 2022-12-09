@@ -34,7 +34,6 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 FROM scratch AS building-sol
 # FROM debian:bullseye AS building-sol
 
-
 # 4
 FROM scratch AS building-yub
 # FROM ubuntu:latest AS building-yub
