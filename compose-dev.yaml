@@ -121,7 +121,7 @@ services:
     image: kindtek/yubico-sdb
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: ./${_YUBICO:-sdb/yub}
+      context: ./${_YUBICO:-yub}
       dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: yubico-sdb
       # TODO - MAKE IMAGE NAME DEPEND ON $YUBICO_BUILD_ENV
