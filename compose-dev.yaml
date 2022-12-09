@@ -20,7 +20,7 @@ services:
     
     ulimits:
       nofile:
-        soft: 1000000
+        soft: 100000
         hard: 1000000
     image: kindtek/safedb
     # working_dir: /sdb
@@ -54,7 +54,7 @@ services:
       # - sdb.env
     ulimits:
       nofile:
-        soft: 1000000
+        soft: 100000
         hard: 1000000
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-safedb-alpine
@@ -73,7 +73,6 @@ services:
       - SDB_SOL_DOCKER_IMG=${SDB_SOL_DOCKER_IMG:-debug.compose}
       - SDB_SOL_DOCKER_TAG=${SDB_SOL_DOCKER_TAG:-debug.compose}-${SAFEDB_VERSION:-debug.compose}-${SOLANA_BUILD_ENV_NAME:-debug.compose}
       - SDB_SOL_DOCKER=${SDB_SOL_DOCKER_IMG:-debug.compose}-${SDB_SOL_DOCKER_TAG:-debug.compose}
-      - SDB_SOL_PATH=$SDB_SOL_PATH  
       - _SOL='sol'
       - _SOLANA='sol'    
     tty: true   
