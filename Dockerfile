@@ -49,7 +49,7 @@ COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
 RUN rm -rf /solana /sol 
 # copy single empty folder to solana-sdb for future volume mount point
-COPY --chown=0:0 --from=0 ./sdb/sol /$_SOLANA
+COPY --chown=0:0 --from=0 ./sdb/sol /${_SOLANA:-'sol'}
 WORKDIR /$_SOLANA
 # TODO - MAKE IMAGE NAME DYNAMIC
 # add $_SOL/ANA variable to environment
@@ -71,7 +71,7 @@ COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
 RUN rm -rf /yubico-net-sdk /yub 
 # copy single empty folder to solana-sdb for future volume mount point
-COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-yub}
+COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-'yub'}
 WORKDIR $YUBICO
 # add $_YUB/ICO = /yub variable to environment
 # RUN "_YUB='yub' \
