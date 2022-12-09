@@ -7,9 +7,8 @@ services:
         - _SOL='sol'
         - _SOLANA='sol'
       # context: ./${_SOLANA:-'sol'}
-      context: .
+      context: ./sol/sdk/docker-solana
       # dockerfile: $_SOL/sdk/docker-solana/Dockerfile.debian
-      dockerfile: sol/sdk/docker-solana/Dockerfile.debian
       target: building-sol
   building-yub:
     image: kindtek/yubico-sdb-ubuntu
@@ -18,9 +17,8 @@ services:
         - _YUB='yub'
         - _YUBICO='yub'
       # context: ./${_YUBICO:-'yub'}
-      context: .
+      context: ./yub/Yubico.NativeShims/docker/Ubuntu
       # dockerfile: $_YUB/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      dockerfile: yub/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: building-yub
   sol:
     # env_file:
