@@ -61,17 +61,11 @@ COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-'yub'}
 WORKDIR $YUBICO
 
 
-FROM skinny-repo AS devspace
+FROM skinny-repo AS sdb
 RUN addgroup -S devspace && adduser -SD dev -h /home/dev -s /bin/ash -u 1000 -G devspace
-WORKDIR  /home/dev
-
-FROM devspace AS sdbspace
 RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1001 -G sdbspace
-WORKDIR /home/sdb
-
-FROM sdbspace AS userpace
 RUN addgroup -S userspace && adduser -S user -h /home/user -s /bin/ash -u 1002 -G userspace
-WORKDIR /home/sdb
+WORKDIR  /home
 
 # RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
 #     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
