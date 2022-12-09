@@ -1,56 +1,6 @@
 version: "3.8"
 services:
-  dev:
-    build:
-      context: .
-      target: devspace
-    image: kindtek/devspace-sdb
-    command: tail -f /dev/null      # - sdb.ini
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
-      tty: true
-  sdb:
-    env_file: #sdb.env
-      - sdb.env
-      # - sol-sdb.env
-      # - yub-sdb.env
-    ulimits:
-      nofile:
-        soft: 100000
-        hard: 1000000
-    image: kindtek/repo-sdb
-    # working_dir: /sdb
-    build:
-      context: .
-      target: skinny-repo
-      args:
-        - SAFEDB_VERSION=$SAFEDB_VERSION
-    init: true
-    tty: true
-    command: tail -f /dev/null
-    # command: 
-    #   - "/bin/bash"
-    stop_signal: SIGKILL
-    volumes:
-      - sol-vol-sdb:/sdb/solana
-      - yub-vol-sdb:/sdb/yubico-net-sdk
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
-  # building-sdb:
-  #   image: kindtek/repo-db
-  #   build:
-  #     args:
-  #       - _SOL='sol'
-  #       - _SOLANA='sdb/sol'
-  #       - _YUB='yub'
-  #       - _YUBICO='sdb/yub'
-      # target: building-sdb
+  
   building-sol:
     image: kindtek/solana-safedb-debian
     build:
@@ -117,7 +67,6 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
-
   
   yub:
     # env_file: # sdb.env
@@ -160,12 +109,69 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
+  dev:
+    build:
+      context: .
+      target: devspace
+    image: kindtek/devspace-sdb
+    command: tail -f /dev/null      # - sdb.ini
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb
+      tty: true
+    volumes:
+      - vol-sdb:/
+  sdb:
+    env_file: #sdb.env
+      - sdb.env
+      # - sol-sdb.env
+      # - yub-sdb.env
+    ulimits:
+      nofile:
+        soft: 100000
+        hard: 1000000
+    image: kindtek/repo-sdb
+    # working_dir: /sdb
+    build:
+      context: .
+      target: skinny-repo
+      args:
+        - SAFEDB_VERSION=$SAFEDB_VERSION
+    init: true
+    tty: true
+    command: tail -f /dev/null
+    # command: 
+    #   - "/bin/bash"
+    stop_signal: SIGKILL
+    volumes:
+      - vol-sdb:/
+      - sol-vol-sdb:/sdb/solana
+      - yub-vol-sdb:/sdb/yubico-net-sdk
+    labels:
+      com.docker.devenvironments: "true"
+      com.docker.devenvironments.compose: "true"
+      com.docker.devenvironments.container: "true"
+      com.docker.devenvironments.name: sdb
   
+  # building-sdb:
+  #   image: kindtek/repo-db
+  #   build:
+  #     args:
+  #       - _SOL='sol'
+  #       - _SOLANA='sdb/sol'
+  #       - _YUB='yub'
+  #       - _YUBICO='sdb/yub'
+      # target: building-sdb
 networks:
   default:
     name: net
     attachable: true
 volumes:
+  vol-sdb:
+    name: vol-sdb
+    external: false
   sol-vol-sdb:
     name: sol-vol-sdb
     external: false

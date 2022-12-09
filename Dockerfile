@@ -7,7 +7,8 @@ COPY . ./sdb
 FROM shallow-repo AS deep-repo
 WORKDIR /sdb
 # fetch the submodules
-RUN cd /sdb && git submodule update --init --recursive
+RUN git config --global --add safe.directory /sdb \
+cd /sdb && git submodule update --init --recursive
 
 # 2 - directories only
 FROM scratch AS skinny-repo
@@ -39,7 +40,7 @@ FROM scratch AS building-yub
 # FROM ubuntu:latest AS building-yub
 
 # 5
-FROM alpine:latest AS solana-sdb
+FROM scratch AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 COPY --chown=0:0 --from=3 . .
@@ -101,21 +102,15 @@ WORKDIR $YUBICO
 
 
 
-FROM docker:git AS devspace
-COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb
+FROM skinny-repo AS devspace
 RUN addgroup -S devspace && adduser -SD dev -h /home/dev -s /bin/ash -u 1000 -G devspace
 WORKDIR  /home/dev
 
-FROM docker:git AS sdbspace
-COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb
-RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1000 -G sdbspace
+FROM devspace AS sdbspace
+RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1001 -G sdbspace
 WORKDIR /home/sdb
 
-FROM docker:git AS userpace
-COPY --chown=0:0 --from=0 ./sdb /sdb
-COPY --chown=0:0 --from=1 ./sdb /sdb
-RUN addgroup -S userspace && adduser -S user -h /home/sdb -s /bin/ash -u 1000 -G userspace
+FROM sdbspace AS userpace
+RUN addgroup -S userspace && adduser -S user -h /home/user -s /bin/ash -u 1002 -G userspace
 WORKDIR /home/sdb
 
