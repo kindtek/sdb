@@ -80,10 +80,11 @@ services:
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-sdb
     build:
-      context: ./${_SOL:-sol}
+      # context: ./${_SOL:-sol}
+      context: './sol'
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
       # dockerfile: sdk/docker-solana/Dockerfile.{$SOLANA_BUILD_ENV:-debug_debian}
-      dockerfile: sdk/docker-solana/Dockerfile.debian
+      # dockerfile: sdk/docker-solana/Dockerfile.debian
       target: solana-sdb
       args:
       - SOLANA_CHANNEL=latest  
