@@ -1,9 +1,9 @@
 version: "3.8"
 services:
-  git:
+  dev:
     build:
       context: .
-      target: built-git
+      target: devspace
     image: kindtek/safedb-repo
     command: tail -f /dev/null      # - sdb.ini
     labels:
@@ -26,7 +26,7 @@ services:
     # working_dir: /sdb
     build:
       context: .
-      target: built-sdb
+      target: devspace
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
@@ -48,6 +48,15 @@ services:
       args:
         - _SOL='sol'
         - _SOLANA='sdb/sol'
+  building-sol:
+    image: kindtek/solana-safedb-debian
+    build:
+      args:
+        - _SOL='sol'
+        - _SOLANA='sol'
+      context: ./${_SOL}
+      dockerfile: sdk/docker-solana/Dockerfile.debian
+      target: building-sol
   sol:
     # env_file:
       # - sol-sdb.env
@@ -57,11 +66,11 @@ services:
         soft: 100000
         hard: 1000000
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
-    image: kindtek/solana-safedb-alpine
+    image: kindtek/solana-safedb-{$SOLANA_BUILD_ENV:-debug_debian}
     build:
       context: ./${_SOLANA:-sdb/sol}
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
-      dockerfile: sdk/docker-solana/Dockerfile.alpine
+      dockerfile: sdk/docker-solana/Dockerfile.{$SOLANA_BUILD_ENV:-debug_debian}
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  
@@ -91,17 +100,13 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
-  building-sol:
-    build:
-      args:
-        - _SOL='sol'
-        - _SOLANA='sol'
+
   
   yub:
     # env_file: # sdb.env
     #   - yub-sdb.env
     #   - sdb.env
-    image: yubico-safedb-alpine
+    image: yubico-safedb-debian
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
       context: .

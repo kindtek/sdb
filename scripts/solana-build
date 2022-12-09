@@ -8,7 +8,7 @@ set +a
 
 
 cd ../solana
-/bin/bash sdk/docker-solana/build-alpine.sh
+/bin/bash sdk/docker-solana/build-debian.sh
 
 # docker tag "${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}" "${SDB_SOL_DOCKER_IMG}:latest"
 # docker push "${SDB_SOL_DOCKER_IMG}:${SDB_SOL_DOCKER_TAG}"
