@@ -13,7 +13,32 @@ FROM cloned-repo AS building-workbench
 WORKDIR /
 RUN apk --no-cache update && \
     apk --no-cache add \
+    binutils \
+    file \
+    file-dev \
+    gcc \
+    glib \
+    glib-dev \
+    ipset \
+    ipset-dev \
+    iptables \
+    iptables-dev \
+    libmnl-dev \
+    libnftnl-dev \
+    libnl3 \
+    libnl3-dev \
+    make \
+    musl-dev \
+    net-snmp-dev \
+    openssl \
+    openssl-dev \
+    openssl-libs-static \
+    pcre2 \
+    pcre2-dev \
+    autoconf \
+    automake zlib-static  alpine-sdk linux-headers  libmnl-static git \
     bash \
+    build-base \
     curl \
     bzip2 \
     cargo \
@@ -36,6 +61,7 @@ RUN apk --no-cache update && \
     musl-utils \
     pkgconfig \
     rustup \
+    sdk \
     wget && \
     apk --no-cache upgrade musl && \
     apk --no-cache upgrade
