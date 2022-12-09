@@ -37,16 +37,8 @@ RUN rm -rf /solana /sol
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/sol /${_SOLANA:-'sol'}
 WORKDIR /$_SOLANA
-# TODO - MAKE IMAGE NAME DYNAMIC
-# add $_SOL/ANA variable to environment
-# RUN "_SOL='sol' \
-#     _SOLANA='sol' \
-#     cat >> /etc/environment << EOF \
-#     _SOL=$_SOL \
-#     _SOLANA=$_SOLANA \
-#     EOF"
 RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
-# RUN /bin/bash scripts/run.sh
+
 
 # 6
 FROM scratch AS yubico-sdb
@@ -106,3 +98,13 @@ WORKDIR  /home
 #     _YUBICO=$_YUBICO \
 #     EOF"
 
+
+# TODO - MAKE IMAGE NAME DYNAMIC
+# add $_SOL/ANA variable to environment
+# RUN "_SOL='sol' \
+#     _SOLANA='sol' \
+#     cat >> /etc/environment << EOF \
+#     _SOL=$_SOL \
+#     _SOLANA=$_SOLANA \
+#     EOF"
+# RUN /bin/bash scripts/run.sh
