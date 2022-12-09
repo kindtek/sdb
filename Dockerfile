@@ -42,7 +42,6 @@ FROM scratch AS building-yub
 FROM alpine:latest AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
-WORKDIR /$_SOL
 COPY --chown=0:0 --from=3 . .
 # might copy some contents over from tmp/sol later not but might not need them
 COPY --chown=0:0 --from=3 ./sdb/sol ./tmp/sol
@@ -50,7 +49,7 @@ COPY --chown=0:0 --from=3 ./sdb/sol ./tmp/sol
 RUN rm /${_SOLANA}    
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/sol /$_SOLANA
-
+WORKDIR /$_SOLANA
 # TODO - MAKE IMAGE NAME DYNAMIC
 # add $_SOL/ANA variable to environment
 # RUN "_SOL='sol' \
@@ -59,7 +58,6 @@ COPY --chown=0:0 --from=0 ./sdb/sol /$_SOLANA
 #     _SOL=$_SOL \
 #     _SOLANA=$_SOLANA \
 #     EOF"
-WORKDIR /$_SOLANA
 RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
@@ -67,6 +65,8 @@ RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 FROM alpine:latest AS yubico-sdb
 ARG _YUB='yub'
 ARG _YUBICO='yub'
+COPY --chown=0:0 --from=4 ./sdb/yub /${_YUBICO:-yub}
+WORKDIR $YUBICO
 # add $_YUB/ICO = /yub variable to environment
 # RUN "_YUB='yub' \
 #     _YUBICO='yub' \
@@ -75,8 +75,6 @@ ARG _YUBICO='yub'
 #     _YUBICO=$_YUBICO \
 #     EOF"
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=4 ./sdb/yub /$(_YUBICO}:-yub
-WORKDIR /yub
 
 
 
