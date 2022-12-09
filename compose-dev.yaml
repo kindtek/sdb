@@ -58,8 +58,8 @@ services:
         - _SOL='sol'
         - _SOLANA='sol'
       # context: ./${_SOLANA:-sol}
-      context: ./sol
-      dockerfile: sdk/docker-solana/Dockerfile.debian
+      context: .
+      dockerfile: $_SOL/sdk/docker-solana/Dockerfile.debian
       target: building-sol
   building-yub:
     image: kindtek/yubico-safedb-ubuntu
@@ -68,9 +68,9 @@ services:
         - _YUB='yub'
         - _YUBICO='yub'
       # context: ./${_YUBICO:-yub}
-      context: ./yub
+      context: .
 
-      dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      dockerfile: $_YUB/Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: building-yub
   sol:
     # env_file:
@@ -84,7 +84,7 @@ services:
     image: kindtek/solana-sdb
     build:
       # context: ./${_SOL:-sol}
-      context: './sol'
+      context: .
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
       # dockerfile: sdk/docker-solana/Dockerfile.{$SOLANA_BUILD_ENV:-debug_debian}
       # dockerfile: sdk/docker-solana/Dockerfile.debian
@@ -126,8 +126,7 @@ services:
     image: kindtek/yubico-sdb
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: ./${_YUBICO:-yub}
-      dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      context: .
       target: yubico-sdb
       # TODO - MAKE IMAGE NAME DEPEND ON $YUBICO_BUILD_ENV
       args:
