@@ -17,11 +17,13 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 # RUN /bin/bash sol/fetch-spl.sh
 
 # 3
-FROM kindtek/solana-sdb-debian AS building-sol
+FROM scratch AS building-sol
+WORKDIR /
 # FROM debian:bullseye AS building-sol
 
 # 4
-FROM kindtek/yubico-sdb-ubuntu AS building-yub
+FROM scratch as building-yub
+WORKDIR /
 # FROM ubuntu:latest AS building-yub
 
 # 5
@@ -30,9 +32,9 @@ ARG _SOL='sol'
 ARG _SOLANA='sol'
 COPY --chown=0:0 --from=3 ./usr ./usr
 COPY --chown=0:0 --from=3 ./var ./var
+COPY --chown=0:0 --from=3 ./solana ./tmp/solana
 # might copy some contents over from tmp/sol later not but might not need them
 COPY --chown=0:0 --from=2 ./sdb/sol ./tmp/sol
-COPY --chown=0:0 --from=3 ./solana ./tmp/solana
 COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
 RUN rm -rf /solana /sol 
