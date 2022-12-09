@@ -44,10 +44,10 @@ ARG _SOL='sol'
 ARG _SOLANA='sol'
 COPY --chown=0:0 --from=3 . .
 # might copy some contents over from tmp/sol later not but might not need them
-COPY --chown=0:0 --from=3 ./sdb/sol ./tmp/sol
+COPY --chown=0:0 --from=2 ./sdb/sol ./tmp/sol
 COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
-RUN rm /${_SOLANA}    
+RUN rm -rf /solana /sol 
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/sol /$_SOLANA
 WORKDIR /$_SOLANA
