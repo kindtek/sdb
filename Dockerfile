@@ -34,7 +34,6 @@ RUN apk --no-cache update && \
     musl \
     musl-dev \
     musl-utils \
-    musl-libintl \
     pkgconfig \
     rustup \
     wget && \
