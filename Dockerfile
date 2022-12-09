@@ -73,7 +73,7 @@ WORKDIR /sdb
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
 # 5
-FROM kindtek/solana-safedb-alpine:latest AS built-sol
+FROM alpine:latest AS built-sol
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 # TODO - MAKE IMAGE NAME DYNAMIC
