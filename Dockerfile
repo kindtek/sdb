@@ -58,7 +58,7 @@ COPY --chown=0:0 --from=alpine:latest . .
 RUN rm -rf /yubico-net-sdk /yub 
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-'yub'}
-WORKDIR $YUBICO
+WORKDIR /$YUBICO
 
 
 FROM skinny-repo AS sdb
