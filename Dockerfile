@@ -30,14 +30,14 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
 # 3
-FROM alpine:latest AS built-sol
+FROM alpine:latest AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 WORKDIR /$_SOL
 COPY --chown=0:0 --from=kindtek/solana-sdb-debian ./sdb/sol /tmp/$_SOLANA
 # make sure folder remains empty
 RUN rm /${_SOLANA}    
-# copy single empty folder to built-sol for future volume mount point
+# copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/sol /$_SOLANA
 
 # TODO - MAKE IMAGE NAME DYNAMIC

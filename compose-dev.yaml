@@ -71,7 +71,7 @@ services:
       context: ./${_SOLANA:-sdb/sol}
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
       dockerfile: sdk/docker-solana/Dockerfile.{$SOLANA_BUILD_ENV:-debug_debian}
-      target: built-sol
+      target: solana-sdb
       args:
       - SOLANA_CHANNEL=latest  
       - SOLANA_CI=true
