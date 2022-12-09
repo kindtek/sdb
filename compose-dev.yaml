@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   building-sol:
-    image: kindtek/solana-safedb-debian
+    image: kindtek/solana-sdb-debian
     build:
       args:
         - _SOL='sol'
@@ -12,7 +12,7 @@ services:
       dockerfile: sol/sdk/docker-solana/Dockerfile.debian
       target: building-sol
   building-yub:
-    image: kindtek/yubico-safedb-ubuntu
+    image: kindtek/yubico-sdb-ubuntu
     build: 
       args: 
         - _YUB='yub'
@@ -109,20 +109,6 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
-  dev:
-    build:
-      context: .
-      target: devspace
-    image: kindtek/devspace-sdb
-    command: tail -f /dev/null      # - sdb.ini
-    labels:
-      com.docker.devenvironments: "true"
-      com.docker.devenvironments.compose: "true"
-      com.docker.devenvironments.container: "true"
-      com.docker.devenvironments.name: sdb
-      tty: true
-    volumes:
-      - vol-sdb:/
   sdb:
     env_file: #sdb.env
       - sdb.env
@@ -136,7 +122,7 @@ services:
     # working_dir: /sdb
     build:
       context: .
-      target: skinny-repo
+      target: sdb
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
