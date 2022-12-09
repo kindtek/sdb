@@ -22,11 +22,11 @@ services:
       nofile:
         soft: 100000
         hard: 1000000
-    image: kindtek/safedb
+    image: kindtek/repo
     # working_dir: /sdb
     build:
       context: .
-      target: devspace
+      target: skinny-repo
       args:
         - SAFEDB_VERSION=$SAFEDB_VERSION
     init: true
@@ -48,15 +48,27 @@ services:
       args:
         - _SOL='sol'
         - _SOLANA='sdb/sol'
+        - _YUB='yub'
+        - _YUBICO='sdb/yub'
+      target: building-sdb
   building-sol:
     image: kindtek/solana-safedb-debian
     build:
       args:
         - _SOL='sol'
         - _SOLANA='sol'
-      context: ./${_SOL}
+      context: ./${_SOLANA}
       dockerfile: sdk/docker-solana/Dockerfile.debian
       target: building-sol
+  building-yub:
+    image: kindtek/yubico-safedb-ubuntu
+    build: 
+      args: 
+        - _YUB='yub'
+        - _YUBICO='yub'
+      context: ./${_YUBICO}
+      dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      target: building-yub
   sol:
     # env_file:
       # - sol-sdb.env
@@ -66,7 +78,7 @@ services:
         soft: 100000
         hard: 1000000
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
-    image: kindtek/solana-safedb-{$SOLANA_BUILD_ENV:-debug_debian}
+    image: kindtek/solana-sdb
     build:
       context: ./${_SOLANA:-sdb/sol}
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
@@ -106,12 +118,12 @@ services:
     # env_file: # sdb.env
     #   - yub-sdb.env
     #   - sdb.env
-    image: yubico-safedb-debian
+    image: kindtek/yubico-sdb
     # working_dir: /sdb/yubico-net-sdk/Yubico.NativeShims
     build:
-      context: .
-      # dockerfile: sdb/yubico-net-sdk/Yubico.NativeShims/docker/Ubuntu/Dockerfile
-      target: built-yub
+      context: ./${_YUBICO:-sdb/yub}
+      dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
+      target: yubico-sdb
       # TODO - MAKE IMAGE NAME DEPEND ON $YUBICO_BUILD_ENV
       args:
         - YUBICO_USER_ID=1000 
@@ -144,11 +156,7 @@ services:
       com.docker.devenvironments.compose: "true"
       com.docker.devenvironments.container: "true"
       com.docker.devenvironments.name: sdb
-  building-yub:
-    build:
-      args:
-        - _YUB='yub'
-        - _YUBICO='yub'
+  
 networks:
   default:
     name: net

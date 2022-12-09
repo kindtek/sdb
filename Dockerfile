@@ -30,11 +30,18 @@ COPY --chown=0:0 --from=1 ./sdb /sdb
 # RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
 
 # 3
+FROM scratch AS building-sol
+
+
+# 4
+FROM scratch AS building-yub
+
+# 3
 FROM alpine:latest AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 WORKDIR /$_SOL
-COPY --chown=0:0 --from=kindtek/solana-sdb-debian ./sdb/sol /tmp/$_SOLANA
+COPY --chown=0:0 --from=3 ./sdb/sol /tmp/$_SOLANA
 # make sure folder remains empty
 RUN rm /${_SOLANA}    
 # copy single empty folder to solana-sdb for future volume mount point
@@ -53,7 +60,7 @@ RUN export PATH=/$sol/sdk/docker-solana/usr/bin:$PATH
 # RUN /bin/bash scripts/run.sh
 
 # 4
-FROM alpine:latest AS built-yub
+FROM alpine:latest AS yubico-sdb
 ARG _YUB='yub'
 ARG _YUBICO='yub'
 # add $_YUB/ICO = /yub variable to environment
@@ -64,24 +71,10 @@ ARG _YUBICO='yub'
 #     _YUBICO=$_YUBICO \
 #     EOF"
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=0 ./sdb/yub /$_YUBICO
+COPY --chown=0:0 --from=4 ./sdb/yub /$_YUBICO
 WORKDIR /yub
 
 
-
-# Final
-FROM building-workbench AS built-sdb
-ARG _SOL='sol'
-ARG _SOLANA='sdb/sol'
-# RUN export PATH=/sdb/sol/sdk/docker-solana/usr/bin:$PATH
-COPY --chown=0:0 --from=3 ./sdb /sdb
-# COPY --chown=0:0 --from=3 ./usr/bin/solana* /usr/bin
-
-# COPY --chown=0:0 --from=3 ./sdb/sdk/docker-solana /$_SOLANA/sdk/docker-solana
-
-RUN export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH
-WORKDIR /sdb
-EXPOSE 8899
 
 # add $_YUB/ICO = /yub variable to environment
 # add $_SOL/ANA = /sol variable to environment
