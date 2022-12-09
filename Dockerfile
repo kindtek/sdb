@@ -31,7 +31,7 @@ FROM alpine:latest AS solana-sdb
 ARG _SOL='sol'
 ARG _SOLANA='sol'
 COPY --chown=0:0 --from=3 ./usr /usr
-COPY --chown=0:0 --from=3 ./var /var
+# COPY --chown=0:0 --from=3 ./var /var
 # COPY --chown=0:0 --from=3 ./sdb/solana /tmp/solana
 # might copy some contents over from tmp/sol later not but might not need them
 COPY --chown=0:0 --from=2 ./sdb/sol /tmp/sol
