@@ -7,7 +7,7 @@ COPY . ./sdb
 FROM shallow-repo AS deep-repo
 WORKDIR /sdb
 # fetch the submodules
-RUN git config --global --add safe.directory /sdb \
+RUN git config --global --add safe.directory /sdb && \
 cd /sdb && git submodule update --init --recursive
 
 # 2 - directories only
