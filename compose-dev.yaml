@@ -59,9 +59,9 @@ services:
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-safedb-alpine
     build:
-      context: .
+      context: ${_SOLANA:-sdb/sol}
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
-      dockerfile: ${_SOL:-sol}/sdk/docker-solana/Dockerfile.alpine
+      dockerfile: sdk/docker-solana/Dockerfile.alpine
       target: built-sol
       args:
       - SOLANA_CHANNEL=latest  

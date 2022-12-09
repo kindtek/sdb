@@ -1,5 +1,5 @@
 # 0 
-FROM alpine:build-base AS fresh-repo
+FROM alpine:sdk AS fresh-repo
 # use cloned repoo
 COPY . ./sdb
 
