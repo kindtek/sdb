@@ -75,7 +75,7 @@ ARG _YUBICO='yub'
 #     _YUBICO=$_YUBICO \
 #     EOF"
 #copy empty folder for mounting volumes
-COPY --chown=0:0 --from=4 ./sdb/yub /$_YUBICO
+COPY --chown=0:0 --from=4 ./sdb/yub /$(_YUBICO}:-yub
 WORKDIR /yub
 
 

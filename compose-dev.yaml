@@ -57,7 +57,7 @@ services:
       args:
         - _SOL='sol'
         - _SOLANA='sol'
-      context: ./${_SOLANA}
+      context: ./${_SOLANA:-sol}
       dockerfile: sdk/docker-solana/Dockerfile.debian
       target: building-sol
   building-yub:
@@ -66,7 +66,7 @@ services:
       args: 
         - _YUB='yub'
         - _YUBICO='yub'
-      context: ./${_YUBICO}
+      context: ./${_YUBICO:-yub}
       dockerfile: Yubico.NativeShims/docker/Ubuntu/Dockerfile
       target: building-yub
   sol:
