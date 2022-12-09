@@ -59,7 +59,7 @@ services:
 # TODO - MAKE IMAGE NAME DEPEND ON $SOLANA_BUILD_ENV
     image: kindtek/solana-safedb-alpine
     build:
-      context: ${_SOLANA:-sdb/sol}
+      context: ./${_SOLANA:-sdb/sol}
         #TODO: use envs for dockerfile: ${_SOL:-debug_sol}/sdk/docker-solana/Dockerfile.alpine
       dockerfile: sdk/docker-solana/Dockerfile.alpine
       target: built-sol
