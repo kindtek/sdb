@@ -1,0 +1,2 @@
+cat .docker-pw | docker login --username kindtek --password-stdin
+gh auth login --with-token < .github_token
