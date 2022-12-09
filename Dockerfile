@@ -69,7 +69,7 @@ ARG _YUBICO='yub'
 COPY --chown=0:0 --from=4 . .
 COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
-RUN rm /${_YUBICO}   
+RUN rm -rf /yubico-net-sdk /yub 
 # copy single empty folder to solana-sdb for future volume mount point
 COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-yub}
 WORKDIR $YUBICO
