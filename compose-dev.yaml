@@ -92,10 +92,7 @@ services:
         - SOLANA_SDB_PATH=$SOLANA_SDB_PATH
         - _YUB='yub'
         - _YUBICO='yub'
-      
-      # - SDB_YUB_DOCKER_TAG_ARM64=$SDB_YUB_DOCKER_TAG_ARM64
-      # - SDB_YUB_DOCKER_TAG_X64=$SDB_YUB_DOCKER_TAG_X64
-      # - SDB_YUB_DOCKER_TAG_X86=$SDB_YUB_DOCKER_TAG_X86
+
     tty: true
     init: true
     command: 
