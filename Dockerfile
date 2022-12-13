@@ -14,46 +14,46 @@ cd /sdb && git submodule update --init --recursive
 FROM scratch AS skinny-repo
 COPY --chown=0:0 --from=0 ./sdb /sdb
 COPY --chown=0:0 --from=1 ./sdb /sdb
-# RUN /bin/bash sol/fetch-spl.sh
+# RUN /bin/bash solana/fetch-spl.sh
 
 # 3
 FROM kindtek/solana-sdb-debian AS building-sol
-# WORKDIR /sol
+# WORKDIR /solana
 # FROM debian:bullseye AS building-sol
 
 # 4
 FROM kindtek/yubico-sdb-ubuntu as building-yub
-# WORKDIR /yub
+# WORKDIR /yubico-net-sdk
 # FROM ubuntu:latest AS building-yub
 
 # 5
 FROM alpine:latest AS solana-sdb
-ARG _SOL='sol'
-ARG _SOLANA='sol'
+ARG _SOL='solana'
+ARG _SOLANA='solana'
 COPY --chown=0:0 --from=3 ./usr /usr
 # COPY --chown=0:0 --from=3 ./var /var
 # COPY --chown=0:0 --from=3 ./sdb/solana /tmp/solana
 # might copy some contents over from tmp/sol later not but might not need them
-COPY --chown=0:0 --from=2 ./sdb/sol /tmp/sol
+COPY --chown=0:0 --from=2 ./sdb/solana /tmp/solana
 COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
-RUN rm -rf /solana /sol 
+RUN rm -rf /solana /solana
 # copy single empty folder to solana-sdb for future volume mount point
-COPY --chown=0:0 --from=0 ./sdb/sol /${_SOLANA:-'sol'}
+COPY --chown=0:0 --from=0 ./sdb/solana /${_SOLANA:-'solana'}
 WORKDIR /${_SOLANA}
 RUN export "PATH=/${sol}/sdk/docker-solana/usr/bin:${PATH}"
 
 
 # 6
 FROM scratch AS yubico-sdb
-ARG _YUB='yub'
-ARG _YUBICO='yub'
+ARG _YUB='yubico-net-sdk'
+ARG _YUBICO='yubico-net-sdk'
 COPY --chown=0:0 --from=4 . .
 COPY --chown=0:0 --from=alpine:latest . .
 # make sure folder remains empty
-RUN rm -rf /yubico-net-sdk /yub 
+RUN rm -rf /yubico-net-sdk
 # copy single empty folder to solana-sdb for future volume mount point
-COPY --chown=0:0 --from=0 ./sdb/yub /${_YUBICO:-'yub'}
+COPY --chown=0:0 --from=0 ./sdb/yubico-net-sdk /${_YUBICO:-'yubico-net-sdk'}
 WORKDIR /$YUBICO
 
 
@@ -62,53 +62,3 @@ RUN addgroup -S devspace && adduser -SD dev -h /home/dev -s /bin/ash -u 1000 -G 
 RUN addgroup -S sdbspace && adduser -S sdb -h /home/sdb -s /bin/ash -u 1001 -G sdbspace
 RUN addgroup -S userspace && adduser -S user -h /home/user -s /bin/ash -u 1002 -G userspace
 WORKDIR  /home
-
-# RUN install -D scripts/run.sh sdk/docker-solana/usr/bin/solana-run.sh && \
-#     install -D fetch-spl.sh sdk/docker-solana/usr/bin && \
-#     export PATH=/$_SOLANA/sdk/docker-solana/usr/bin:$PATH && \
-#     cargo build --all && \
-#     /bin/bash sdk/docker-solana/usr/bin/fetch-spl.sh
-# RUN /bin/bash sdk/docker-solana/usr/bin/solana-run.sh
-
-
-# WORKDIR /sdb/sol
-# COPY /sdb/sol/scripts/run.sh /sdb/sol/sdk/docker-solana/usr/bin/solana-run.sh
-# COPY /sdb/sol/fetch-spl.sh /sdb/sol/sdk/docker-solana/usr/bin
-# RUN export PATH="/sol/sdk/docker-solana/usr"/bin:"$PATH"
-
-# add $_YUB/ICO = /yub variable to environment
-# RUN "_YUB='yub' \
-#     _YUBICO='yub' \
-#     cat >> /etc/environment << EOF \
-#     _YUB=$_YUB \
-#     _YUBICO=$_YUBICO \
-#     EOF"
-#copy empty folder for mounting volumes
-
-
-
-# add $_YUB/ICO = /yub variable to environment
-# add $_SOL/ANA = /sol variable to environment
-# RUN "_SOL='sol' \
-#     _SOLANA='sol' \
-#     cat >> /etc/environment << EOF \
-#     _SOL=$_SOL \
-#     _SOLANA=$_SOLANA \
-#     EOF"
-# RUN "_YUB='yub' \
-#     _YUBICO='yub' \
-#     cat >> /etc/environment << EOF \
-#     _YUB=$_YUB \
-#     _YUBICO=$_YUBICO \
-#     EOF"
-
-
-# TODO - MAKE IMAGE NAME DYNAMIC
-# add $_SOL/ANA variable to environment
-# RUN "_SOL='sol' \
-#     _SOLANA='sol' \
-#     cat >> /etc/environment << EOF \
-#     _SOL=$_SOL \
-#     _SOLANA=$_SOLANA \
-#     EOF"
-# RUN /bin/bash scripts/run.sh
